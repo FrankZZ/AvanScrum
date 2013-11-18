@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{45E30BC0-DF4D-46B5-99EF-0EBA5DB921B8}</ProjectGuid>
+    <RootNamespace>Project14SWA</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Configuration)\Exe\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Configuration)\Exe\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\TFS\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\TFS\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0409</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\classview.bmp" />
+    <None Include="res\classview_hc.bmp" />
+    <None Include="res\class_view.ico" />
+    <None Include="res\class_view_hc.ico" />
+    <None Include="res\explorer.bmp" />
+    <None Include="res\explorer_hc.bmp" />
+    <None Include="res\fileview.bmp" />
+    <None Include="res\fileview_hc.bmp" />
+    <None Include="res\file_view.ico" />
+    <None Include="res\file_view_hc.ico" />
+    <None Include="res\menuimages.bmp" />
+    <None Include="res\menuimages_hc.bmp" />
+    <None Include="res\output_wnd.ico" />
+    <None Include="res\output_wnd_hc.ico" />
+    <None Include="res\Project 14-SWA.ico" />
+    <None Include="res\Project 14-SWADoc.ico" />
+    <None Include="res\Project14SWA.rc2" />
+    <None Include="res\properties.bmp" />
+    <None Include="res\properties_hc.bmp" />
+    <None Include="res\properties_wnd.ico" />
+    <None Include="res\properties_wnd_hc.ico" />
+    <None Include="res\sort.bmp" />
+    <None Include="res\sort_hc.bmp" />
+    <None Include="res\Toolbar.bmp" />
+    <None Include="res\Toolbar256.bmp" />
+    <None Include="UserImages.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\TFS\Attachment.h" />
+    <ClInclude Include="..\TFS\Defect.h" />
+    <ClInclude Include="..\TFS\general.h" />
+    <ClInclude Include="..\TFS\ItemStorage.h" />
+    <ClInclude Include="..\TFS\ItemStorage.hpp" />
+    <ClInclude Include="..\TFS\LessThan.h" />
+    <ClInclude Include="..\TFS\ListData.h" />
+    <ClInclude Include="..\TFS\NonUniqueKeyItem.h" />
+    <ClInclude Include="..\TFS\NonUniqueKeyItem.hpp" />
+    <ClInclude Include="..\TFS\ObjectStoredInStack.h" />
+    <ClInclude Include="..\TFS\PracticalSocket.h" />
+    <ClInclude Include="..\TFS\ProductBacklogItem.h" />
+    <ClInclude Include="..\TFS\Project.h" />
+    <ClInclude Include="..\TFS\ReadData.h" />
+    <ClInclude Include="..\TFS\ReadData.hpp" />
+    <ClInclude Include="..\TFS\SocketClient.h" />
+    <ClInclude Include="..\TFS\SocketPackage.h" />
+    <ClInclude Include="..\TFS\SocketSettings.h" />
+    <ClInclude Include="..\TFS\Sprint.h" />
+    <ClInclude Include="..\TFS\SprintBacklogItem.h" />
+    <ClInclude Include="..\TFS\Status.h" />
+    <ClInclude Include="..\TFS\StatusType.h" />
+    <ClInclude Include="..\TFS\targetver.h" />
+    <ClInclude Include="..\TFS\TFSAction.h" />
+    <ClInclude Include="..\TFS\TFSActionDecorator.h" />
+    <ClInclude Include="..\TFS\TFSActionFactory.h" />
+    <ClInclude Include="..\TFS\TFSBasis.h" />
+    <ClInclude Include="..\TFS\TFSBasis.hpp" />
+    <ClInclude Include="..\TFS\TFSBasisCreator.h" />
+    <ClInclude Include="..\TFS\TFSBasisCreator.hpp" />
+    <ClInclude Include="..\TFS\TFSBasisFactory.h" />
+    <ClInclude Include="..\TFS\TFSTransaction.h" />
+    <ClInclude Include="..\TFS\UniqueKey.h" />
+    <ClInclude Include="..\TFS\UniqueKeyItem.h" />
+    <ClInclude Include="..\TFS\UniqueKeyItem.hpp" />
+    <ClInclude Include="..\TFS\User.h" />
+    <ClInclude Include="..\TFS\WorkItem.h" />
+    <ClInclude Include="..\TFS\WriteData.h" />
+    <ClInclude Include="..\TFS\WriteData.hpp" />
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="ClassView.h" />
+    <ClInclude Include="FileView.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="OutputWnd.h" />
+    <ClInclude Include="Project 14-SWA.h" />
+    <ClInclude Include="Project 14-SWADoc.h" />
+    <ClInclude Include="Project 14-SWAView.h" />
+    <ClInclude Include="PropertiesWnd.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ViewTree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\TFS\Attachment.cpp" />
+    <ClCompile Include="..\TFS\Date.cpp" />
+    <ClCompile Include="..\TFS\Defect.cpp" />
+    <ClCompile Include="..\TFS\general.cpp" />
+    <ClCompile Include="..\TFS\ItemStorage.cpp" />
+    <ClCompile Include="..\TFS\ListData.cpp" />
+    <ClCompile Include="..\TFS\ObjectStoredInStack.cpp" />
+    <ClCompile Include="..\TFS\PracticalSocket.cpp" />
+    <ClCompile Include="..\TFS\ProductBacklogItem.cpp" />
+    <ClCompile Include="..\TFS\Project.cpp" />
+    <ClCompile Include="..\TFS\ReadData.cpp" />
+    <ClCompile Include="..\TFS\RemainingWorkHistory.cpp" />
+    <ClCompile Include="..\TFS\SocketClient.cpp" />
+    <ClCompile Include="..\TFS\SocketPackage.cpp" />
+    <ClCompile Include="..\TFS\Sprint.cpp" />
+    <ClCompile Include="..\TFS\SprintBacklogItem.cpp" />
+    <ClCompile Include="..\TFS\Status.cpp" />
+    <ClCompile Include="..\TFS\StatusType.cpp" />
+    <ClCompile Include="..\TFS\TFSAction.cpp" />
+    <ClCompile Include="..\TFS\TFSActionDecorator.cpp" />
+    <ClCompile Include="..\TFS\TFSActionFactory.cpp" />
+    <ClCompile Include="..\TFS\TFSBasis.cpp" />
+    <ClCompile Include="..\TFS\TFSBasisFactory.cpp" />
+    <ClCompile Include="..\TFS\TFSTransaction.cpp" />
+    <ClCompile Include="..\TFS\UniqueKey.cpp" />
+    <ClCompile Include="..\TFS\User.cpp" />
+    <ClCompile Include="..\TFS\WorkItem.cpp" />
+    <ClCompile Include="..\TFS\WriteData.cpp" />
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="FileView.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="OutputWnd.cpp" />
+    <ClCompile Include="Project 14-SWA.cpp" />
+    <ClCompile Include="Project 14-SWADoc.cpp" />
+    <ClCompile Include="Project 14-SWAView.cpp" />
+    <ClCompile Include="PropertiesWnd.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project 14-SWA.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Project 14-SWA.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
