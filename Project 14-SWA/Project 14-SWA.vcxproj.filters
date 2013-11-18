@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\General headers">
+      <UniqueIdentifier>{163d4d75-6721-4c15-bed3-885a3dc153d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TFS headers">
+      <UniqueIdentifier>{3e84119d-52a3-4189-b4d9-8b42c11f7af2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\General sources">
+      <UniqueIdentifier>{cb47711f-c0cb-47ac-9491-0031c3f82caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TFS sources">
+      <UniqueIdentifier>{9abfa883-49e2-4b11-a72d-484837cdc2c5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\file_view.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\file_view_hc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\class_view.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\class_view_hc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileview.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileview_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\classview.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\classview_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\explorer.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\explorer_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\sort.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\sort_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\menuimages.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\menuimages_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\output_wnd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\output_wnd_hc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\properties_wnd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\properties_wnd_hc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\properties.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\properties_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="UserImages.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Project14SWA.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Project 14-SWADoc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Project 14-SWA.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Toolbar256.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassView.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FileView.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OutputWnd.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Project 14-SWA.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Project 14-SWADoc.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Project 14-SWAView.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertiesWnd.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewTree.h">
+      <Filter>Header Files\General headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\Attachment.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\Defect.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\general.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ItemStorage.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ItemStorage.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\LessThan.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\NonUniqueKeyItem.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\NonUniqueKeyItem.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\PracticalSocket.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ProductBacklogItem.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\Project.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ReadData.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\SocketClient.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\SocketPackage.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\Sprint.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\SprintBacklogItem.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\Status.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\StatusType.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\targetver.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSAction.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSActionDecorator.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSActionFactory.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSBasis.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSBasis.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSBasisCreator.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSBasisCreator.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSBasisFactory.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\TFSTransaction.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\UniqueKey.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\UniqueKeyItem.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\UniqueKeyItem.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\User.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\WorkItem.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\WriteData.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\SocketSettings.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\WriteData.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ReadData.hpp">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ListData.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TFS\ObjectStoredInStack.h">
+      <Filter>Header Files\TFS headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassView.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FileView.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputWnd.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Project 14-SWA.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Project 14-SWADoc.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Project 14-SWAView.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertiesWnd.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewTree.cpp">
+      <Filter>Source Files\General sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Attachment.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Date.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Defect.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\general.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\ItemStorage.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\PracticalSocket.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\ProductBacklogItem.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Project.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\ReadData.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\RemainingWorkHistory.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\SocketClient.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\SocketPackage.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Sprint.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\SprintBacklogItem.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\Status.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\StatusType.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSAction.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSActionDecorator.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSActionFactory.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSBasis.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSBasisFactory.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\TFSTransaction.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\UniqueKey.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\User.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\WorkItem.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\WriteData.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\ListData.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TFS\ObjectStoredInStack.cpp">
+      <Filter>Source Files\TFS sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Project 14-SWA.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
