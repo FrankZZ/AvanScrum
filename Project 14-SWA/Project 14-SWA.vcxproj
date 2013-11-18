@@ -1419,6 +1419,10 @@
   <ItemGroup>
     <ResourceCompile Include="Project 14-SWA.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Project 14-SWA.pri" />
+    <None Include="Project 14-SWA.pro" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -387,4 +387,8 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Project 14-SWA.pro" />
+    <None Include="Project 14-SWA.pri" />
+  </ItemGroup>
 </Project>
