@@ -25,6 +25,14 @@
     <Filter Include="Source Files\TFS sources">
       <UniqueIdentifier>{9abfa883-49e2-4b11-a72d-484837cdc2c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{a650f01c-60d5-4d8a-8b75-bf7db688ff65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChildFrm.cpp">
@@ -385,6 +393,12 @@
     </CustomBuild>
     <CustomBuild Include="UserImages.bmp">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MainScreen.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_MainScreen.h">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>
