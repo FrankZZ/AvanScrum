@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{0b47d23a-8020-43ee-9a15-882b17aab885}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{3d167799-9098-4bf0-9358-4d5746bf768e}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="TFS Source Files">
+      <UniqueIdentifier>{4f3dcc22-4ea0-4beb-af56-d1ee37080f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TFS Header Files">
+      <UniqueIdentifier>{40a10a84-fe89-46a0-8ade-cc1ad2b52545}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="avanscrum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_avanscrum.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_avanscrum.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_avanscrum.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Attachment.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Date.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Defect.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\general.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\ItemStorage.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\ListData.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\ObjectStoredInStack.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\PracticalSocket.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\ProductBacklogItem.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Project.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\ReadData.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\RemainingWorkHistory.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\SocketClient.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\SocketPackage.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Sprint.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\SprintBacklogItem.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\Status.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\StatusType.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSAction.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSActionDecorator.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSActionFactory.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSBasis.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSBasisFactory.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\TFSTransaction.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\UniqueKey.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\User.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\WorkItem.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TFS\WriteData.cpp">
+      <Filter>TFS Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="avanscrum.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="avanscrum.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="avanscrum.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_avanscrum.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Attachment.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Date.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Defect.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\general.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ItemStorage.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\LessThan.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\NonUniqueKeyItem.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ListData.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ObjectStoredInStack.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\PracticalSocket.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ProductBacklogItem.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Project.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ReadData.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\RemainingWorkHistory.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\SocketClient.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\SocketPackage.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\SocketSettings.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Sprint.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\SprintBacklogItem.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\Status.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\StatusType.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSAction.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSActionDecorator.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSActionFactory.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSBasis.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSBasis.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSBasisCreator.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSBasisFactory.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSConstVisitor.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSVisitor.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\UniqueKey.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\UniqueKeyItem.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\User.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\WorkItem.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\WriteData.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ItemStorage.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\NonUniqueKeyItem.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\ReadData.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSBasisCreator.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\TFSTransaction.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\UniqueKeyItem.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TFS\WriteData.hpp">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>TFS Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AvanScrum.rc" />
+  </ItemGroup>
+</Project>
