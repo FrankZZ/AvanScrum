@@ -3,8 +3,6 @@
 #include "TFS\sprint.h";
 #include <iostream>
 
-QPushButton *button;
-
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -15,8 +13,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	s->insert(2,"project 3");
 	ui.cb_Projects_3->addItems(*s);
 
+	//example code
 	button = ui.btn_NextSprint_3;
-
 	connect(button, SIGNAL(clicked()), this, SLOT(handleButton()));
 }
 
@@ -25,6 +23,7 @@ AvanScrum::~AvanScrum()
 	
 }
 
+//examplecode
 void AvanScrum::handleButton()
 {
 	Sprint* sprint = new Sprint();
