@@ -15,8 +15,8 @@ public:
 private:
 	Ui::AvanScrumClass ui;
 
-//private slots:
-//    void handleButton();
+private slots:
+    void handleButton();
 };
 
 #endif // AVANSCRUM_H
