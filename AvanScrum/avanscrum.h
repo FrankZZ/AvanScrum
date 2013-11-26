@@ -16,7 +16,9 @@ private:
 	Ui::AvanScrumClass ui;
 
 private slots:
-    void handleButton();
+    void nextSprint();
+    void prevSprint();
+	void switchCombo();
 };
 
 #endif // AVANSCRUM_H

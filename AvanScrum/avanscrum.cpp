@@ -9,13 +9,16 @@
 #include "TFS\SprintBacklogItem.h"
 #include "TFS\User.h"
 
-QPushButton *button;
+QPushButton *btn_nextSprint, *btn_prevSprint;
+std::vector<Sprint*> sprintVector;
+int index;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	
     std::list<std::string> saFilenameList;
+	std::vector<std::string> sprintList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
 	QString sFilename;
@@ -24,7 +27,6 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
     try
     {
         TFSTransaction::remoteListProjects(saFilenameList);
-
         for (iList = saFilenameList.begin(); iList != saFilenameList.end(); ++iList)
         {
             sFilename = iList->c_str();
@@ -39,10 +41,15 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 		msgBox.setStandardButtons(QMessageBox::Ok);
     }
 	ui.cb_Projects_3->addItems(*sl);
+	index = 0;
+	switchCombo();
 
-	button = ui.btn_NextSprint_3;
+	btn_nextSprint = ui.btn_NextSprint_3;
+	btn_prevSprint = ui.btn_PreviousSprint_3;
 
-	connect(button, SIGNAL(clicked()), this, SLOT(handleButton()));
+	connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
+	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
+	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
 }
 
 AvanScrum::~AvanScrum()
@@ -50,15 +57,30 @@ AvanScrum::~AvanScrum()
 	
 }
 
-void AvanScrum::handleButton()
+void AvanScrum::nextSprint()
 {
-	Sprint* sprint = new Sprint();
+	int sprintCount = sprintVector.size();
+	if(sprintCount >= index)
+		index++;
+	Sprint *sp = sprintVector.at(index);
+	ui.lbl_SprintName_3->setText(sp->getName());
+}
 
-	//sprint->setName("xxx");
+void AvanScrum::prevSprint()
+{
+	if(index > 0)
+		index--;
+	//int sprintCount = sprintVector.size();
+	Sprint *sp = sprintVector.at(index);
+	ui.lbl_SprintName_3->setText(sp->getName());
+}
 
-	QMessageBox msgBox;
-	msgBox.setText(sprint->getName());
-	msgBox.setStandardButtons(QMessageBox::Ok);
-	
-	msgBox.exec();
+void AvanScrum::switchCombo()
+{
+	QString sProject = ui.cb_Projects_3->currentText();
+	Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
+	Sprint *sprint = p2->getSprint(0);
+	sprintVector = p2->getSprintArray();
+	index = 0;
+	ui.lbl_SprintName_3->setText(sprint->getName());
 }

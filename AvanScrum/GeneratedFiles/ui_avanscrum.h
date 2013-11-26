@@ -170,7 +170,7 @@ public:
         pushButton_8->setText(QApplication::translate("AvanScrumClass", "product backlog", 0));
         pushButton_9->setText(QApplication::translate("AvanScrumClass", "sprint backlog", 0));
         label_8->setText(QApplication::translate("AvanScrumClass", "F. Wammes", 0));
-        label_9->setText(QApplication::translate("AvanScrumClass", "Lead Programer", 0));
+        label_9->setText(QApplication::translate("AvanScrumClass", "Lead Developer", 0));
         btn_PreviousSprint_3->setText(QApplication::translate("AvanScrumClass", "<", 0));
         btn_NextSprint_3->setText(QApplication::translate("AvanScrumClass", ">", 0));
         lbl_SprintName_3->setText(QApplication::translate("AvanScrumClass", "sprint 4", 0));
