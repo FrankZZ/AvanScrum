@@ -1,5 +1,6 @@
 #include "avanscrum.h"
 #include "qmessagebox.h";
+#include <QTextFrameFormat>
 #include "TFS\sprint.h";
 #include <iostream>
 #include "TFS\TFSTransaction.h"
@@ -10,6 +11,7 @@
 #include "TFS\User.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
+QFrame *frm;
 std::vector<Sprint*> sprintVector;
 int index;
 
@@ -43,7 +45,10 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	ui.cb_Projects_3->addItems(*sl);
 	index = 0;
 	switchCombo();
-
+	frm = ui.frame_user1;
+	frm->setObjectName("frm");
+	frm->setStyleSheet("#frm { border: 3px solid red; }");
+	
 	btn_nextSprint = ui.btn_NextSprint_3;
 	btn_prevSprint = ui.btn_PreviousSprint_3;
 
@@ -59,12 +64,10 @@ AvanScrum::~AvanScrum()
 
 void AvanScrum::nextSprint()
 {
-	int sprintCount = sprintVector.size();
-	if(sprintCount >= index)
-		index++;
 	Sprint *sp = sprintVector.at(index);
 	if(sp != NULL)
 	{
+		index++;
 		ui.lbl_SprintName_3->setText(sp->getName());
 	}
 }
@@ -88,4 +91,19 @@ void AvanScrum::switchCombo()
 	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
+	getWorkItem();
+}
+
+void AvanScrum::getWorkItem()
+{
+	/*Sprint *sprint = sprintVector.at(index);
+	std::vector<WorkItem *> wiVector = sprint->getWorkItemArray();
+	int size = sizeof(wiVector);
+	if(wiVector.at(0) != NULL)
+	{
+		QString wiName = wiVector.at(0)->getTitle();
+		QString wiDescription = wiVector.at(0)->getDescription();
+		QString wiNumber = wiVector.at(0)->getWorkItemNumber();
+		QString wiUser = wiVector.at(0)->getUser()->getName();
+	}*/
 }

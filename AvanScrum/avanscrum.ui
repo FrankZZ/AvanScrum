@@ -160,7 +160,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QWidget" name="widget_3" native="true">
+    <widget class="QWidget" name="frame_user1" native="true">
      <property name="geometry">
       <rect>
        <x>20</x>

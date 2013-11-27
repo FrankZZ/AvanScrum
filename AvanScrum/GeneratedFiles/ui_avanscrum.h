@@ -42,7 +42,7 @@ public:
     QPushButton *pushButton_9;
     QFrame *frame_Graph;
     QFrame *frame_users;
-    QWidget *widget_3;
+    QFrame *frame_user1;
     QLabel *label_8;
     QLabel *label_9;
     QFrame *frame_Head;
@@ -105,13 +105,13 @@ public:
         frame_users->setGeometry(QRect(120, 430, 701, 161));
         frame_users->setFrameShape(QFrame::StyledPanel);
         frame_users->setFrameShadow(QFrame::Raised);
-        widget_3 = new QWidget(frame_users);
-        widget_3->setObjectName(QStringLiteral("widget_3"));
-        widget_3->setGeometry(QRect(20, 80, 120, 80));
-        label_8 = new QLabel(widget_3);
+        frame_user1 = new QFrame(frame_users);
+        frame_user1->setObjectName(QStringLiteral("frame_user1"));
+        frame_user1->setGeometry(QRect(20, 80, 120, 80));
+        label_8 = new QLabel(frame_user1);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(0, 0, 121, 21));
-        label_9 = new QLabel(widget_3);
+        label_9 = new QLabel(frame_user1);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(0, 20, 121, 21));
         frame_Head = new QFrame(centralWidget);
