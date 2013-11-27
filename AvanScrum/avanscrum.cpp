@@ -1,13 +1,13 @@
 #include "avanscrum.h"
 #include "qmessagebox.h";
 #include "TFS\sprint.h";
-#include <iostream>
 #include "TFS\TFSTransaction.h"
 #include "TFS\Project.h"
 #include "TFS\Sprint.h"
 #include "TFS\Defect.h"
 #include "TFS\SprintBacklogItem.h"
 #include "TFS\User.h"
+#include <iostream>
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 std::vector<Sprint*> sprintVector;
@@ -47,8 +47,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	btn_nextSprint = ui.btn_NextSprint_3;
 	btn_prevSprint = ui.btn_PreviousSprint_3;
 
-	connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
-	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
+	//connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
+	//connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
 }
 
