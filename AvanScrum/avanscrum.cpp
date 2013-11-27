@@ -73,7 +73,7 @@ void AvanScrum::prevSprint()
 	Sprint *sp = sprintVector.at(index);
 	ui.lbl_SprintName_3->setText(sp->getName());
 }
-
+	
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();

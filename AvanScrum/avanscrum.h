@@ -14,6 +14,7 @@ public:
 
 private:
 	Ui::AvanScrumClass ui;
+	QPushButton *button;
 
 private slots:
     void nextSprint();
