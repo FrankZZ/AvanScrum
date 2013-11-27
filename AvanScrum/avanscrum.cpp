@@ -70,7 +70,6 @@ void AvanScrum::prevSprint()
 {
 	if(index > 0)
 		index--;
-	//int sprintCount = sprintVector.size();
 	Sprint *sp = sprintVector.at(index);
 	ui.lbl_SprintName_3->setText(sp->getName());
 }
