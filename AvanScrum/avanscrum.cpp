@@ -63,7 +63,10 @@ void AvanScrum::nextSprint()
 	if(sprintCount >= index)
 		index++;
 	Sprint *sp = sprintVector.at(index);
-	ui.lbl_SprintName_3->setText(sp->getName());
+	if(sp != NULL)
+	{
+		ui.lbl_SprintName_3->setText(sp->getName());
+	}
 }
 
 void AvanScrum::prevSprint()
@@ -71,7 +74,10 @@ void AvanScrum::prevSprint()
 	if(index > 0)
 		index--;
 	Sprint *sp = sprintVector.at(index);
-	ui.lbl_SprintName_3->setText(sp->getName());
+	if(sp != NULL)
+	{
+		ui.lbl_SprintName_3->setText(sp->getName());
+	}
 }
 	
 void AvanScrum::switchCombo()
