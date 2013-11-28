@@ -160,16 +160,22 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QWidget" name="frame_user1" native="true">
+    <widget class="QFrame" name="frame_user1">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>80</y>
+       <x>10</x>
+       <y>50</y>
        <width>120</width>
        <height>80</height>
       </rect>
      </property>
-     <widget class="QLabel" name="label_8">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -187,7 +193,7 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>121</width>
+        <width>101</width>
         <height>21</height>
        </rect>
       </property>
@@ -413,7 +419,7 @@
      <x>0</x>
      <y>0</y>
      <width>1102</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
