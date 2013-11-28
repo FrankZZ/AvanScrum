@@ -1,14 +1,5 @@
 #include "ProjectBL.h"
 
-#include <atlstr.h>
-
-#include "TFS\Project.h"
-#include "TFS\Sprint.h"
-#include "TFS\Defect.h"
-#include "TFS\SprintBacklogItem.h"
-#include "TFS\TFSTransaction.h"
-#include "TFS\User.h"
-
 void ProjectBL::makeLocalProject()
 {
 	name    = "Mtest";
