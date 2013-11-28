@@ -91,6 +91,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="TFS\Attachment.cpp" />
     <ClCompile Include="TFS\Date.cpp" />
     <ClCompile Include="TFS\Defect.cpp" />
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_avanscrum.h" />
+    <ClInclude Include="ProjectBL.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TFS\Attachment.h" />
     <ClInclude Include="TFS\Date.h" />
@@ -210,7 +212,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties UicDir=".\GeneratedFiles" MocDir=".\GeneratedFiles\$(ConfigurationName)" MocOptions="" RccDir=".\GeneratedFiles" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="" Qt5Version_x0020_Win32="version5.1.1" />
+      <UserProperties UicDir=".\GeneratedFiles" MocDir=".\GeneratedFiles\$(ConfigurationName)" MocOptions="" RccDir=".\GeneratedFiles" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="" Qt5Version_x0020_Win32="msvc2012" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

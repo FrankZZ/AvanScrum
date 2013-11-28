@@ -39,6 +39,12 @@
     <Filter Include="TFS Header Files">
       <UniqueIdentifier>{40a10a84-fe89-46a0-8ade-cc1ad2b52545}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Business Logic">
+      <UniqueIdentifier>{6bba8fe2-2a50-457c-ae87-3d7c59c90e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Business Logic">
+      <UniqueIdentifier>{51d13da2-e77e-4bec-a796-6767f1be918e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -139,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="TFS\WriteData.cpp">
       <Filter>TFS Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectBL.cpp">
+      <Filter>Source Files\Business Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>TFS Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectBL.h">
+      <Filter>Header Files\Business Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,7 +42,7 @@ public:
     QPushButton *pushButton_9;
     QFrame *frame_Graph;
     QFrame *frame_users;
-    QFrame *frame_user1;
+    QWidget *frame_user1;
     QLabel *label_8;
     QLabel *label_9;
     QFrame *frame_Head;
@@ -114,7 +114,7 @@ public:
         frame_users->setGeometry(QRect(120, 430, 701, 161));
         frame_users->setFrameShape(QFrame::StyledPanel);
         frame_users->setFrameShadow(QFrame::Raised);
-        frame_user1 = new QFrame(frame_users);
+        frame_user1 = new QWidget(frame_users);
         frame_user1->setObjectName(QStringLiteral("frame_user1"));
         frame_user1->setGeometry(QRect(20, 80, 120, 80));
         label_8 = new QLabel(frame_user1);
