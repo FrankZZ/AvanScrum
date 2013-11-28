@@ -43,7 +43,7 @@ public:
     QFrame *frame_Graph;
     QFrame *frame_users;
     QFrame *frame_user1;
-    QLabel *label_8;
+    QLabel *label_10;
     QLabel *label_9;
     QFrame *frame_Head;
     QPushButton *btn_PreviousSprint_3;
@@ -116,13 +116,15 @@ public:
         frame_users->setFrameShadow(QFrame::Raised);
         frame_user1 = new QFrame(frame_users);
         frame_user1->setObjectName(QStringLiteral("frame_user1"));
-        frame_user1->setGeometry(QRect(20, 80, 120, 80));
-        label_8 = new QLabel(frame_user1);
-        label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setGeometry(QRect(0, 0, 121, 21));
+        frame_user1->setGeometry(QRect(10, 50, 120, 80));
+        frame_user1->setFrameShape(QFrame::StyledPanel);
+        frame_user1->setFrameShadow(QFrame::Raised);
+        label_10 = new QLabel(frame_user1);
+        label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setGeometry(QRect(0, 0, 121, 21));
         label_9 = new QLabel(frame_user1);
         label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(0, 20, 121, 21));
+        label_9->setGeometry(QRect(0, 20, 101, 21));
         frame_Head = new QFrame(centralWidget);
         frame_Head->setObjectName(QStringLiteral("frame_Head"));
         frame_Head->setGeometry(QRect(0, 0, 1101, 51));
@@ -183,7 +185,7 @@ public:
         AvanScrumClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AvanScrumClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1102, 21));
+        menuBar->setGeometry(QRect(0, 0, 1102, 26));
         AvanScrumClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AvanScrumClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -205,7 +207,7 @@ public:
         pushButton_7->setText(QApplication::translate("AvanScrumClass", "Defect", 0));
         pushButton_8->setText(QApplication::translate("AvanScrumClass", "Product Backlog", 0));
         pushButton_9->setText(QApplication::translate("AvanScrumClass", "Sprint Backlog", 0));
-        label_8->setText(QApplication::translate("AvanScrumClass", "F. Wammes", 0));
+        label_10->setText(QApplication::translate("AvanScrumClass", "F. Wammes", 0));
         label_9->setText(QApplication::translate("AvanScrumClass", "Lead Developer", 0));
         btn_PreviousSprint_3->setText(QApplication::translate("AvanScrumClass", "<", 0));
         btn_NextSprint_3->setText(QApplication::translate("AvanScrumClass", ">", 0));
