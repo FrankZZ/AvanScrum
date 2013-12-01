@@ -72,6 +72,7 @@ void AvanScrum::nextSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
+		refreshWorkItems();
 	}
 	else
 		index--;
@@ -85,6 +86,7 @@ void AvanScrum::prevSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
+		refreshWorkItems();
 	}
 }
 	
@@ -96,6 +98,12 @@ void AvanScrum::switchCombo()
 	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
+	getWorkItem();
+}
+
+void AvanScrum::refreshWorkItems()
+{
+	listView->clear();
 	getWorkItem();
 }
 

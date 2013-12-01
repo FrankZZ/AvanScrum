@@ -15,6 +15,7 @@ public:
 private:
 	Ui::AvanScrumClass ui;
 	QPushButton *button;
+	void refreshWorkItems();
 	void getWorkItem();
 
 private slots:
