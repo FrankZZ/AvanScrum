@@ -8,23 +8,20 @@
 #include "TFS\SprintBacklogItem.h"
 #include "TFS\TFSTransaction.h"
 #include "TFS\User.h"
+#include <string>
+#include <vector>
 
 class ProjectBL
 {
 private:
-	CString            sText;
-	std::string        name;
-	Sprint             *s;
-	Defect             *d1, *d2;
-	SprintBacklogItem  *b;
 
 public:
 	ProjectBL();
 	~ProjectBL();
-	void makeLocalProject(void);
-	void makeRemoteProject(void);
-	void readLocalProject(void);
-	void readRemoteProject(void);
+	void makeLocalDemoProject(void);
+	void makeRemoteDemoProject(void);
+	void readLocalProject(std::string);
+	void readRemoteProject(std::string);
 };
 
 #endif

@@ -1,16 +1,14 @@
 #include "ProjectBL.h"
 
-void ProjectBL::makeLocalProject()
+void ProjectBL::makeLocalDemoProject()
 {
-	name    = "Mtest";
+	std::string name    = "Mtest";
 
-	Project            *p;
-
-	p       = Project::withName( name.c_str() );
-	s       = new Sprint;
-	d1      = new Defect;
-	d2      = new Defect;
-	b       = new SprintBacklogItem;
+	Project*			p       = Project::withName( name.c_str() );
+	Sprint*				s       = new Sprint;
+	Defect*				d1      = new Defect;
+	Defect*				d2      = new Defect;
+	SprintBacklogItem*	b       = new SprintBacklogItem;
 
 	User::withName( "Frans" );
 	User::withName( "Henk" );
@@ -25,17 +23,15 @@ void ProjectBL::makeLocalProject()
 	TFSTransaction::localWriteProject( name.c_str() );
 }
 
-void ProjectBL::makeRemoteProject()
+void ProjectBL::makeRemoteDemoProject()
 {
-	name    = "Mtest";
+	std::string name    = "Mtest";
 
-	Project            *p;
-
-	p       = Project::withName( name.c_str() );
-	s       = new Sprint;
-	d1      = new Defect;
-	d2      = new Defect;
-	b       = new SprintBacklogItem;
+	Project*			p       = Project::withName( name.c_str() );
+	Sprint*				s       = new Sprint;
+	Defect*				d1      = new Defect;
+	Defect*				d2      = new Defect;
+	SprintBacklogItem*	b       = new SprintBacklogItem;
 
 	User::withName( "Frans" );
 	User::withName( "Henk" );
@@ -50,21 +46,30 @@ void ProjectBL::makeRemoteProject()
 	TFSTransaction::remoteWriteProject( name.c_str() );
 }
 
-void ProjectBL::readLocalProject()
+void ProjectBL::readLocalProject(std::string ProjName)
 {
-	Project            *p2      = TFSTransaction::localReadProject( name.c_str() );
-    s   = p2->getSprint( 0 );
-    b   = dynamic_cast<SprintBacklogItem*>( s->getWorkItem(0) );
-    d1  = dynamic_cast<Defect*>           ( s->getWorkItem(1) );
-    d2  = dynamic_cast<Defect*>           ( s->getWorkItem(2) );
+	std::vector<Sprint*> projSprints;
 
-    sText = CString("Frans ") + CString(User::isPresent("Frans")?"exists and " : "does not exist and ") +
-            CString("Henk ")  + CString(User::isPresent("Henk") ?"exists " : "does not exist");
+	Project*			projPtr      = TFSTransaction::localReadProject( ProjName.c_str() );
+	for(int i = 0; i < projPtr->sizeSprints(); i++)
+	{
+
+	}
+    Sprint*				s   = projPtr->getSprint( 0 );
+    SprintBacklogItem*	b   = dynamic_cast<SprintBacklogItem*>( s->getWorkItem(0) );
+    Defect*				d1  = dynamic_cast<Defect*>           ( s->getWorkItem(1) );
+    Defect*				d2  = dynamic_cast<Defect*>           ( s->getWorkItem(2) );
 }
 
-void ProjectBL::readRemoteProject()
+void ProjectBL::readRemoteProject(std::string ProjName)
 {
-	Project            *p2      = TFSTransaction::remoteReadProject( name.c_str() );
+
+	CString            sText;
+	Sprint             *s;
+	Defect             *d1, *d2;
+	SprintBacklogItem  *b;
+
+	Project            *p2      = TFSTransaction::remoteReadProject( ProjName.c_str() );
     s   = p2->getSprint( 0 );
     b   = dynamic_cast<SprintBacklogItem*>( s->getWorkItem(0) );
     d1  = dynamic_cast<Defect*>           ( s->getWorkItem(1) );
