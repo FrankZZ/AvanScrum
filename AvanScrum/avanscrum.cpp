@@ -19,8 +19,6 @@ int index;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
-	ProjectBL x = ProjectBL();
-	x.readRemoteProject("Mtest");
 	ui.setupUi(this);
 	
     std::list<std::string> saFilenameList;
