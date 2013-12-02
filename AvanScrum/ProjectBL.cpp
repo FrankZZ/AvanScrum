@@ -1,5 +1,17 @@
 #include "ProjectBL.h"
 
+ProjectBL::ProjectBL()
+{
+
+}
+
+ProjectBL::~ProjectBL()
+{
+
+}
+
+// code for making a local demo project
+// not much changes are done; we won't be rewarded for this part of the code
 void ProjectBL::makeLocalDemoProject()
 {
 	std::string name    = "Mtest";
@@ -23,6 +35,8 @@ void ProjectBL::makeLocalDemoProject()
 	TFSTransaction::localWriteProject( name.c_str() );
 }
 
+// code for making a remote demo project
+// not much changes are done; we won't be rewarded for this part of the code
 void ProjectBL::makeRemoteDemoProject()
 {
 	std::string name    = "Mtest";
@@ -46,35 +60,20 @@ void ProjectBL::makeRemoteDemoProject()
 	TFSTransaction::remoteWriteProject( name.c_str() );
 }
 
+// code for reading a local project
 void ProjectBL::readLocalProject(std::string ProjName)
 {
 	std::vector<Sprint*> projSprints;
 
 	Project*			projPtr      = TFSTransaction::localReadProject( ProjName.c_str() );
-	for(int i = 0; i < projPtr->sizeSprints(); i++)
-	{
-
-	}
-    Sprint*				s   = projPtr->getSprint( 0 );
-    SprintBacklogItem*	b   = dynamic_cast<SprintBacklogItem*>( s->getWorkItem(0) );
-    Defect*				d1  = dynamic_cast<Defect*>           ( s->getWorkItem(1) );
-    Defect*				d2  = dynamic_cast<Defect*>           ( s->getWorkItem(2) );
+	projSprints = projPtr->getSprintArray();
 }
 
+// code for reading a remote project
 void ProjectBL::readRemoteProject(std::string ProjName)
 {
+	std::vector<Sprint*> projSprints;
 
-	CString            sText;
-	Sprint             *s;
-	Defect             *d1, *d2;
-	SprintBacklogItem  *b;
-
-	Project            *p2      = TFSTransaction::remoteReadProject( ProjName.c_str() );
-    s   = p2->getSprint( 0 );
-    b   = dynamic_cast<SprintBacklogItem*>( s->getWorkItem(0) );
-    d1  = dynamic_cast<Defect*>           ( s->getWorkItem(1) );
-    d2  = dynamic_cast<Defect*>           ( s->getWorkItem(2) );
-
-    sText = CString("Frans ") + CString(User::isPresent("Frans")?"exists and " : "does not exist and ") +
-            CString("Henk ")  + CString(User::isPresent("Henk") ?"exists " : "does not exist");
+	Project*			projPtr      = TFSTransaction::remoteReadProject( ProjName.c_str() );
+	projSprints = projPtr->getSprintArray();
 }

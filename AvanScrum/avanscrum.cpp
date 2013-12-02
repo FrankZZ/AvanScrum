@@ -9,6 +9,7 @@
 #include "TFS\SprintBacklogItem.h"
 #include "TFS\User.h"
 #include <iostream>
+#include "ProjectBL.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
@@ -18,6 +19,8 @@ int index;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
+	ProjectBL x = ProjectBL();
+	x.readRemoteProject("Mtest");
 	ui.setupUi(this);
 	
     std::list<std::string> saFilenameList;
