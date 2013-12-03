@@ -9,6 +9,7 @@
 #include "TFS\SprintBacklogItem.h"
 #include "TFS\User.h"
 #include <iostream>
+#include "ProjectBL.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;

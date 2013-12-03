@@ -25,6 +25,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -40,7 +41,7 @@ public:
     QPushButton *pushButton_7;
     QPushButton *pushButton_8;
     QPushButton *pushButton_9;
-    QFrame *frame_Graph;
+    QCustomPlot *widget_Graph;
     QFrame *frame_users;
     QFrame *frame_user1;
     QLabel *label_10;
@@ -104,11 +105,9 @@ public:
         pushButton_9 = new QPushButton(frame_items);
         pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
         pushButton_9->setGeometry(QRect(10, 80, 111, 28));
-        frame_Graph = new QFrame(centralWidget);
-        frame_Graph->setObjectName(QStringLiteral("frame_Graph"));
-        frame_Graph->setGeometry(QRect(820, 340, 281, 251));
-        frame_Graph->setFrameShape(QFrame::StyledPanel);
-        frame_Graph->setFrameShadow(QFrame::Raised);
+        widget_Graph = new QCustomPlot(centralWidget);
+        widget_Graph->setObjectName(QStringLiteral("widget_Graph"));
+        widget_Graph->setGeometry(QRect(820, 340, 281, 251));
         frame_users = new QFrame(centralWidget);
         frame_users->setObjectName(QStringLiteral("frame_users"));
         frame_users->setGeometry(QRect(120, 430, 701, 161));
@@ -185,7 +184,7 @@ public:
         AvanScrumClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AvanScrumClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1102, 26));
+        menuBar->setGeometry(QRect(0, 0, 1102, 38));
         AvanScrumClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AvanScrumClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
