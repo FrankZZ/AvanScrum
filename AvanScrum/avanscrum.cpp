@@ -99,7 +99,7 @@ void AvanScrum::switchCombo()
 	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
-	getWorkItem();
+	refreshWorkItems();
 }
 
 void AvanScrum::refreshWorkItems()
