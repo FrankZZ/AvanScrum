@@ -164,6 +164,9 @@
     <ClCompile Include="qcustomplot.cpp">
       <Filter>Source Files\Presentation Logic</Filter>
     </ClCompile>
+    <ClCompile Include="BurnDownChart.cpp">
+      <Filter>Source Files\Presentation Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -314,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="ProjectBL.h">
       <Filter>Header Files\Business Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="BurnDownChart.h">
+      <Filter>Header Files\Presentation Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@
 #include "TFS\User.h"
 #include <iostream>
 #include "ProjectBL.h"
+#include "BurnDownChart.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
@@ -59,6 +60,9 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
 	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
+
+	BurnDownChart* bdc = new BurnDownChart(ui.widget_Graph);
+	bdc->test();
 }
 
 AvanScrum::~AvanScrum()
