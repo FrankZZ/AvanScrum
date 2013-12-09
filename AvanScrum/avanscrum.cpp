@@ -48,6 +48,10 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	ui.cb_Projects_3->addItems(*sl);
 	index = 0;
 	listView = ui.list_todo;
+	
+	ListViewSettings(ui.list_todo);
+	ListViewSettings(ui.list_doing);
+	ListViewSettings(ui.list_verify);
 	switchCombo();
 	frm = ui.frame_user1;
 	frm->setObjectName("frm");
@@ -68,6 +72,18 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 AvanScrum::~AvanScrum()
 {
 	
+}
+
+void AvanScrum::ListViewSettings(QListView *l)
+{
+	l->setSelectionMode(QAbstractItemView::SingleSelection);
+	l->setDragEnabled(true);
+	l->setDragDropMode(QAbstractItemView::DragDrop);
+	l->viewport()->setAcceptDrops(true);
+	l->setDropIndicatorShown(true);
+	l->setDefaultDropAction(Qt::DropAction::MoveAction);
+	//l->dropEvent(drop());
+	//l->addAction(action());
 }
 
 void AvanScrum::nextSprint()
@@ -103,7 +119,7 @@ void AvanScrum::switchCombo()
 	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
-	getWorkItem();
+	refreshWorkItems();
 }
 
 void AvanScrum::refreshWorkItems()

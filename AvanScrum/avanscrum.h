@@ -17,6 +17,7 @@ private:
 	QPushButton *button;
 	void refreshWorkItems();
 	void getWorkItem();
+	void ListViewSettings(QListView*);
 
 private slots:
     void nextSprint();
