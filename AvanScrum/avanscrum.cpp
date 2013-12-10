@@ -11,6 +11,8 @@
 #include <iostream>
 #include "ProjectBL.h"
 #include "BurnDownChart.h"
+#include <QStringBuilder>
+#include <string>
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
@@ -136,7 +138,18 @@ void AvanScrum::getWorkItem()
 	{
 		if(wiVector.at(i) != NULL)
 		{
-			listView->addItem(wiVector.at(i)->getTitle());
+			QString string;
+			QListWidgetItem* item = new QListWidgetItem();
+			item->setBackgroundColor(QColor(255,0,0,255));
+			item->setSizeHint(QSize(1,50));
+			item->setTextColor(QColor(255,255,255,255));
+			string = "Naam: \n";
+			string.append(wiVector.at(i)->getTitle());
+			string.append("\n User: \n");
+			if(wiVector.at(i)->getUser() != NULL)
+				string.append(wiVector.at(i)->getUser()->getName());
+			item->setText(string);
+			listView->addItem(item);
 		}
 	}
 
