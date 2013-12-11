@@ -42,14 +42,14 @@
     <Filter Include="Header Files\Business Logic">
       <UniqueIdentifier>{6bba8fe2-2a50-457c-ae87-3d7c59c90e67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Business Logic">
-      <UniqueIdentifier>{51d13da2-e77e-4bec-a796-6767f1be918e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Presentation Logic">
       <UniqueIdentifier>{a53e9d31-1fb7-412f-a0e3-f9187b4bfd37}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Presentation Logic">
       <UniqueIdentifier>{1627125e-fc89-4864-bd8f-59c27cedc5fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Business Logic">
+      <UniqueIdentifier>{51d13da2-e77e-4bec-a796-6767f1be918e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -14,23 +14,31 @@ ProjectBL::~ProjectBL()
 // not much changes are done; we won't be rewarded for this part of the code
 void ProjectBL::makeLocalDemoProject()
 {
-	std::string name    = "Mtest";
+	std::string name    = "Project Groep E";
 
 	Project*			p       = Project::withName( name.c_str() );
-	Sprint*				s       = new Sprint;
+	Sprint*				s1      = new Sprint;
+	Sprint*				s2      = new Sprint;
+	Sprint*				s3      = new Sprint;
 	Defect*				d1      = new Defect;
 	Defect*				d2      = new Defect;
 	SprintBacklogItem*	b       = new SprintBacklogItem;
 
-	User::withName( "Frans" );
-	User::withName( "Henk" );
+	User::withName( "Maurits" );
+	User::withName( "Frank" );
+	User::withName( "Jim" );
+	User::withName( "Bram" );
+	User::withName( "WillemJan" );
 
-	p->addSprint( *s );
-	s->setName( "sprint 2" );
+	s1->setName( "Sprint 1" );
+	s2->setName( "Sprint 1" );
+	s3->setName( "Sprint 1" );
 
-	s->addWorkItem( *b );
-	s->addWorkItem( *d1 );
-	s->addWorkItem( *d2 );
+	s1->addWorkItem( *b );
+	s1->addWorkItem( *d1 );
+	s1->addWorkItem( *d2 );
+	
+	//p->addSprint( *s );
 
 	TFSTransaction::localWriteProject( name.c_str() );
 }
@@ -50,12 +58,13 @@ void ProjectBL::makeRemoteDemoProject()
 	User::withName( "Frans" );
 	User::withName( "Henk" );
 
-	p->addSprint( *s );
 	s->setName( "sprint 2" );
 
 	s->addWorkItem( *b );
 	s->addWorkItem( *d1 );
 	s->addWorkItem( *d2 );
+	
+	p->addSprint( *s );
 
 	TFSTransaction::remoteWriteProject( name.c_str() );
 }
