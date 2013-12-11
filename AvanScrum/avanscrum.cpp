@@ -68,6 +68,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
+	SprintSelectionChanged(index);
 }
 
 AvanScrum::~AvanScrum()
@@ -155,11 +156,45 @@ void AvanScrum::getWorkItem()
 	}*/
 }
 
-void SprintSelectionChanged(int index)
+void AvanScrum::SprintSelectionChanged(int index)
 {
+	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
 	Sprint* sp = sprintVector.at(index);
-	QDate qd = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
-	QDateTime qdt = QDateTime::currentDateTime();
-	qdt.setDate(qd);
-	double now = qdt.toTime_t();
+
+	//startdate
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	estimatedDate.push_back(sprintStartDate);
+	realDate.push_back(sprintStartDate);
+
+	//enddate
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay());
+	QDateTime endDateTime = QDateTime(endDate);
+	double sprintEndDate = endDateTime.toTime_t();
+	estimatedDate.push_back(sprintEndDate);
+	realDate.push_back(sprintEndDate);
+
+	//estimatedHours
+	int daysBetweenFirstAndLast = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
+	double estimatedHours1 = 0;
+	QDate tempDate = beginDate;
+	for (int i = 0; i < daysBetweenFirstAndLast; i++)
+	{
+		int test = tempDate.dayOfWeek();
+		if (tempDate.dayOfWeek() < 6)
+		{
+			estimatedHours1 += 8.0;
+		}
+		tempDate = tempDate.addDays(1);
+	}
+
+	double estimatedHours2 = 0;
+
+	estimatedHours.push_back(estimatedHours1);
+	estimatedHours.push_back(estimatedHours2);
+	realHours.push_back(estimatedHours1);
+	realHours.push_back(estimatedHours2);
+
+	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
 }
