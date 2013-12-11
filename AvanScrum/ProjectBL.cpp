@@ -38,7 +38,7 @@ void ProjectBL::makeLocalDemoProject()
 	s1->addWorkItem( *d1 );
 	s1->addWorkItem( *d2 );
 	
-	p->addSprint( *s );
+	//p->addSprint( *s );
 
 	TFSTransaction::localWriteProject( name.c_str() );
 }
