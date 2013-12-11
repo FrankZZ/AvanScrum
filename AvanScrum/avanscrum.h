@@ -24,6 +24,7 @@ private slots:
     void nextSprint();
     void prevSprint();
 	void switchCombo();
+	void onListToDoItemClicked(QListWidgetItem*);
 };
 
 #endif // AVANSCRUM_H

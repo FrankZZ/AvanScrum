@@ -11,7 +11,7 @@ BurnDownChart::BurnDownChart(QCustomPlot* newPlotWidget)
 	plotWidget->addGraph();
 	plotWidget->addGraph();
 	// draw the second line with a red pen (the first is blue because of a default value)
-	QColor colourRed (255,0,0);
+	QColor colourRed (0,255,0);
 	QPen redPen(colourRed);
 	plotWidget->graph(1)->setPen(redPen);
 	// configure bottom axis to show date and time instead of number
