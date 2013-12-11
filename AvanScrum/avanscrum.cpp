@@ -15,6 +15,7 @@
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
 QListWidget* listView;
+BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 int index;
 
@@ -65,8 +66,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
 
-	BurnDownChart* bdc = new BurnDownChart(ui.widget_Graph);
-	bdc->test();
+	bdc = new BurnDownChart(ui.widget_Graph);
+	//bdc->test();
 }
 
 AvanScrum::~AvanScrum()
@@ -94,9 +95,11 @@ void AvanScrum::nextSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 	else
 		index--;
+
 }
 
 void AvanScrum::prevSprint()
@@ -108,6 +111,7 @@ void AvanScrum::prevSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 }
 	
@@ -149,4 +153,13 @@ void AvanScrum::getWorkItem()
 		QString wiNumber = wiVector.at(0)->getWorkItemNumber();
 		QString wiUser = wiVector.at(0)->getUser()->getName();
 	}*/
+}
+
+void SprintSelectionChanged(int index)
+{
+	Sprint* sp = sprintVector.at(index);
+	QDate qd = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime qdt = QDateTime::currentDateTime();
+	qdt.setDate(qd);
+	double now = qdt.toTime_t();
 }
