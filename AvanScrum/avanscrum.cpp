@@ -145,9 +145,8 @@ void AvanScrum::getWorkItem()
 			item->setBackgroundColor(QColor(255,0,0,255));
 			item->setSizeHint(QSize(1,50));
 			item->setTextColor(QColor(255,255,255,255));
-			string = "Naam: \n";
 			string.append(wiVector.at(i)->getTitle());
-			string.append("\n User: \n");
+			string.append("\n");
 			if(wiVector.at(i)->getUser() != NULL)
 				string.append(wiVector.at(i)->getUser()->getName());
 			item->setText(string);
