@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
@@ -43,9 +44,10 @@ public:
     QPushButton *pushButton_9;
     QCustomPlot *widget_Graph;
     QFrame *frame_users;
+    QHBoxLayout *horizontalLayout;
     QFrame *frame_user1;
-    QLabel *label_10;
-    QLabel *label_9;
+    QLabel *name_user1;
+    QLabel *title_user1;
     QFrame *frame_Head;
     QPushButton *btn_PreviousSprint_3;
     QPushButton *btn_NextSprint_3;
@@ -110,20 +112,31 @@ public:
         widget_Graph->setGeometry(QRect(820, 340, 281, 251));
         frame_users = new QFrame(centralWidget);
         frame_users->setObjectName(QStringLiteral("frame_users"));
-        frame_users->setGeometry(QRect(120, 430, 701, 161));
+        frame_users->setGeometry(QRect(120, 430, 691, 141));
+        frame_users->setLayoutDirection(Qt::LeftToRight);
         frame_users->setFrameShape(QFrame::StyledPanel);
         frame_users->setFrameShadow(QFrame::Raised);
+        horizontalLayout = new QHBoxLayout(frame_users);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         frame_user1 = new QFrame(frame_users);
         frame_user1->setObjectName(QStringLiteral("frame_user1"));
-        frame_user1->setGeometry(QRect(10, 50, 120, 80));
+        frame_user1->setMaximumSize(QSize(120, 80));
         frame_user1->setFrameShape(QFrame::StyledPanel);
         frame_user1->setFrameShadow(QFrame::Raised);
-        label_10 = new QLabel(frame_user1);
-        label_10->setObjectName(QStringLiteral("label_10"));
-        label_10->setGeometry(QRect(0, 0, 121, 21));
-        label_9 = new QLabel(frame_user1);
-        label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(0, 20, 101, 21));
+        name_user1 = new QLabel(frame_user1);
+        name_user1->setObjectName(QStringLiteral("name_user1"));
+        name_user1->setGeometry(QRect(0, 0, 121, 21));
+        name_user1->setLayoutDirection(Qt::LeftToRight);
+        name_user1->setAlignment(Qt::AlignCenter);
+        title_user1 = new QLabel(frame_user1);
+        title_user1->setObjectName(QStringLiteral("title_user1"));
+        title_user1->setGeometry(QRect(0, 20, 121, 21));
+        title_user1->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(frame_user1);
+
         frame_Head = new QFrame(centralWidget);
         frame_Head->setObjectName(QStringLiteral("frame_Head"));
         frame_Head->setGeometry(QRect(0, 0, 1101, 51));
@@ -184,7 +197,7 @@ public:
         AvanScrumClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AvanScrumClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1102, 38));
+        menuBar->setGeometry(QRect(0, 0, 1102, 21));
         AvanScrumClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AvanScrumClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -206,8 +219,8 @@ public:
         pushButton_7->setText(QApplication::translate("AvanScrumClass", "Defect", 0));
         pushButton_8->setText(QApplication::translate("AvanScrumClass", "Product Backlog", 0));
         pushButton_9->setText(QApplication::translate("AvanScrumClass", "Sprint Backlog", 0));
-        label_10->setText(QApplication::translate("AvanScrumClass", "F. Wammes", 0));
-        label_9->setText(QApplication::translate("AvanScrumClass", "Lead Developer", 0));
+        name_user1->setText(QApplication::translate("AvanScrumClass", "F. Wammes", 0));
+        title_user1->setText(QApplication::translate("AvanScrumClass", "Lead Developer", 0));
         btn_PreviousSprint_3->setText(QApplication::translate("AvanScrumClass", "<", 0));
         btn_NextSprint_3->setText(QApplication::translate("AvanScrumClass", ">", 0));
         lbl_SprintName_3->setText(QApplication::translate("AvanScrumClass", "Sprint 4", 0));

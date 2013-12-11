@@ -18,6 +18,7 @@ private:
 	void refreshWorkItems();
 	void getWorkItem();
 	void ListViewSettings(QListView*);
+	void fillUsers();
 
 private slots:
     void nextSprint();

@@ -69,6 +69,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	BurnDownChart* bdc = new BurnDownChart(ui.widget_Graph);
 	bdc->test();
+
+	fillUsers();
 }
 
 AvanScrum::~AvanScrum()
@@ -162,4 +164,58 @@ void AvanScrum::getWorkItem()
 		QString wiNumber = wiVector.at(0)->getWorkItemNumber();
 		QString wiUser = wiVector.at(0)->getUser()->getName();
 	}*/
+}
+
+void AvanScrum::fillUsers()
+{
+	User::ItemStorage::iterator iUser;
+
+	//NOTE: for loop geeft geen users terug, voor nu even met de hand Maurits erin gezet...
+
+	//for ( iUser = User::begin(); iUser != User::end(); ++iUser )
+	//{
+		
+		int counter = 2;
+		
+		//std::string sName = iUser->first; // iUser->second is het User object, first is string name
+		// TODO: for loop terugzetten en static data eruit
+		std::string sName = "Maurits Buijs";
+
+
+		QFrame* frame_user;
+
+		frame_user = new QFrame(ui.frame_users);
+        QString sFrameName = "frame_user";
+		
+		sFrameName.append(QString::fromStdString(std::to_string(counter)));
+		
+		frame_user->setObjectName(sFrameName);
+        
+		frame_user->setMaximumSize(QSize(120, 80));
+        frame_user->setFrameShape(QFrame::StyledPanel);
+        frame_user->setFrameShadow(QFrame::Raised);
+		
+		//TODO: Kleuren automatisch kiezen en koppelen aan user object
+		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid blue; }");
+        
+		QLabel* name_user;
+		name_user = new QLabel(frame_user);
+		name_user->setText(QString::fromStdString(sName));
+        //name_user->setObjectName(QStringLiteral("name_user1"));
+        name_user->setGeometry(QRect(0, 0, 121, 21));
+        name_user->setLayoutDirection(Qt::LeftToRight);
+        name_user->setAlignment(Qt::AlignCenter);
+        
+		QLabel* title_user;
+		title_user = new QLabel(frame_user);
+        //title_user->setObjectName(QStringLiteral("title_user1"));
+		title_user->setText(QString("Developer"));
+        title_user->setGeometry(QRect(0, 20, 121, 21));
+        title_user->setAlignment(Qt::AlignCenter);
+
+        ui.horizontalLayout->addWidget(frame_user);
+		
+		
+		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
+	//}
 }

@@ -144,9 +144,12 @@
      <rect>
       <x>120</x>
       <y>430</y>
-      <width>701</width>
-      <height>161</height>
+      <width>691</width>
+      <height>141</height>
      </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -154,48 +157,59 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QFrame" name="frame_user1">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>120</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="label_10">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>121</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>F. Wammes</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_9">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>20</y>
-        <width>101</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Lead Developer</string>
-      </property>
-     </widget>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QFrame" name="frame_user1">
+       <property name="maximumSize">
+        <size>
+         <width>120</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="name_user1">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>F. Wammes</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="title_user1">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Lead Developer</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="QFrame" name="frame_Head">
     <property name="geometry">
@@ -413,7 +427,7 @@
      <x>0</x>
      <y>0</y>
      <width>1102</width>
-     <height>38</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
