@@ -169,7 +169,7 @@ void AvanScrum::SprintSelectionChanged(int index)
 	realDate.push_back(sprintStartDate);
 
 	//enddate
-	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay());
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
 	QDateTime endDateTime = QDateTime(endDate);
 	double sprintEndDate = endDateTime.toTime_t();
 	estimatedDate.push_back(sprintEndDate);
