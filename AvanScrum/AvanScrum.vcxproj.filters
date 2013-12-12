@@ -167,6 +167,21 @@
     <ClCompile Include="BurnDownChart.cpp">
       <Filter>Source Files\Presentation Logic</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="editItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -180,6 +195,12 @@
     </CustomBuild>
     <CustomBuild Include="qcustomplot.h">
       <Filter>Header Files\Presentation Logic</Filter>
+    </CustomBuild>
+    <CustomBuild Include="editSBI.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="editItemDialog.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +341,9 @@
     </ClInclude>
     <ClInclude Include="BurnDownChart.h">
       <Filter>Header Files\Presentation Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_editSBI.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

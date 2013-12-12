@@ -11,12 +11,15 @@
 #include <iostream>
 #include "ProjectBL.h"
 #include "BurnDownChart.h"
+#include "ui_editSBI.h"
+#include "editItemDialog.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
 QListWidget* listView;
 BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
+std::vector<WorkItem *> wiVector;
 int index;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
@@ -48,7 +51,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	ui.cb_Projects_3->addItems(*sl);
 	index = 0;
-	listView = ui.list_todo;
+	listView = ui.list_todo; 
 	
 	ListViewSettings(ui.list_todo);
 	ListViewSettings(ui.list_doing);
@@ -65,6 +68,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
 	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
+	connect(ui.list_todo, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(onListToDoItemClicked(QListWidgetItem*)));
 
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
@@ -76,6 +80,36 @@ AvanScrum::~AvanScrum()
 	
 }
 
+void AvanScrum::onListToDoItemClicked(QListWidgetItem* item)
+{
+	int currentRow = listView->QListWidget::currentRow();
+	//QMessageBox* msg = new QMessageBox(this);
+	//msg->setText(wiVector.at(currentRow)->getTitle());
+	//msg->show();
+	
+	editItemDialog* dlg = new editItemDialog(this);
+	dlg->setTitle(wiVector.at(currentRow)->getTitle());
+	dlg->setID(wiVector.at(currentRow)->getWorkItemNumber());
+	//dlg->setPBI(wiVector.at(currentRow)->get
+	//dlg->setHour(wiVector.at(currentRow)->
+	//dlg->setPrio(wiVector.at(currentRow)->get
+	dlg->setContent(wiVector.at(currentRow)->getDescription());
+	dlg->setUser(wiVector.at(currentRow)->getUser()->getName());
+	dlg->fillInItems();
+	dlg->setWindowTitle(wiVector.at(currentRow)->getTitle());
+	
+	dlg->show();
+
+	/*Ui_Dialog* dlg = new Ui_Dialog();
+	dlg->setupUi(new QDialog);
+	dlg->lbl_Title->setText(wiVector.at(currentRow)->getTitle());*/
+
+
+	/*
+	if (ui.list_todo->item(0) == item) {
+    }*/
+}
+
 void AvanScrum::ListViewSettings(QListView *l)
 {
 	l->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -84,6 +118,7 @@ void AvanScrum::ListViewSettings(QListView *l)
 	l->viewport()->setAcceptDrops(true);
 	l->setDropIndicatorShown(true);
 	l->setDefaultDropAction(Qt::DropAction::MoveAction);
+	l->setSpacing(4);
 	//l->dropEvent(drop());
 	//l->addAction(action());
 }
@@ -136,24 +171,33 @@ void AvanScrum::refreshWorkItems()
 void AvanScrum::getWorkItem()
 {
 	Sprint *sprint = sprintVector.at(index);
-	std::vector<WorkItem *> wiVector = sprint->getWorkItemArray();
+	wiVector = sprint->getWorkItemArray();
 	for (int i = 0; i < wiVector.size(); i++)
 	{
 		if(wiVector.at(i) != NULL)
 		{
-			listView->addItem(wiVector.at(i)->getTitle());
+			SprintBacklogItem* sbi = dynamic_cast<SprintBacklogItem *>(wiVector.at(i));
+			if(sbi != 0)
+			{
+				QString gegevens;
+				int workItemNumber = sbi->getWorkItemNumber();
+				QListWidgetItem* item = new QListWidgetItem();
+				item->setBackgroundColor(QColor(255,0,0,255));
+				item->setSizeHint(QSize(1,50));
+				item->setTextColor(QColor(255,255,255,255));
+				gegevens.append("#");
+				gegevens.append(QString::number(workItemNumber));
+				gegevens.append(" ");
+				gegevens.append(sbi->getTitle());
+				gegevens.append("\n");
+				if(sbi->getUser() != NULL)
+					gegevens.append(sbi->getUser()->getName());
+				item->setText(gegevens);
+				item->setSelected(true);
+				listView->addItem(item);
+			}
 		}
 	}
-
-	/*int size = sizeof(wiVector);
-	if(wiVector.at(0) != NULL)
-	{
-
-		QString wiName = wiVector.at(0)->getTitle();
-		QString wiDescription = wiVector.at(0)->getDescription();
-		QString wiNumber = wiVector.at(0)->getWorkItemNumber();
-		QString wiUser = wiVector.at(0)->getUser()->getName();
-	}*/
 }
 
 void AvanScrum::SprintSelectionChanged(int index)
