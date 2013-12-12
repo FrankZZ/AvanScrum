@@ -18,7 +18,7 @@ private:
 	void refreshWorkItems();
 	void getWorkItem();
 	void ListViewSettings(QListView*);
-	void fillUsers();
+	void SprintSelectionChanged(int index); //temporary demo code
 
 private slots:
     void nextSprint();

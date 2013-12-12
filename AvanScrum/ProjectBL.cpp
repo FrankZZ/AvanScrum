@@ -34,7 +34,7 @@ void ProjectBL::makeLocalDemoProject()
 	SprintBacklogItem*	b7			= new SprintBacklogItem;
 	Defect*				d1			= new Defect;
 	Defect*				d2			= new Defect;
-	
+
 	#pragma region Gegevens WorkItems
 	b1->setTitle( "WorkItem1" );
 	b2->setTitle( "WorkItem2" );

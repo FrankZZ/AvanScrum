@@ -19,6 +19,7 @@
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
 QListWidget* listView;
+BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 int index;
@@ -26,7 +27,7 @@ int index;
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
-
+	
 	//ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
 	
@@ -38,7 +39,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
     try
     {
-		TFSTransaction::remoteListProjects(saFilenameList);
+        TFSTransaction::remoteListProjects(saFilenameList);
         for (iList = saFilenameList.begin(); iList != saFilenameList.end(); ++iList)
         {
             sFilename = iList->c_str();
@@ -77,10 +78,9 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
 	connect(ui.list_todo, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(onListToDoItemClicked(QListWidgetItem*)));
 
-	BurnDownChart* bdc = new BurnDownChart(ui.widget_Graph);
-	bdc->test();
-
-	fillUsers();
+	bdc = new BurnDownChart(ui.widget_Graph);
+	//bdc->test();
+	SprintSelectionChanged(index);
 }
 
 AvanScrum::~AvanScrum()
@@ -140,9 +140,11 @@ void AvanScrum::nextSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 	else
 		index--;
+
 }
 
 void AvanScrum::prevSprint()
@@ -154,6 +156,7 @@ void AvanScrum::prevSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 }
 	
@@ -203,61 +206,50 @@ void AvanScrum::getWorkItem()
 				item->setText(gegevens);
 				item->setSelected(true);
 				listView->addItem(item);
-			}
 		}
+	}
 	}
 }
 
-void AvanScrum::fillUsers()
+void AvanScrum::SprintSelectionChanged(int index)
 {
-	User::ItemStorage::iterator iUser;
+	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
+	Sprint* sp = sprintVector.at(index);
 
-	//NOTE: for loop geeft geen users terug, voor nu even met de hand Maurits erin gezet...
+	//startdate
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	estimatedDate.push_back(sprintStartDate);
+	realDate.push_back(sprintStartDate);
 
-	//for ( iUser = User::begin(); iUser != User::end(); ++iUser )
-	//{
+	//enddate
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay());
+	QDateTime endDateTime = QDateTime(endDate);
+	double sprintEndDate = endDateTime.toTime_t();
+	estimatedDate.push_back(sprintEndDate);
+	realDate.push_back(sprintEndDate);
 		
-		int counter = 2;
-		
-		//std::string sName = iUser->first; // iUser->second is het User object, first is string name
-		// TODO: for loop terugzetten en static data eruit
-		std::string sName = "Maurits Buijs";
+	//estimatedHours
+	int daysBetweenFirstAndLast = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
+	double estimatedHours1 = 0;
+	QDate tempDate = beginDate;
+	for (int i = 0; i < daysBetweenFirstAndLast; i++)
+	{
+		int test = tempDate.dayOfWeek();
+		if (tempDate.dayOfWeek() < 6)
+		{
+			estimatedHours1 += 8.0;
+		}
+		tempDate = tempDate.addDays(1);
+	}
 
-
-		QFrame* frame_user;
-
-		frame_user = new QFrame(ui.frame_users);
-        QString sFrameName = "frame_user";
+	double estimatedHours2 = 0;
 		
-		sFrameName.append(QString::fromStdString(std::to_string(counter)));
+	estimatedHours.push_back(estimatedHours1);
+	estimatedHours.push_back(estimatedHours2);
+	realHours.push_back(estimatedHours1);
+	realHours.push_back(estimatedHours2);
 		
-		frame_user->setObjectName(sFrameName);
-        
-		frame_user->setMaximumSize(QSize(120, 80));
-        frame_user->setFrameShape(QFrame::StyledPanel);
-        frame_user->setFrameShadow(QFrame::Raised);
-		
-		//TODO: Kleuren automatisch kiezen en koppelen aan user object
-		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid blue; }");
-        
-		QLabel* name_user;
-		name_user = new QLabel(frame_user);
-		name_user->setText(QString::fromStdString(sName));
-        //name_user->setObjectName(QStringLiteral("name_user1"));
-        name_user->setGeometry(QRect(0, 0, 121, 21));
-        name_user->setLayoutDirection(Qt::LeftToRight);
-        name_user->setAlignment(Qt::AlignCenter);
-        
-		QLabel* title_user;
-		title_user = new QLabel(frame_user);
-        //title_user->setObjectName(QStringLiteral("title_user1"));
-		title_user->setText(QString("Developer"));
-        title_user->setGeometry(QRect(0, 20, 121, 21));
-        title_user->setAlignment(Qt::AlignCenter);
-
-        ui.horizontalLayout->addWidget(frame_user);
-		
-		
-		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
-	//}
+	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
 }
