@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>882</width>
-    <height>503</height>
+    <width>915</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -235,7 +235,7 @@
     <string>Huidig project lid</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_EditDescription_2">
+  <widget class="QPushButton" name="btn_Save">
    <property name="geometry">
     <rect>
      <x>780</x>

@@ -19,12 +19,17 @@ private:
 	void getWorkItem();
 	void ListViewSettings(QListView*);
 	void SprintSelectionChanged(int index); //temporary demo code
+	void fillUsers();
+	void dropEvent(QDropEvent*);
+	void onListItemClicked(QListWidgetItem*, QListWidget*);
 
 private slots:
     void nextSprint();
     void prevSprint();
 	void switchCombo();
-	void onListToDoItemClicked(QListWidgetItem*);
+	void listToDoClicked(QListWidgetItem*);
+	void listDoingClicked(QListWidgetItem*);
+	void listVerifyClicked(QListWidgetItem*);
 };
 
 #endif // AVANSCRUM_H

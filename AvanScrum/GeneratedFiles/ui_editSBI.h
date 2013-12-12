@@ -40,7 +40,7 @@ public:
     QComboBox *comboBox;
     QPushButton *btn_AddHour;
     QLabel *lbl_WijzigTitle_5;
-    QPushButton *btn_EditDescription_2;
+    QPushButton *btn_Save;
     QPushButton *btn_ReducePrio;
     QLineEdit *txt_Hour;
     QPushButton *btn_EditDescription;
@@ -49,7 +49,7 @@ public:
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(882, 503);
+        Dialog->resize(915, 568);
         textBrowser_2 = new QTextBrowser(Dialog);
         textBrowser_2->setObjectName(QStringLiteral("textBrowser_2"));
         textBrowser_2->setGeometry(QRect(640, 220, 191, 91));
@@ -107,10 +107,10 @@ public:
         lbl_WijzigTitle_5->setObjectName(QStringLiteral("lbl_WijzigTitle_5"));
         lbl_WijzigTitle_5->setGeometry(QRect(640, 320, 191, 31));
         lbl_WijzigTitle_5->setFont(font);
-        btn_EditDescription_2 = new QPushButton(Dialog);
-        btn_EditDescription_2->setObjectName(QStringLiteral("btn_EditDescription_2"));
-        btn_EditDescription_2->setGeometry(QRect(780, 460, 101, 41));
-        btn_EditDescription_2->setFont(font);
+        btn_Save = new QPushButton(Dialog);
+        btn_Save->setObjectName(QStringLiteral("btn_Save"));
+        btn_Save->setGeometry(QRect(780, 460, 101, 41));
+        btn_Save->setFont(font);
         btn_ReducePrio = new QPushButton(Dialog);
         btn_ReducePrio->setObjectName(QStringLiteral("btn_ReducePrio"));
         btn_ReducePrio->setGeometry(QRect(640, 50, 41, 41));
@@ -141,7 +141,7 @@ public:
         btn_AddPrio->setText(QApplication::translate("Dialog", "+", 0));
         btn_AddHour->setText(QApplication::translate("Dialog", "+", 0));
         lbl_WijzigTitle_5->setText(QApplication::translate("Dialog", "Huidig project lid", 0));
-        btn_EditDescription_2->setText(QApplication::translate("Dialog", "Opslaan", 0));
+        btn_Save->setText(QApplication::translate("Dialog", "Opslaan", 0));
         btn_ReducePrio->setText(QApplication::translate("Dialog", "-", 0));
         txt_Hour->setText(QApplication::translate("Dialog", "45", 0));
         btn_EditDescription->setText(QApplication::translate("Dialog", "wijzig", 0));

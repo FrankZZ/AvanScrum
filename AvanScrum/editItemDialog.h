@@ -4,31 +4,32 @@
 #include <QtWidgets\qdialog>
 #include "ui_editSBI.h"
 
-class editItemDialog : public QDialog
+class editSBI : public QDialog
 {
         Q_OBJECT
 public:
-                                editItemDialog(QWidget *parent = 0);
-        virtual                ~editItemDialog(void);
+                    editSBI(QWidget *parent = 0);
+    virtual         ~editSBI(void);
 
 private:
         Ui::Dialog ui;
 
 public:
-        void                setTitle(const char*);
-        void                setPrio(int);
-        void                setHour(int);
-        void                setPBI(QString*);
-        void                setID(int);
-        void                setUser(const char*);
-        void                setContent(const char*);
-        void                fillInItems();
+    void            setTitle(const char*);
+    void            setPrio(int);
+    void            setHour(int);
+    void            setPBI(QString*);
+    void            setID(int);
+    void            setUser(const char*);
+    void            setContent(const char*);
+    void            fillInItems();
 
 private slots:
-    void addHour();
-    void reduceHour();
-    void addPrio();
-    void reducePrio();
+    void			addHour();
+    void			reduceHour();
+    void			addPrio();
+    void			reducePrio();
+	void			save();
 };
 
 #endif

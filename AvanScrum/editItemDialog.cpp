@@ -4,89 +4,97 @@ const char* _title, *_content, *_user;
 QString *_PBI;
 int _ID, _prio, _hour;
 
-editItemDialog::editItemDialog(QWidget *parent) : QDialog(parent)
+editSBI::editSBI(QWidget *parent) : QDialog(parent)
 {
-        ui.setupUi(this);
+    ui.setupUi(this);
 
-        setHour(0);
-        setPrio(0);
-        connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
-        connect(ui.btn_ReduceHour, SIGNAL(clicked()), this, SLOT(reduceHour()));
-        connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
-        connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
+	setWindowFlags(Qt::Dialog | Qt::Desktop);
+
+    setHour(0);
+    setPrio(0);
+    connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
+    connect(ui.btn_ReduceHour, SIGNAL(clicked()), this, SLOT(reduceHour()));
+    connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
+    connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
+	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
 }
 
 
-editItemDialog::~editItemDialog(void)
+editSBI::~editSBI(void)
 {
 }
 
-void editItemDialog::setTitle(const char* title)
+void editSBI::setTitle(const char* title)
 {
-        _title = title;
+	_title = title;
 }
 
-void editItemDialog::setPBI(QString* PBI)
+void editSBI::setPBI(QString* PBI)
 {
-        _PBI = PBI;
+    _PBI = PBI;
 }
 
-void editItemDialog::setContent(const char* content)
+void editSBI::setContent(const char* content)
 {
-        _content = content;
+    _content = content;
 }
 
-void editItemDialog::setUser(const char* user)
+void editSBI::setUser(const char* user)
 {
-        _user = user;
+    _user = user;
 }
 
-void editItemDialog::setID(int ID)
+void editSBI::setID(int ID)
 {
-        _ID = ID;
+    _ID = ID;
 }
 
-void editItemDialog::setPrio(int prio)
+void editSBI::setPrio(int prio)
 {
-        _prio = prio;
+    _prio = prio;
 }
 
-void editItemDialog::setHour(int hour)
+void editSBI::setHour(int hour)
 {
-        _hour = hour;
+	_hour = hour;
 }
 
-void editItemDialog::fillInItems()
+void editSBI::fillInItems()
 {
-        ui.lbl_Title->setText(_title);
-        ui.lbl_Number->setText("#" + QString::number(_ID));
-        ui.txt_Description->setText(_content);
-        ui.txt_Prio->setText(QString::number(_prio));
-		ui.txt_Hour->setText(QString::number(_hour));
+    ui.lbl_Title->setText(_title);
+    ui.lbl_Number->setText("#" + QString::number(_ID));
+    ui.txt_Description->setText(_content);
+    ui.txt_Prio->setText(QString::number(_prio));
+	ui.txt_Hour->setText(QString::number(_hour));
 }
 
-void editItemDialog::addHour()
+void editSBI::addHour()
 {
-        _hour++;
-        fillInItems();
+    _hour++;
+    fillInItems();
 }
 
-void editItemDialog::reduceHour()
+void editSBI::reduceHour()
 {
-        if(_hour > 0)
-			_hour--;
-        fillInItems();
+    if(_hour > 0)
+		_hour--;
+	fillInItems();
 }
 
-void editItemDialog::addPrio()
+void editSBI::addPrio()
 {
-        _prio++;
-        fillInItems();
+    _prio++;
+    fillInItems();
 }
 
-void editItemDialog::reducePrio()
+void editSBI::reducePrio()
 {
-        if(_prio > 0)
-            _prio--;
-        fillInItems();
+    if(_prio > 0)
+		_prio--;
+    fillInItems();
+}
+
+void editSBI::save()
+{
+	this->close();
 }
