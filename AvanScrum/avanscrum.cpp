@@ -30,8 +30,11 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	FileList* fl = new FileList();
-	ProjectBL* pb = new ProjectBL();
-	pb->makeRemoteDemoProject();
+	
+	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
+	//ProjectBL* pb = new ProjectBL();
+	//pb->makeRemoteDemoProject();
+	//pb->makeLocalDemoProject();
 
 
     std::list<std::string> saFilenameList;

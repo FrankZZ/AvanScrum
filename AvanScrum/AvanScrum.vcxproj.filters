@@ -168,19 +168,19 @@
       <Filter>Source Files\Presentation Logic</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="editItemDialog.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="editItemDialog.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileList.cpp">
       <Filter>Source Files</Filter>
