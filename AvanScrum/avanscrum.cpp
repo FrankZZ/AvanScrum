@@ -48,7 +48,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	ui.cb_Projects_3->addItems(*sl);
 	index = 0;
-	listView = ui.list_todo;
+	listView = ui.list_todo; 
 	
 	ListViewSettings(ui.list_todo);
 	ListViewSettings(ui.list_doing);
