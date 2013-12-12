@@ -10,10 +10,12 @@
 #include "TFS\User.h"
 #include <iostream>
 #include "ProjectBL.h"
+#include "BurnDownChart.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
 QListWidget* listView;
+BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 int index;
 
@@ -63,6 +65,10 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(btn_nextSprint, SIGNAL(clicked()), this, SLOT(nextSprint()));
 	connect(btn_prevSprint, SIGNAL(clicked()), this, SLOT(prevSprint()));
 	connect(ui.cb_Projects_3,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchCombo()));
+
+	bdc = new BurnDownChart(ui.widget_Graph);
+	//bdc->test();
+	SprintSelectionChanged(index);
 }
 
 AvanScrum::~AvanScrum()
@@ -90,9 +96,11 @@ void AvanScrum::nextSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 	else
 		index--;
+
 }
 
 void AvanScrum::prevSprint()
@@ -104,6 +112,7 @@ void AvanScrum::prevSprint()
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
 		refreshWorkItems();
+		SprintSelectionChanged(index);
 	}
 }
 	
@@ -145,4 +154,47 @@ void AvanScrum::getWorkItem()
 		QString wiNumber = wiVector.at(0)->getWorkItemNumber();
 		QString wiUser = wiVector.at(0)->getUser()->getName();
 	}*/
+}
+
+void AvanScrum::SprintSelectionChanged(int index)
+{
+	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
+	Sprint* sp = sprintVector.at(index);
+
+	//startdate
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	estimatedDate.push_back(sprintStartDate);
+	realDate.push_back(sprintStartDate);
+
+	//enddate
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay());
+	QDateTime endDateTime = QDateTime(endDate);
+	double sprintEndDate = endDateTime.toTime_t();
+	estimatedDate.push_back(sprintEndDate);
+	realDate.push_back(sprintEndDate);
+
+	//estimatedHours
+	int daysBetweenFirstAndLast = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
+	double estimatedHours1 = 0;
+	QDate tempDate = beginDate;
+	for (int i = 0; i < daysBetweenFirstAndLast; i++)
+	{
+		int test = tempDate.dayOfWeek();
+		if (tempDate.dayOfWeek() < 6)
+		{
+			estimatedHours1 += 8.0;
+		}
+		tempDate = tempDate.addDays(1);
+	}
+
+	double estimatedHours2 = 0;
+
+	estimatedHours.push_back(estimatedHours1);
+	estimatedHours.push_back(estimatedHours2);
+	realHours.push_back(estimatedHours1);
+	realHours.push_back(estimatedHours2);
+
+	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
 }
