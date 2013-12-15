@@ -361,4 +361,7 @@
   <ItemGroup>
     <ResourceCompile Include="AvanScrum.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>

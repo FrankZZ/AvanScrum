@@ -25,6 +25,7 @@ std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
 int index;
+Project* p;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
@@ -179,10 +180,10 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
-	//Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
-	Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
-	Sprint *sprint = p2->getSprint(0);
-	sprintVector = p2->getSprintArray();
+	//p = TFSTransaction::localReadProject(sProject.toStdString().c_str());
+	p = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
+	Sprint *sprint = p->getSprint(0);
+	sprintVector = p->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
 	refreshWorkItems();
@@ -248,25 +249,35 @@ void AvanScrum::SprintSelectionChanged(int index)
 	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
 	Sprint* sp = sprintVector.at(index);
 
-	//startdate
-	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	//startdate project (estimated)
+	QDate beginDate = QDate(p->getBeginYear(), p->getBeginMonth(), p->getBeginDay());
 	QDateTime beginDateTime = QDateTime(beginDate);
+	double projectStartDate = beginDateTime.toTime_t();
+	estimatedDate.push_back(projectStartDate);
+
+	//startdate sprint (real)
+	beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	beginDateTime = QDateTime(beginDate);
 	double sprintStartDate = beginDateTime.toTime_t();
-	estimatedDate.push_back(sprintStartDate);
 	realDate.push_back(sprintStartDate);
 
-	//enddate
-	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
+	//enddate project (estimated)
+	QDate endDate = QDate(p->getEndYear(), p->getEndMonth(), p->getEndDay()+1);
 	QDateTime endDateTime = QDateTime(endDate);
+	double projectEndDate = endDateTime.toTime_t();
+	realDate.push_back(projectEndDate);
+
+	//enddate sprint (real)
+	endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
+	endDateTime = QDateTime(endDate);
 	double sprintEndDate = endDateTime.toTime_t();
-	estimatedDate.push_back(sprintEndDate);
 	realDate.push_back(sprintEndDate);
 
 	//estimatedHours
-	int daysBetweenFirstAndLast = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
+	int daysBetweenFirstAndLast1 = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
 	double estimatedHours1 = 0;
 	QDate tempDate = beginDate;
-	for (int i = 0; i < daysBetweenFirstAndLast; i++)
+	for (int i = 0; i < daysBetweenFirstAndLast1; i++)
 	{
 		int test = tempDate.dayOfWeek();
 		if (tempDate.dayOfWeek() < 6)
@@ -276,7 +287,19 @@ void AvanScrum::SprintSelectionChanged(int index)
 		tempDate = tempDate.addDays(1);
 	}
 
+	//realHours
+	int daysBetweenFirstAndLast2 = (projectEndDate - projectStartDate) / (60*60*24) + 1;
 	double estimatedHours2 = 0;
+	tempDate = beginDate;
+	for (int i = 0; i < daysBetweenFirstAndLast2; i++)
+	{
+		int test = tempDate.dayOfWeek();
+		if (tempDate.dayOfWeek() < 6)
+		{
+			estimatedHours2 += 8.0;
+		}
+		tempDate = tempDate.addDays(1);
+	}
 
 	estimatedHours.push_back(estimatedHours1);
 	estimatedHours.push_back(estimatedHours2);
