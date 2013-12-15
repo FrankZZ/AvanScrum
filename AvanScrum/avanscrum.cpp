@@ -339,3 +339,58 @@ void AvanScrum::fillUsers()
 		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
 	}
 }
+
+void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
+{
+	//TODO: Volgende code in een aparte methode zetten, en aanroepen per visitor 
+
+	QString gegevens;
+	int workItemNumber = sbi.getWorkItemNumber();
+	QListWidgetItem* item = new QListWidgetItem();
+	item->setBackgroundColor(QColor(255,0,0,255));
+	item->setSizeHint(QSize(1,50));
+	item->setTextColor(QColor(255,255,255,255));
+	gegevens.append("#");
+	gegevens.append(QString::number(workItemNumber));
+	gegevens.append(" ");
+	gegevens.append(sbi.getTitle());
+	gegevens.append("\n");
+	if(sbi.getUser() != NULL)
+		gegevens.append(sbi.getUser()->getName());
+
+	Status *s = sbi.getStatus(0);
+	//statusVector = sbi.getStatusArray();
+
+
+	if(s != NULL)
+	{
+		if(s->getStatusType() != NULL)
+		{
+			if(s->getStatusType() == StatusType::withName("ToDo"))
+			{
+				listView->addItem(item);
+			}
+			else if(s->getStatusType() == StatusType::withName("Doing"))
+			{
+				//TODO: fix scope
+				// ui.list_doing->addItem(item);
+			}
+			else if(s->getStatusType() == StatusType::withName("ToVerify"))
+			{
+				//TODO: fix scope
+				// ui.list_verify->addItem(item);
+			}
+		}
+	}
+}
+
+void AvanScrum::Sort::visit(Defect& def)
+{
+	//TODO: Defect visitor afmaken
+}
+
+void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
+{
+	//TODO: PBI visitor afmaken
+}
+

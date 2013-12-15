@@ -23,6 +23,14 @@ private:
 	void dropEvent(QDropEvent*);
 	void onListItemClicked(QListWidgetItem*, QListWidget*);
 
+private:
+	class Sort : public TFSVisitor
+	{
+		virtual void visit(SprintBacklogItem& sbi);
+		virtual void visit(ProductBacklogItem& pbi);
+		virtual void visit(Defect& def);
+	};
+
 private slots:
     void nextSprint();
     void prevSprint();
