@@ -1,7 +1,7 @@
 #include "avanscrum.h"
-#include "qmessagebox.h";
+#include "qmessagebox.h"
 #include <QTextFrameFormat>
-#include "TFS\sprint.h";
+#include "TFS\sprint.h"
 #include "TFS\TFSTransaction.h"
 #include "TFS\Project.h"
 #include "TFS\Sprint.h"
@@ -17,6 +17,8 @@
 #include "ui_editSBI.h"
 #include "editItemDialog.h"
 #include "FileList.h"
+#include <sstream>
+#include "user.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
@@ -130,7 +132,9 @@ void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 	dlg->setID(wiVector.at(currentRow)->getWorkItemNumber());
 	//dlg->setPBI(wiVector.at(currentRow)->get
 	dlg->setHour(sbi->getRemainingWork());
-	//dlg->setPrio(wiVector.at(currentRow)->get
+	QString prio;
+	prio = wiVector.at(currentRow)->getAdditionalInfo();
+	dlg->setPrio(prio.toInt());
 	dlg->setContent(wiVector.at(currentRow)->getDescription());
 	dlg->setUser(wiVector.at(currentRow)->getUser()->getName());
 	dlg->fillInItems();

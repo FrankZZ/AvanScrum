@@ -1,15 +1,22 @@
 #include "editItemDialog.h"
+#include "TFS/User.h"
+#include "user.h"
 
 const char* _title, *_content, *_user;
 QString *_PBI;
 int _ID, _prio, _hour;
+User::ItemStorage::iterator iUser;
+user* u;
 
 editSBI::editSBI(QWidget *parent) : QDialog(parent)
 {
     ui.setupUi(this);
 
 	setWindowFlags(Qt::Dialog | Qt::Desktop);
+    int y = 0;
+	QStringList *sl = new QStringList();
 
+	u = new user();
     setHour(0);
     setPrio(0);
     connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
@@ -17,6 +24,15 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
     connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
     connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
 	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
+
+	iUser = u->getAllUsers();
+	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
+	{
+		QString	userName = iUser->first.c_str();
+		sl->insert(y, userName);
+		y++;
+	}
+	ui.comboBox->addItems(*sl);
 }
 
 
@@ -66,31 +82,32 @@ void editSBI::fillInItems()
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
 	ui.txt_Hour->setText(QString::number(_hour));
+	ui.comboBox->setCurrentText(_user);
 }
 
 void editSBI::addHour()
 {
-    _hour++;
+    setHour(_hour += 1);
     fillInItems();
 }
 
 void editSBI::reduceHour()
 {
     if(_hour > 0)
-		_hour--;
+		setHour(_hour -= 1);
 	fillInItems();
 }
 
 void editSBI::addPrio()
 {
-    _prio++;
+	setPrio(_prio += 1);
     fillInItems();
 }
 
 void editSBI::reducePrio()
 {
     if(_prio > 0)
-		_prio--;
+		setPrio(_prio -= 1);
     fillInItems();
 }
 
