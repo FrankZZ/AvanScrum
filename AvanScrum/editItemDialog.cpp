@@ -1,12 +1,12 @@
 #include "editItemDialog.h"
 #include "TFS/User.h"
-#include "user.h"
+#include "aUser.h"
 
 const char* _title, *_content, *_user;
 QString *_PBI;
 int _ID, _prio, _hour;
 User::ItemStorage::iterator iUser;
-user* u;
+aUser* u;
 
 editSBI::editSBI(QWidget *parent) : QDialog(parent)
 {
@@ -16,7 +16,7 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
     int y = 0;
 	QStringList *sl = new QStringList();
 
-	u = new user();
+	u = new aUser();
     setHour(0);
     setPrio(0);
     connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
