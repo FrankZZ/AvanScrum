@@ -7,6 +7,7 @@
 #include "TFS\Sprint.h"
 #include "TFS\Defect.h"
 #include "TFS\SprintBacklogItem.h"
+#include "TFS\ProductBacklogItem.h"
 #include "TFS\User.h"
 #include "TFS\Status.h"
 #include "TFS\StatusType.h"
@@ -19,7 +20,11 @@
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
-QListWidget* listView;
+QListWidget* listViewTodo;
+QListWidget* listViewVerify;
+QListWidget* listViewDoing;
+QListWidget* listViewDone;
+
 BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
@@ -63,11 +68,15 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	ui.cb_Projects_3->addItems(*sl);
 	index = 0;
-	listView = ui.list_todo; 
-	
+	listViewTodo = ui.list_todo; 
+	listViewDoing = ui.list_doing;
+	listViewVerify = ui.list_verify;
+	listViewDone = ui.list_done;
+
 	ListViewSettings(ui.list_todo);
 	ListViewSettings(ui.list_doing);
 	ListViewSettings(ui.list_verify);
+	ListViewSettings(ui.list_done);
 	switchCombo();
 	frm = ui.frame_user1;
 	frm->setObjectName("frm");
@@ -191,9 +200,11 @@ void AvanScrum::switchCombo()
 
 void AvanScrum::refreshWorkItems()
 {
-	ui.list_doing->clear();
-	ui.list_verify->clear();
-	listView->clear();
+	listViewDoing->clear();
+	listViewVerify->clear();
+	listViewDone->clear();
+	listViewTodo->clear();
+	
 	getWorkItem();
 }
 
@@ -205,40 +216,11 @@ void AvanScrum::getWorkItem()
 	{
 		if(wiVector.at(i) != NULL)
 		{
-			SprintBacklogItem* sbi = dynamic_cast<SprintBacklogItem *>(wiVector.at(i));
-			if(sbi != 0)
-			{
-				QString gegevens;
-				int workItemNumber = sbi->getWorkItemNumber();
-				QListWidgetItem* item = new QListWidgetItem();
-				item->setBackgroundColor(QColor(255,0,0,255));
-				item->setSizeHint(QSize(1,50));
-				item->setTextColor(QColor(255,255,255,255));
-				gegevens.append("#");
-				gegevens.append(QString::number(workItemNumber));
-				gegevens.append(" ");
-				gegevens.append(sbi->getTitle());
-				gegevens.append("\n");
-				if(sbi->getUser() != NULL)
-					gegevens.append(sbi->getUser()->getName());
-				Status *s = sbi->getStatus(0);
-				statusVector = sbi->getStatusArray();
-				item->setText(gegevens);
-				item->setSelected(true);
+			AvanScrum::Sort* sorter = new AvanScrum::Sort();
 
-				if(s != NULL)
-				{
-					if(s->getStatusType() != NULL)
-					{
-						if(s->getStatusType() == StatusType::withName("ToDo"))
-							listView->addItem(item);
-						if(s->getStatusType() == StatusType::withName("Doing"))
-							ui.list_doing->addItem(item);
-						if(s->getStatusType() == StatusType::withName("ToVerify"))
-							ui.list_verify->addItem(item);
-					}
-				}
-			}
+			wiVector.at(i)->accept(*sorter);
+
+			delete sorter;
 		}
 	}
 }
@@ -301,7 +283,6 @@ void AvanScrum::fillUsers()
 		// TODO: for loop terugzetten en static data eruit
 		//std::string sName = "Maurits Buijs";
 
-
 		QFrame* frame_user;
 
 		frame_user = new QFrame(ui.frame_users);
@@ -337,5 +318,65 @@ void AvanScrum::fillUsers()
 		
 		
 		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
+	}
+}
+
+void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
+{
+	ProcessWorkItem(sbi, sbi.getStatus(0));
+}
+
+void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
+{
+	ProcessWorkItem(pbi, pbi.getStatus(0));
+}
+
+void AvanScrum::Sort::visit(Defect& def)
+{
+	ProcessWorkItem(def, def.getStatus(0));
+}
+
+void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
+{
+	QString gegevens;
+	int workItemNumber = wi.getWorkItemNumber();
+	QListWidgetItem* item = new QListWidgetItem();
+	item->setBackgroundColor(QColor(255,0,0,255));
+	item->setSizeHint(QSize(1,50));
+	item->setTextColor(QColor(255,255,255,255));
+	gegevens.append("#");
+	gegevens.append(QString::number(workItemNumber));
+	gegevens.append(" ");
+	gegevens.append(wi.getTitle());
+	gegevens.append("\n");
+
+	if(wi.getUser() != NULL)
+		gegevens.append(wi.getUser()->getName());
+
+	item->setText(gegevens);
+
+	//statusVector = sbi.getStatusArray();
+
+	if(status != NULL)
+	{
+		if(status->getStatusType() != NULL)
+		{
+			if(status->getStatusType() == StatusType::withName("ToDo"))
+			{
+				listViewTodo->addItem(item);
+			}
+			else if(status->getStatusType() == StatusType::withName("Doing"))
+			{
+				listViewDoing->addItem(item);
+			}
+			else if(status->getStatusType() == StatusType::withName("ToVerify"))
+			{
+				listViewVerify->addItem(item);
+			}
+			else if(status->getStatusType() == StatusType::withName("Done"))
+			{
+				listViewDone->addItem(item);
+			}
+		}
 	}
 }
