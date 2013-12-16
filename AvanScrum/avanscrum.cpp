@@ -77,10 +77,12 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	ListViewSettings(ui.list_doing);
 	ListViewSettings(ui.list_verify);
 	ListViewSettings(ui.list_done);
-	switchCombo();
 	frm = ui.frame_user1;
 	frm->setObjectName("frm");
 	frm->setStyleSheet("#frm { border: 3px solid red; }");
+
+	switchCombo();
+	
 	
 
 	btn_nextSprint = ui.btn_NextSprint_3;
@@ -96,8 +98,6 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
 	SprintSelectionChanged(index);
-	
-	fillUsers();
 }
 
 AvanScrum::~AvanScrum()
@@ -123,20 +123,12 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
-	
-	SprintBacklogItem* sbi = dynamic_cast<SprintBacklogItem *>(wiVector.at(currentRow));
-	editSBI* dlg = new editSBI(this);
-	dlg->setTitle(wiVector.at(currentRow)->getTitle());
-	dlg->setID(wiVector.at(currentRow)->getWorkItemNumber());
-	//dlg->setPBI(wiVector.at(currentRow)->get
-	dlg->setHour(sbi->getRemainingWork());
-	//dlg->setPrio(wiVector.at(currentRow)->get
-	dlg->setContent(wiVector.at(currentRow)->getDescription());
-	dlg->setUser(wiVector.at(currentRow)->getUser()->getName());
-	dlg->fillInItems();
-	dlg->setWindowTitle(wiVector.at(currentRow)->getTitle());
-	
-	dlg->show();
+
+	AvanScrum::Detail* detailer = new AvanScrum::Detail();
+
+	wiVector.at(currentRow)->accept(*detailer);
+
+	delete detailer;
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
@@ -194,6 +186,9 @@ void AvanScrum::switchCombo()
 	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
+	
+	fillUsers();
+	
 	refreshWorkItems();
 	//SprintSelectionChanged(index);
 }
@@ -271,9 +266,18 @@ void AvanScrum::SprintSelectionChanged(int index)
 void AvanScrum::fillUsers()
 {
 	User::ItemStorage::iterator iUser;
+	
+	if (ui.horizontalLayout != NULL)
+	{
+		QLayoutItem* item;
 
-	//NOTE: for loop geeft geen users terug, voor nu even met de hand Maurits erin gezet...
-
+		while ((item = ui.horizontalLayout->takeAt(0)) != NULL )
+		{
+			delete item->widget();
+			delete item;
+		}
+	}
+	
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		
@@ -316,24 +320,26 @@ void AvanScrum::fillUsers()
 
         ui.horizontalLayout->addWidget(frame_user);
 		
-		
+
+	
 		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
 	}
 }
 
 void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 {
-	ProcessWorkItem(sbi, sbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(sbi, sbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
-	ProcessWorkItem(pbi, pbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(pbi, pbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(Defect& def)
 {
-	ProcessWorkItem(def, def.getStatus(0));
+	//TODO: Defect heeft geen status bij het laden. ProjectBL.cpp error?
+	AvanScrum::Sort::ProcessWorkItem(def, def.getStatus(0));
 }
 
 void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
@@ -379,4 +385,35 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 			}
 		}
 	}
+}
+
+void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
+{
+	//TODO: Uitzoeken wat voor effect de parent op NULL heeft ipv AvanScrumClass (impossibru vanwege subclass?)
+	editSBI* dlg = new editSBI(NULL);
+	dlg->setTitle(sbi.getTitle());
+	dlg->setID(sbi.getWorkItemNumber());
+
+	//dlg->setPBI(wiVector.at(currentRow)->get
+
+	dlg->setHour(sbi.getRemainingWork());
+
+	//dlg->setPrio(wiVector.at(currentRow)->get
+
+	dlg->setContent(sbi.getDescription());
+	dlg->setUser(sbi.getUser()->getName());
+	dlg->fillInItems();
+	dlg->setWindowTitle(sbi.getTitle());
+	
+	dlg->show();
+}
+
+void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
+{
+
+}
+
+void AvanScrum::Detail::visit(Defect& def)
+{
+
 }
