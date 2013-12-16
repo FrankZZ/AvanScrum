@@ -1,12 +1,12 @@
-#ifndef user_h
-#define user_h
+#ifndef aUser_h
+#define aUser_h
 #include "TFS/User.h"
 
-class user
+class aUser
 {
 public:
-	user(void);
-	~user(void);
+	aUser(void);
+	~aUser(void);
 
 	User::ItemStorage::iterator	getAllUsers();
 };

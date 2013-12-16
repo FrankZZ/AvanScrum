@@ -18,7 +18,7 @@
 #include "editItemDialog.h"
 #include "FileList.h"
 #include <sstream>
-#include "user.h"
+#include "aUser.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
