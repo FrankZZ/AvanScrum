@@ -191,6 +191,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_FileList.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -356,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_editSBI.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
