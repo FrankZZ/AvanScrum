@@ -1,7 +1,7 @@
 #include "avanscrum.h"
-#include "qmessagebox.h";
+#include "qmessagebox.h"
 #include <QTextFrameFormat>
-#include "TFS\sprint.h";
+#include "TFS\sprint.h"
 #include "TFS\TFSTransaction.h"
 #include "TFS\Project.h"
 #include "TFS\Sprint.h"
@@ -17,6 +17,8 @@
 #include "ui_editSBI.h"
 #include "editItemDialog.h"
 #include "FileList.h"
+#include <sstream>
+#include "user.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
