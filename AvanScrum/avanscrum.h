@@ -3,6 +3,11 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_avanscrum.h"
+#include "TFS\Defect.h"
+#include "TFS\SprintBacklogItem.h"
+#include "TFS\ProductBacklogItem.h"
+#include "TFS\WorkItem.h"
+#include "TFS\Status.h"
 
 class AvanScrum : public QMainWindow
 {
@@ -26,9 +31,12 @@ private:
 private:
 	class Sort : public TFSVisitor
 	{
+		
 		virtual void visit(SprintBacklogItem& sbi);
 		virtual void visit(ProductBacklogItem& pbi);
 		virtual void visit(Defect& def);
+
+		void ProcessWorkItem(WorkItem wi, Status* status);
 	};
 
 private slots:
