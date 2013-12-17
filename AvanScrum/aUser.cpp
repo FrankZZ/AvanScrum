@@ -10,7 +10,7 @@ aUser::aUser(void)
 aUser::~aUser(void)
 {
 }
-
+/*
 User::ItemStorage::iterator aUser::getAllUsers()
 {
 	User::ItemStorage::iterator iUser;
@@ -25,4 +25,4 @@ User::ItemStorage::iterator aUser::getAllUsers()
 	}
 
 	return iUser;
-}
+}*/

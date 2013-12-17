@@ -25,14 +25,14 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
     connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
 	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
 
-	iUser = u->getAllUsers();
+	/*iUser = u->getAllUsers();
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		QString	userName = iUser->first.c_str();
 		sl->insert(y, userName);
 		y++;
 	}
-	ui.comboBox->addItems(*sl);
+	ui.cb_users->addItems(*sl);*/
 }
 
 
@@ -82,7 +82,7 @@ void editSBI::fillInItems()
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
 	ui.txt_Hour->setText(QString::number(_hour));
-	ui.comboBox->setCurrentText(_user);
+	//ui.cb_users->setCurrentText(_user);
 }
 
 void editSBI::addHour()
