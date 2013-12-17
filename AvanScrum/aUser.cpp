@@ -1,17 +1,17 @@
-#include "setUser.h"
+#include "aUser.h"
 #include "TFS/User.h"
 
 
-setUser::setUser(void)
+aUser::aUser(void)
 {
 }
 
 
-setUser::~setUser(void)
+aUser::~aUser(void)
 {
 }
 
-User::ItemStorage::iterator setUser::getAllUsers()
+User::ItemStorage::iterator aUser::getAllUsers()
 {
 	User::ItemStorage::iterator iUser;
 

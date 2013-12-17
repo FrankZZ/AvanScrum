@@ -143,7 +143,7 @@
     <ClCompile Include="TFS\User.cpp" />
     <ClCompile Include="TFS\WorkItem.cpp" />
     <ClCompile Include="TFS\WriteData.cpp" />
-    <ClCompile Include="setUser.cpp" />
+    <ClCompile Include="aUser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurnDownChart.h" />
-    <ClInclude Include="setUser.h" />
+    <ClInclude Include="aUser.h" />
     <CustomBuild Include="editItemDialog.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing editItemDialog.h...</Message>
