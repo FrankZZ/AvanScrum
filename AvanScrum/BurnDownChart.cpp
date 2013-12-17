@@ -19,8 +19,8 @@ BurnDownChart::BurnDownChart(QCustomPlot* newPlotWidget)
 	plotWidget->xAxis->setDateTimeFormat("dd-MM");
 	// set a fixed tick-step to one tick per 5 days (one work week)
 	plotWidget->xAxis->setAutoTickStep(false);
-	plotWidget->xAxis->setTickStep(60*60*24*7); // seven days in seconds
-	plotWidget->xAxis->setSubTickCount(7);
+	plotWidget->xAxis->setTickStep(60*60*24*7); // 7 days in seconds
+	plotWidget->xAxis->setSubTickCount(6);
 	// set a more compact font size for bottom and left axis tick labels
 	plotWidget->xAxis->setTickLabelFont(QFont(QFont().family(), 6));
 	plotWidget->yAxis->setTickLabelFont(QFont(QFont().family(), 6));
@@ -103,8 +103,6 @@ void BurnDownChart::updateAxisRange(
 		highestAmmountOfHours = estimatedHours.last();
 	
 	// set axis ranges to show all data
-	plotWidget->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-	double now = QDateTime::currentDateTime().toTime_t();
 	plotWidget->xAxis->setRange(firstDate, lastDate);
 	plotWidget->yAxis->setRange(lowestAmmountOfHours, highestAmmountOfHours);
 }

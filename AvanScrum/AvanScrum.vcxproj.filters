@@ -167,14 +167,32 @@
     <ClCompile Include="BurnDownChart.cpp">
       <Filter>Source Files\Presentation Logic</Filter>
     </ClCompile>
-    <ClCompile Include="editItemDialog.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="editItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FileList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_FileList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="aUser.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,10 +208,13 @@
     <CustomBuild Include="qcustomplot.h">
       <Filter>Header Files\Presentation Logic</Filter>
     </CustomBuild>
-    <CustomBuild Include="editWorkItem.ui">
+    <CustomBuild Include="editSBI.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="editItemDialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FileList.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -336,8 +357,11 @@
     <ClInclude Include="BurnDownChart.h">
       <Filter>Header Files\Presentation Logic</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_editWorkItem.h">
+    <ClInclude Include="GeneratedFiles\ui_editSBI.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="aUser.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

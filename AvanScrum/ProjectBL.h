@@ -2,12 +2,6 @@
 #define ProjectBL_h
 #include <atlstr.h>
 #include <string>
-#include "TFS\Project.h"
-#include "TFS\Sprint.h"
-#include "TFS\Defect.h"
-#include "TFS\SprintBacklogItem.h"
-#include "TFS\TFSTransaction.h"
-#include "TFS\User.h"
 #include <string>
 #include <vector>
 

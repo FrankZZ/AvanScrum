@@ -1,92 +1,117 @@
 #include "editItemDialog.h"
+#include "TFS/User.h"
+#include "aUser.h"
 
 const char* _title, *_content, *_user;
 QString *_PBI;
 int _ID, _prio, _hour;
+User::ItemStorage::iterator iUser;
+aUser* u;
 
-editItemDialog::editItemDialog(QWidget *parent) : QDialog(parent)
+editSBI::editSBI(QWidget *parent) : QDialog(parent)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 
-	setHour(0);
-	setPrio(0);
-	connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
-	connect(ui.btn_ReduceHour, SIGNAL(clicked()), this, SLOT(reduceHour()));
-	connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
-	connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
+	setWindowFlags(Qt::Dialog | Qt::Desktop);
+    int y = 0;
+	QStringList *sl = new QStringList();
+
+	u = new aUser();
+    setHour(0);
+    setPrio(0);
+    connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
+    connect(ui.btn_ReduceHour, SIGNAL(clicked()), this, SLOT(reduceHour()));
+    connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
+    connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
+	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
+
+	/*iUser = u->getAllUsers();
+	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
+	{
+		QString	userName = iUser->first.c_str();
+		sl->insert(y, userName);
+		y++;
+	}
+	ui.cb_users->addItems(*sl);*/
 }
 
 
-editItemDialog::~editItemDialog(void)
+editSBI::~editSBI(void)
 {
 }
 
-void editItemDialog::setTitle(const char* title)
+void editSBI::setTitle(const char* title)
 {
 	_title = title;
 }
 
-void editItemDialog::setPBI(QString* PBI)
+void editSBI::setPBI(QString* PBI)
 {
-	_PBI = PBI;
+    _PBI = PBI;
 }
 
-void editItemDialog::setContent(const char* content)
+void editSBI::setContent(const char* content)
 {
-	_content = content;
+    _content = content;
 }
 
-void editItemDialog::setUser(const char* user)
+void editSBI::setUser(const char* user)
 {
-	_user = user;
+    _user = user;
 }
 
-void editItemDialog::setID(int ID)
+void editSBI::setID(int ID)
 {
-	_ID = ID;
+    _ID = ID;
 }
 
-void editItemDialog::setPrio(int prio)
+void editSBI::setPrio(int prio)
 {
-	_prio = prio;
+    _prio = prio;
 }
 
-void editItemDialog::setHour(int hour)
+void editSBI::setHour(int hour)
 {
 	_hour = hour;
 }
 
-void editItemDialog::fillInItems()
+void editSBI::fillInItems()
 {
-	ui.lbl_Title->setText(_title);
-	ui.lbl_Number->setText("#" + QString::number(_ID));
-	ui.txt_Description->setText(_content);
-	ui.txt_Prio->setText(QString::number(_prio));
+    ui.lbl_Title->setText(_title);
+    ui.lbl_Number->setText("#" + QString::number(_ID));
+    ui.txt_Description->setText(_content);
+    ui.txt_Prio->setText(QString::number(_prio));
 	ui.txt_Hour->setText(QString::number(_hour));
+	//ui.cb_users->setCurrentText(_user);
 }
 
-void editItemDialog::addHour()
+void editSBI::addHour()
 {
-	_hour++;
+    setHour(_hour += 1);
+    fillInItems();
+}
+
+void editSBI::reduceHour()
+{
+    if(_hour > 0)
+		setHour(_hour -= 1);
 	fillInItems();
 }
 
-void editItemDialog::reduceHour()
+void editSBI::addPrio()
 {
-	if(_hour > 0)
-		_hour--;
-	fillInItems();
+	setPrio(_prio += 1);
+    fillInItems();
 }
 
-void editItemDialog::addPrio()
+void editSBI::reducePrio()
 {
-	_prio++;
-	fillInItems();
+    if(_prio > 0)
+		setPrio(_prio -= 1);
+    fillInItems();
 }
 
-void editItemDialog::reducePrio()
+void editSBI::save()
 {
-	if(_prio > 0)
-		_prio--;
-	fillInItems();
+	this->close();
 }
