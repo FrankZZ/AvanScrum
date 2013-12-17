@@ -191,7 +191,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_FileList.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="user.cpp">
+    <ClCompile Include="setUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -360,7 +360,7 @@
     <ClInclude Include="GeneratedFiles\ui_editSBI.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="user.h">
+    <ClInclude Include="setUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
