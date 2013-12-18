@@ -112,6 +112,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_qcustomplot.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="ListWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
@@ -194,6 +195,7 @@
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_avanscrum.h" />
     <ClInclude Include="GeneratedFiles\ui_editSBI.h" />
+    <ClInclude Include="ListWidget.h" />
     <ClInclude Include="ProjectBL.h" />
     <CustomBuild Include="qcustomplot.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

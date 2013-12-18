@@ -22,10 +22,10 @@
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
-QListWidget* listViewTodo;
-QListWidget* listViewVerify;
-QListWidget* listViewDoing;
-QListWidget* listViewDone;
+ListWidget* listViewTodo;
+ListWidget* listViewVerify;
+ListWidget* listViewDoing;
+ListWidget* listViewDone;
 
 BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
@@ -330,39 +330,22 @@ void AvanScrum::fillUsers()
 
 void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(sbi, sbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(pbi, pbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(Defect& def)
 {
 	//TODO: Defect heeft geen status bij het laden. ProjectBL.cpp error?
-	AvanScrum::Sort::ProcessWorkItem(def, def.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0));
 }
 
-void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
+void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 {
-	QString gegevens;
-	int workItemNumber = wi.getWorkItemNumber();
-	QListWidgetItem* item = new QListWidgetItem();
-	item->setBackgroundColor(QColor(255,0,0,255));
-	item->setSizeHint(QSize(1,50));
-	item->setTextColor(QColor(255,255,255,255));
-	gegevens.append("#");
-	gegevens.append(QString::number(workItemNumber));
-	gegevens.append(" ");
-	gegevens.append(wi.getTitle());
-	gegevens.append("\n");
-
-	if(wi.getUser() != NULL)
-		gegevens.append(wi.getUser()->getName());
-
-	item->setText(gegevens);
-
 	//statusVector = sbi.getStatusArray();
 
 	if(status != NULL)
@@ -371,19 +354,19 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 		{
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(item);
+				listViewTodo->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(item);
+				listViewDoing->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(item);
+				listViewVerify->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(item);
+				listViewDone->addItem(wi);
 			}
 		}
 	}

@@ -194,6 +194,9 @@
     <ClCompile Include="aUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -361,6 +364,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="aUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
