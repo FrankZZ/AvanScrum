@@ -246,18 +246,34 @@ void AvanScrum::getWorkItem()
 
 void AvanScrum::SprintSelectionChanged(int index)
 {
+	//haal de huidige sprint op
 	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
 	Sprint* sp = sprintVector.at(index);
 
-	//startdate project (estimated)
-	QDate beginDate = QDate(p->getBeginYear(), p->getBeginMonth(), p->getBeginDay());
+	//haal de huidige pbi's op
+	
+
+	//startdate project (estimated) OLD
+	/*QDate beginDate = QDate(p->getBeginYear(), p->getBeginMonth(), p->getBeginDay());
 	QDateTime beginDateTime = QDateTime(beginDate);
 	double projectStartDate = beginDateTime.toTime_t();
-	estimatedDate.push_back(projectStartDate);
+	estimatedDate.push_back(projectStartDate);*/
 
-	//startdate sprint (real)
-	beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	//startdate sprint (estimated)
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	realDate.push_back(sprintStartDate);
+
+	//startdate sprint (real) OLD
+	/*beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
 	beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	realDate.push_back(sprintStartDate);*/
+
+	//startdate sbi (real)
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
 	double sprintStartDate = beginDateTime.toTime_t();
 	realDate.push_back(sprintStartDate);
 
