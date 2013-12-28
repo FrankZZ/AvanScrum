@@ -310,7 +310,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QListWidget" name="list_stories">
+    <widget class="ListWidget" name="list_stories">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -320,7 +320,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QListWidget" name="list_todo">
+    <widget class="ListWidget" name="list_todo">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -342,7 +342,7 @@
       <enum>Qt::MoveAction</enum>
      </property>
     </widget>
-    <widget class="QListWidget" name="list_doing">
+    <widget class="ListWidget" name="list_doing">
      <property name="geometry">
       <rect>
        <x>320</x>
@@ -355,7 +355,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QListWidget" name="list_verify">
+    <widget class="ListWidget" name="list_verify">
      <property name="geometry">
       <rect>
        <x>480</x>
@@ -368,7 +368,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QListWidget" name="list_done">
+    <widget class="ListWidget" name="list_done">
      <property name="geometry">
       <rect>
        <x>640</x>
@@ -475,6 +475,11 @@
    <extends>QWidget</extends>
    <header>qcustomplot.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
+   <header>ListWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

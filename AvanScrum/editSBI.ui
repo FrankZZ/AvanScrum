@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>915</width>
-    <height>568</height>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -189,7 +189,7 @@
     <string>+</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="cb_users">
    <property name="geometry">
     <rect>
      <x>640</x>

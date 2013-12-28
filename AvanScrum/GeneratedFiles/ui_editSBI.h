@@ -37,7 +37,7 @@ public:
     QLabel *lbl_Number;
     QLineEdit *txt_Prio;
     QPushButton *btn_AddPrio;
-    QComboBox *comboBox;
+    QComboBox *cb_users;
     QPushButton *btn_AddHour;
     QLabel *lbl_WijzigTitle_5;
     QPushButton *btn_Save;
@@ -49,7 +49,7 @@ public:
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(915, 568);
+        Dialog->resize(915, 553);
         textBrowser_2 = new QTextBrowser(Dialog);
         textBrowser_2->setObjectName(QStringLiteral("textBrowser_2"));
         textBrowser_2->setGeometry(QRect(640, 220, 191, 91));
@@ -96,10 +96,10 @@ public:
         btn_AddPrio = new QPushButton(Dialog);
         btn_AddPrio->setObjectName(QStringLiteral("btn_AddPrio"));
         btn_AddPrio->setGeometry(QRect(740, 50, 41, 41));
-        comboBox = new QComboBox(Dialog);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(640, 360, 191, 41));
-        comboBox->setFont(font);
+        cb_users = new QComboBox(Dialog);
+        cb_users->setObjectName(QStringLiteral("cb_users"));
+        cb_users->setGeometry(QRect(640, 360, 191, 41));
+        cb_users->setFont(font);
         btn_AddHour = new QPushButton(Dialog);
         btn_AddHour->setObjectName(QStringLiteral("btn_AddHour"));
         btn_AddHour->setGeometry(QRect(740, 140, 41, 41));

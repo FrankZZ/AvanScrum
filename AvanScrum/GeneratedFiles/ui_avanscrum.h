@@ -19,13 +19,13 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListView>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "ListWidget.h"
 #include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
@@ -54,11 +54,11 @@ public:
     QLabel *lbl_SprintName_3;
     QComboBox *cb_Projects_3;
     QFrame *frame_ItemLists;
-    QListWidget *list_stories;
-    QListWidget *list_todo;
-    QListWidget *list_doing;
-    QListWidget *list_verify;
-    QListWidget *list_done;
+    ListWidget *list_stories;
+    ListWidget *list_todo;
+    ListWidget *list_doing;
+    ListWidget *list_verify;
+    ListWidget *list_done;
     QLabel *label;
     QLabel *label_2;
     QLabel *label_3;
@@ -164,19 +164,19 @@ public:
         frame_ItemLists->setGeometry(QRect(0, 50, 821, 381));
         frame_ItemLists->setFrameShape(QFrame::StyledPanel);
         frame_ItemLists->setFrameShadow(QFrame::Raised);
-        list_stories = new QListWidget(frame_ItemLists);
+        list_stories = new ListWidget(frame_ItemLists);
         list_stories->setObjectName(QStringLiteral("list_stories"));
         list_stories->setGeometry(QRect(0, 20, 151, 361));
-        list_todo = new QListWidget(frame_ItemLists);
+        list_todo = new ListWidget(frame_ItemLists);
         list_todo->setObjectName(QStringLiteral("list_todo"));
         list_todo->setGeometry(QRect(160, 20, 151, 361));
-        list_doing = new QListWidget(frame_ItemLists);
+        list_doing = new ListWidget(frame_ItemLists);
         list_doing->setObjectName(QStringLiteral("list_doing"));
         list_doing->setGeometry(QRect(320, 20, 151, 361));
-        list_verify = new QListWidget(frame_ItemLists);
+        list_verify = new ListWidget(frame_ItemLists);
         list_verify->setObjectName(QStringLiteral("list_verify"));
         list_verify->setGeometry(QRect(480, 20, 151, 361));
-        list_done = new QListWidget(frame_ItemLists);
+        list_done = new ListWidget(frame_ItemLists);
         list_done->setObjectName(QStringLiteral("list_done"));
         list_done->setGeometry(QRect(640, 20, 151, 361));
         label = new QLabel(frame_ItemLists);
