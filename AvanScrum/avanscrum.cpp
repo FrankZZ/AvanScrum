@@ -1,7 +1,7 @@
 #include "avanscrum.h"
-#include "qmessagebox.h";
+#include "qmessagebox.h"
 #include <QTextFrameFormat>
-#include "TFS\sprint.h";
+#include "TFS\sprint.h"
 #include "TFS\TFSTransaction.h"
 #include "TFS\Project.h"
 #include "TFS\Sprint.h"
@@ -24,19 +24,19 @@ BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
+WorkItem* selectedWorkItem;
 int index;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
 	FileList* fl = new FileList();
-	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
 	//ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
 	//pb->makeLocalDemoProject();
 
-
+	ui.frame_ItemLists;
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
@@ -84,6 +84,14 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(ui.list_doing, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listDoingClicked(QListWidgetItem*)));
 	connect(ui.list_verify, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listVerifyClicked(QListWidgetItem*)));
 
+	connect(ui.list_todo, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(listChangedToDo(QListWidgetItem*)));	
+	connect(ui.list_done, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(listChangedDone(QListWidgetItem*)));
+	connect(ui.list_verify, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(listChangedVerify(QListWidgetItem*)));
+	connect(ui.list_doing, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(listChangedDoing(QListWidgetItem*)));
+	connect(ui.setNoteDefect, SIGNAL(clicked()), this, SLOT(SetNodeDefect()));
+	connect(ui.setNotePB, SIGNAL(clicked()), this, SLOT(SetNodePB()));
+	connect(ui.setNoteSB, SIGNAL(clicked()), this, SLOT(SetNodeSB()));
+
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
 	SprintSelectionChanged(index);
@@ -95,7 +103,41 @@ AvanScrum::~AvanScrum()
 {
 
 }
+void ShowMessage(QString s)
+{
+		QMessageBox msgBox;
+		msgBox.setText(s);
+		msgBox.setStandardButtons(QMessageBox::Ok);
+		msgBox.show();
+}
+void AvanScrum::listChangedToDo(QListWidgetItem* item)
+{
+	ShowMessage("ToDo");
+}
+void AvanScrum::listChangedDoing(QListWidgetItem* item)
+{
+	ShowMessage("Doing");
+}
+void AvanScrum::listChangedVerify(QListWidgetItem* item)
+{
+	ShowMessage("Verify");
+}
+void AvanScrum::listChangedDone(QListWidgetItem* item)
+{
+	ShowMessage("Done");
+}
+void AvanScrum::SetNodeDefect()
+{
 
+}
+void AvanScrum::SetNodePB()
+{
+
+}
+void AvanScrum::SetNodeSB()
+{
+
+}
 void AvanScrum::listToDoClicked(QListWidgetItem* item)
 {
 	onListItemClicked(item,ui.list_todo);
@@ -115,6 +157,7 @@ void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
 	
+	selectedWorkItem = wiVector.at(currentRow);
 	SprintBacklogItem* sbi = dynamic_cast<SprintBacklogItem *>(wiVector.at(currentRow));
 	editSBI* dlg = new editSBI(this);
 	dlg->setTitle(wiVector.at(currentRow)->getTitle());
@@ -144,8 +187,6 @@ void AvanScrum::ListViewSettings(QListView *l)
 	l->setDropIndicatorShown(true);
 	l->setDefaultDropAction(Qt::DropAction::MoveAction);
 	l->setSpacing(4);
-	//l->dropEvent(drop());
-	//l->addAction(action());
 }
 
 void AvanScrum::nextSprint()

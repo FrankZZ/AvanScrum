@@ -5,6 +5,11 @@
 FileList::FileList()
 {
 }
+
+FileList::FileList(QListWidget* qlw)
+{
+
+}
      
 void FileList::dragEnterEvent(QDragEnterEvent *event)
 {

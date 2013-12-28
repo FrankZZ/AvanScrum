@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_avanscrum.h"
+#include "HistoryLog.h"
 
 class AvanScrum : public QMainWindow
 {
@@ -30,6 +31,12 @@ private slots:
 	void listToDoClicked(QListWidgetItem*);
 	void listDoingClicked(QListWidgetItem*);
 	void listVerifyClicked(QListWidgetItem*);
+	void listChangedToDo(QListWidgetItem* item);
+	void listChangedDoing(QListWidgetItem* item);
+	void listChangedVerify(QListWidgetItem* item);
+	void listChangedDone(QListWidgetItem* item);
+	void SetNodeDefect();
+	void SetNodePB();
+	void SetNodeSB();
 };
-
 #endif // AVANSCRUM_H
