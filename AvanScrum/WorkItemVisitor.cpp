@@ -39,3 +39,10 @@ std::vector<Defect*> WorkItemVisitor::getDefects()
 {
 	return defResult;
 }
+
+void WorkItemVisitor::clearAllResults()
+{
+	pbiResult.clear();
+	sbiResult.clear();
+	defResult.clear();
+}

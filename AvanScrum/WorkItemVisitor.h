@@ -20,4 +20,5 @@ public:
 	std::vector<ProductBacklogItem*> getProductBacklogItems();
 	std::vector<SprintBacklogItem*> getSprintBacklogItems();
 	std::vector<Defect*> getDefects();
+	void clearAllResults();
 };
