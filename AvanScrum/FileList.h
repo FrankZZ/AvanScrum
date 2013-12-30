@@ -11,6 +11,7 @@ class FileList : public QListWidget
  
 public:
 	FileList();
+	FileList(QListWidget* qlw);
  
 protected:
 	void dragEnterEvent(QDragEnterEvent *event);
