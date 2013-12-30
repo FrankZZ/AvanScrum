@@ -73,6 +73,7 @@ public:
         if (AvanScrumClass->objectName().isEmpty())
             AvanScrumClass->setObjectName(QStringLiteral("AvanScrumClass"));
         AvanScrumClass->resize(1102, 625);
+        AvanScrumClass->setMouseTracking(false);
         centralWidget = new QWidget(AvanScrumClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         frame_Log = new QFrame(centralWidget);
@@ -162,6 +163,7 @@ public:
         frame_ItemLists = new QFrame(centralWidget);
         frame_ItemLists->setObjectName(QStringLiteral("frame_ItemLists"));
         frame_ItemLists->setGeometry(QRect(0, 50, 821, 381));
+        frame_ItemLists->setMouseTracking(true);
         frame_ItemLists->setFrameShape(QFrame::StyledPanel);
         frame_ItemLists->setFrameShadow(QFrame::Raised);
         list_stories = new ListWidget(frame_ItemLists);
@@ -170,15 +172,22 @@ public:
         list_todo = new ListWidget(frame_ItemLists);
         list_todo->setObjectName(QStringLiteral("list_todo"));
         list_todo->setGeometry(QRect(160, 20, 151, 361));
+        list_todo->setMouseTracking(false);
+        list_todo->setDragEnabled(true);
+        list_todo->setDragDropMode(QAbstractItemView::DragDrop);
+        list_todo->setDefaultDropAction(Qt::MoveAction);
         list_doing = new ListWidget(frame_ItemLists);
         list_doing->setObjectName(QStringLiteral("list_doing"));
         list_doing->setGeometry(QRect(320, 20, 151, 361));
+        list_doing->setMouseTracking(true);
         list_verify = new ListWidget(frame_ItemLists);
         list_verify->setObjectName(QStringLiteral("list_verify"));
         list_verify->setGeometry(QRect(480, 20, 151, 361));
+        list_verify->setMouseTracking(true);
         list_done = new ListWidget(frame_ItemLists);
         list_done->setObjectName(QStringLiteral("list_done"));
         list_done->setGeometry(QRect(640, 20, 151, 361));
+        list_done->setMouseTracking(true);
         label = new QLabel(frame_ItemLists);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(10, 0, 151, 20));

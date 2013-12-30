@@ -195,7 +195,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
-    <ClCompile Include="WorkItemSorter.cpp" />
     <ClCompile Include="TFS\Attachment.cpp" />
     <ClCompile Include="TFS\Date.cpp" />
     <ClCompile Include="TFS\Defect.cpp" />
@@ -225,6 +224,7 @@
     <ClCompile Include="TFS\WorkItem.cpp" />
     <ClCompile Include="TFS\WriteData.cpp" />
     <ClCompile Include="aUser.cpp" />
+    <ClCompile Include="WorkItemSorter.cpp" />
     <ClCompile Include="WorkItemVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +270,7 @@
   <ItemGroup>
     <ClInclude Include="BurnDownChart.h" />
     <ClInclude Include="aUser.h" />
+    <ClInclude Include="WorkItemSorter.h" />
     <ClInclude Include="WorkItemVisitor.h" />
     <CustomBuild Include="editItemDialog.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing editItemDialog.h...</Message>
@@ -329,7 +330,6 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
-    <ClInclude Include="WorkItemSorter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TFS\Attachment.h" />
     <ClInclude Include="TFS\Date.h" />

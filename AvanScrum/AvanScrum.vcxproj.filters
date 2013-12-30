@@ -194,10 +194,13 @@
     <ClCompile Include="HistoryLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WorkItemSorter.cpp">
+    <ClCompile Include="WorkItemVisitor.cpp">
       <Filter>Source Files\Business Logic</Filter>
     </ClCompile>
-    <ClCompile Include="WorkItemVisitor.cpp">
+    <ClCompile Include="aUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkItemSorter.cpp">
       <Filter>Source Files\Business Logic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -369,10 +372,13 @@
     <ClInclude Include="HistoryLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WorkItemSorter.h">
+    <ClInclude Include="WorkItemVisitor.h">
       <Filter>Header Files\Business Logic</Filter>
     </ClInclude>
-    <ClInclude Include="WorkItemVisitor.h">
+    <ClInclude Include="aUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkItemSorter.h">
       <Filter>Header Files\Business Logic</Filter>
     </ClInclude>
   </ItemGroup>
