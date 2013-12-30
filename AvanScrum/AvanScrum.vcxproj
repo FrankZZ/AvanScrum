@@ -112,9 +112,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_qcustomplot.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="ListWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
+    <ClCompile Include="WorkItemSorter.cpp" />
     <ClCompile Include="TFS\Attachment.cpp" />
     <ClCompile Include="TFS\Date.cpp" />
     <ClCompile Include="TFS\Defect.cpp" />
@@ -143,6 +145,8 @@
     <ClCompile Include="TFS\User.cpp" />
     <ClCompile Include="TFS\WorkItem.cpp" />
     <ClCompile Include="TFS\WriteData.cpp" />
+    <ClCompile Include="aUser.cpp" />
+    <ClCompile Include="WorkItemVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -170,6 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurnDownChart.h" />
+    <ClInclude Include="aUser.h" />
+    <ClInclude Include="WorkItemVisitor.h" />
     <CustomBuild Include="editItemDialog.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing editItemDialog.h...</Message>
@@ -192,6 +198,7 @@
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_avanscrum.h" />
     <ClInclude Include="GeneratedFiles\ui_editSBI.h" />
+    <ClInclude Include="ListWidget.h" />
     <ClInclude Include="ProjectBL.h" />
     <CustomBuild Include="qcustomplot.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -203,6 +210,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_PRINTSUPPORT_LIB -DQT_OPENGL_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtPrintSupport" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtANGLE"</Command>
     </CustomBuild>
+    <ClInclude Include="WorkItemSorter.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TFS\Attachment.h" />
     <ClInclude Include="TFS\Date.h" />
