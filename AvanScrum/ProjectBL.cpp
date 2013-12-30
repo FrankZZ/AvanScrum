@@ -3,6 +3,7 @@
 #include "TFS\Sprint.h"
 #include "TFS\Defect.h"
 #include "TFS\SprintBacklogItem.h"
+#include "TFS\ProductBacklogItem.h"
 #include "TFS\TFSTransaction.h"
 #include "TFS\User.h"
 #include "TFS\Status.h"
@@ -40,6 +41,9 @@ void ProjectBL::makeLocalDemoProject()
         SprintBacklogItem*			b5              = new SprintBacklogItem;
         SprintBacklogItem*			b6              = new SprintBacklogItem;
         SprintBacklogItem*			b7              = new SprintBacklogItem;
+		ProductBacklogItem*			p1				= new ProductBacklogItem;
+		ProductBacklogItem*			p2				= new ProductBacklogItem;
+		ProductBacklogItem*			p3				= new ProductBacklogItem;
         Defect*                     d1              = new Defect;
         Defect*                     d2              = new Defect;
 		StatusType*					st_ToDo			= StatusType::withName("ToDo");
@@ -67,7 +71,7 @@ void ProjectBL::makeLocalDemoProject()
         b6->setWorkItemNumber(1006);
         b7->setWorkItemNumber(1007);
         d1->setWorkItemNumber(2001);
-        d2->setWorkItemNumber(2002);
+        d2->setWorkItemNumber(1009);
         b1->setUser(WillemJan);
         b2->setUser(Frank);
         b3->setUser(Bram);
@@ -93,9 +97,11 @@ void ProjectBL::makeLocalDemoProject()
         b5->setRemainingWork(26.0);
         b6->setRemainingWork(68.0);
         b7->setRemainingWork(8.0);
+
 		s_ToDo->setStatusType(*st_ToDo);
 		s_Doing->setStatusType(*st_Doing);
 		s_Verify->setStatusType(*st_Verify);
+
 		b1->addStatus(*s_ToDo);
 		b2->addStatus(*s_Doing);
 		b3->addStatus(*s_ToDo);
@@ -103,6 +109,8 @@ void ProjectBL::makeLocalDemoProject()
 		b5->addStatus(*s_Doing);
 		b6->addStatus(*s_Doing);
 		b7->addStatus(*s_Verify);
+		d1->addStatus(*s_Verify);
+		d2->addStatus(*s_Doing);
         #pragma endregion
 
         s1->setName( "Sprint 1" );
@@ -118,6 +126,8 @@ void ProjectBL::makeLocalDemoProject()
         s2->addWorkItem( *b5 );
         s3->addWorkItem( *b6 );
         s3->addWorkItem( *b7 );
+		s1->addWorkItem( *d2 );
+		s1->addWorkItem( *d1 );
 
         #pragma region SprintDates
         s1->setBeginDay(11);
@@ -253,6 +263,8 @@ void ProjectBL::makeRemoteDemoProject()
 		b5->addStatus(*s_Doing);
 		b6->addStatus(*s_Doing);
 		b7->addStatus(*s_Verify);
+		d1->addStatus(*s_Verify);
+		d2->addStatus(*s_Doing);
         #pragma endregion
 
         s1->setName( "Sprint 1" );
