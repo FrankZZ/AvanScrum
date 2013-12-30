@@ -192,6 +192,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="HistoryLog.cpp" />
+    <ClCompile Include="ListWidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
@@ -223,6 +224,7 @@
     <ClCompile Include="TFS\User.cpp" />
     <ClCompile Include="TFS\WorkItem.cpp" />
     <ClCompile Include="TFS\WriteData.cpp" />
+    <ClCompile Include="aUser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -266,6 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurnDownChart.h" />
+    <ClInclude Include="aUser.h" />
     <CustomBuild Include="editItemDialog.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing editItemDialog.h...</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing editItemDialog.h...</Message>
@@ -305,6 +308,7 @@
     <ClInclude Include="GeneratedFiles\ui_avanscrum.h" />
     <ClInclude Include="GeneratedFiles\ui_editSBI.h" />
     <ClInclude Include="HistoryLog.h" />
+    <ClInclude Include="ListWidget.h" />
     <ClInclude Include="ProjectBL.h" />
     <CustomBuild Include="qcustomplot.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcustomplot.h...</Message>
