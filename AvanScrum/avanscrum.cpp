@@ -234,44 +234,39 @@ void AvanScrum::SprintSelectionChanged(int index)
 	wis->sort(workItems);
 	std::vector<SprintBacklogItem*> sprintBacklogItems = wis->getSprintBacklogItems();
 
-	//startdate project (estimated) OLD
-	/*QDate beginDate = QDate(p->getBeginYear(), p->getBeginMonth(), p->getBeginDay());
-	QDateTime beginDateTime = QDateTime(beginDate);
-	double projectStartDate = beginDateTime.toTime_t();
-	estimatedDate.push_back(projectStartDate);*/
+	//haal de verwachte- en gerealiseerde tijd van iedere sprint op
+	int expectedSprintTime = 0;
+	for(int i = 0; i < sprintBacklogItems.size(); i++)
+	{
+		expectedSprintTime += sprintBacklogItems.at(i)->getBaselineWork();
+	}
 
 	//startdate sprint (estimated)
-	/*QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
 	QDateTime beginDateTime = QDateTime(beginDate);
 	double sprintStartDate = beginDateTime.toTime_t();
 	realDate.push_back(sprintStartDate);
-
-	//startdate sprint (real) OLD
-	/*beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
-	beginDateTime = QDateTime(beginDate);
-	double sprintStartDate = beginDateTime.toTime_t();
-	realDate.push_back(sprintStartDate);*/
 
 	//startdate sbi (real)
 	/*beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
 	beginDateTime = QDateTime(beginDate);
 	sprintStartDate = beginDateTime.toTime_t();
-	realDate.push_back(sprintStartDate);
+	realDate.push_back(sprintStartDate);*/
 
 	//enddate project (estimated)
-	QDate endDate = QDate(p->getEndYear(), p->getEndMonth(), p->getEndDay()+1);
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
 	QDateTime endDateTime = QDateTime(endDate);
 	double projectEndDate = endDateTime.toTime_t();
 	realDate.push_back(projectEndDate);
 
 	//enddate sprint (real)
-	endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
+	/*endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
 	endDateTime = QDateTime(endDate);
 	double sprintEndDate = endDateTime.toTime_t();
-	realDate.push_back(sprintEndDate);
+	realDate.push_back(sprintEndDate);*/
 
-	//estimatedHours
-	int daysBetweenFirstAndLast1 = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
+	//estimatedHours (OLD)
+	/*int daysBetweenFirstAndLast1 = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
 	double estimatedHours1 = 0;
 	QDate tempDate = beginDate;
 	for (int i = 0; i < daysBetweenFirstAndLast1; i++)
@@ -282,10 +277,17 @@ void AvanScrum::SprintSelectionChanged(int index)
 			estimatedHours1 += 8.0;
 		}
 		tempDate = tempDate.addDays(1);
+	}*/
+
+	//estimatedHours
+	int estimatedHours1 = 0;
+	for(int i = 0; i < sprintBacklogItems.size(); i++)
+	{
+		estimatedHours1 += sprintBacklogItems.at(i)->getBaselineWork();
 	}
 
 	//realHours
-	int daysBetweenFirstAndLast2 = (projectEndDate - projectStartDate) / (60*60*24) + 1;
+	/*int daysBetweenFirstAndLast2 = (projectEndDate - projectStartDate) / (60*60*24) + 1;
 	double estimatedHours2 = 0;
 	tempDate = beginDate;
 	for (int i = 0; i < daysBetweenFirstAndLast2; i++)
@@ -296,14 +298,16 @@ void AvanScrum::SprintSelectionChanged(int index)
 			estimatedHours2 += 8.0;
 		}
 		tempDate = tempDate.addDays(1);
-	}
+	}*/
+
+	//realhours
 
 	estimatedHours.push_back(estimatedHours1);
-	estimatedHours.push_back(estimatedHours2);
+	estimatedHours.push_back(0.0);
 	realHours.push_back(estimatedHours1);
-	realHours.push_back(estimatedHours2);
+	realHours.push_back(0.0);
 
-	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);*/
+	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
 }
 
 void AvanScrum::fillUsers()
