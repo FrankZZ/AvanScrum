@@ -307,7 +307,7 @@ void AvanScrum::SprintSelectionChanged(int index)
 	realHours.push_back(estimatedHours1);
 	realHours.push_back(0.0);
 
-	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
+	//bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
 }
 
 void AvanScrum::fillUsers()
