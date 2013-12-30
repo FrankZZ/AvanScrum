@@ -31,9 +31,8 @@ BurnDownChart* bdc;
 WorkItemSorter* wis;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
-std::vector<Status *> statuwisector;
+std::vector<Status *> statusVector;
 int index;
-Project* p;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
@@ -85,6 +84,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	frm->setStyleSheet("#frm { border: 3px solid red; }");
 
 	switchCombo();
+	
+	
 
 	btn_nextSprint = ui.btn_NextSprint_3;
 	btn_prevSprint = ui.btn_PreviousSprint_3;
@@ -126,11 +127,9 @@ void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
 
-	AvanScrum::Detail* detailer = new AvanScrum::Detail();
+	AvanScrum::Detail detailer;
 
-	wiVector.at(currentRow)->accept(*detailer);
-
-	delete detailer;
+	wiVector.at(currentRow)->accept(detailer);
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
@@ -182,10 +181,13 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
-	//p = TFSTransaction::localReadProject(sProject.toStdString().c_str());
-	p = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
-	Sprint *sprint = p->getSprint(0);
-	sprintVector = p->getSprintArray();
+	// Purge transaction before loading next project
+	TFSTransaction::removeAllData();
+
+	//Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
+	Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
+	Sprint *sprint = p2->getSprint(0);
+	sprintVector = p2->getSprintArray();
 	index = 0;
 	ui.lbl_SprintName_3->setText(sprint->getName());
 	
@@ -209,15 +211,14 @@ void AvanScrum::getWorkItem()
 {
 	Sprint *sprint = sprintVector.at(index);
 	wiVector = sprint->getWorkItemArray();
+	
+	AvanScrum::Sort sorter;
+
 	for (int i = 0; i < wiVector.size(); i++)
 	{
 		if(wiVector.at(i) != NULL)
 		{
-			AvanScrum::Sort* sorter = new AvanScrum::Sort();
-
-			wiVector.at(i)->accept(*sorter);
-
-			delete sorter;
+			wiVector.at(i)->accept(sorter);
 		}
 	}
 }
@@ -323,7 +324,7 @@ void AvanScrum::fillUsers()
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		
-		int counter = 2;
+		int counter = 0;
 		
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
@@ -362,7 +363,7 @@ void AvanScrum::fillUsers()
 
         ui.horizontalLayout->addWidget(frame_user);
 		
-
+		counter++;
 	
 		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
 	}
@@ -380,14 +381,11 @@ void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 
 void AvanScrum::Sort::visit(Defect& def)
 {
-	//TODO: Defect heeft geen status bij het laden. ProjectBL.cpp error?
 	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0));
 }
 
 void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 {
-	//statuwisector = sbi.getStatusArray();
-
 	if(status != NULL)
 	{
 		if(status->getStatusType() != NULL)
