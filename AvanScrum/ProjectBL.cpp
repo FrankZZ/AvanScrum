@@ -162,26 +162,6 @@ void ProjectBL::makeLocalDemoProject()
 // not much changes are done; we won't be rewarded for this part of the code
 void ProjectBL::makeRemoteDemoProject()
 {
-	/*std::string name    = "Mtest";
-
-	Project*			p       = Project::withName( name.c_str() );
-	Sprint*				s       = new Sprint;
-	Defect*				d1      = new Defect;
-	Defect*				d2      = new Defect;
-	SprintBacklogItem*	b       = new SprintBacklogItem;
-
-	User::withName( "Frans" );
-	User::withName( "Henk" );
-
-	s->setName( "sprint 2" );
-
-	s->addWorkItem( *b );
-	s->addWorkItem( *d1 );
-	s->addWorkItem( *d2 );
-	
-	p->addSprint( *s );*/
-
-	
 		std::string name = "Project Groep E";
 
         Project*                    p               = Project::withName( name.c_str() );
@@ -246,7 +226,14 @@ void ProjectBL::makeRemoteDemoProject()
         b7->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
         d1->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
         d2->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
-        b1->setRemainingWork(20.0);
+		b1->setBaselineWork(30.0);
+		b2->setBaselineWork(30.0);
+		b3->setBaselineWork(30.0);
+		b4->setBaselineWork(30.0);
+		b5->setBaselineWork(30.0);
+		b6->setBaselineWork(30.0);
+		b7->setBaselineWork(30.0);
+		b1->setRemainingWork(20.0);
         b2->setRemainingWork(30.0);
         b3->setRemainingWork(22.0);
         b4->setRemainingWork(11.0);

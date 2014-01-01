@@ -3,7 +3,6 @@
 WorkItemSorter::WorkItemSorter()
 {
 	wiv = new WorkItemVisitor();
-	wiv->clearAllResults();
 }
 
 WorkItemSorter::~WorkItemSorter()
@@ -13,6 +12,7 @@ WorkItemSorter::~WorkItemSorter()
 
 void WorkItemSorter::sort(std::vector<WorkItem*> WorkItemList)
 {
+	wiv->clearAllResults();
 	for (int i = 0; i < WorkItemList.size(); i++)
 	{
 		if(WorkItemList.at(i) != NULL)
@@ -24,23 +24,15 @@ void WorkItemSorter::sort(std::vector<WorkItem*> WorkItemList)
 
 std::vector<ProductBacklogItem*> WorkItemSorter::getProductBacklogItems()
 {
-	return pbiResult;
+	return wiv->getProductBacklogItems();
 }
 
 std::vector<SprintBacklogItem*> WorkItemSorter::getSprintBacklogItems()
 {
-	return sbiResult;
+	return wiv->getSprintBacklogItems();
 }
 
 std::vector<Defect*> WorkItemSorter::getDefects()
 {
-	return defResult;
-}
-
-void WorkItemSorter::clearAllResults()
-{
-	pbiResult.clear();
-	sbiResult.clear();
-	defResult.clear();
-	wiv->clearAllResults();
+	return wiv->getDefects();
 }

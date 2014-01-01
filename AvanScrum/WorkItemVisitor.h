@@ -1,8 +1,10 @@
+#ifndef WorkItemVisitor_h
+#define WorkItemVisitor_h
+
 #include "TFS\TFSVisitor.h"
 #include "TFS\WorkItem.h"
 #include "TFS\ProductBacklogItem.h"
 #include "TFS\SprintBacklogItem.h"
-#include <vector>
 
 class WorkItemVisitor : public TFSVisitor
 {
@@ -22,3 +24,5 @@ public:
 	std::vector<Defect*> getDefects();
 	void clearAllResults();
 };
+
+#endif

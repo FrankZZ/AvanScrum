@@ -35,6 +35,14 @@ BurnDownChart::BurnDownChart(QCustomPlot* newPlotWidget)
 	plotWidget->yAxis->setRange(0, 80);*/
 	// redraw the plot so that all of the adjustments become visible
 	plotWidget->replot();
+
+	//initialise workItemSorter
+	workItemSorter = new WorkItemSorter();
+}
+
+BurnDownChart::~BurnDownChart()
+{
+	delete(workItemSorter);
 }
 
 void BurnDownChart::test()
@@ -55,6 +63,106 @@ void BurnDownChart::test()
 		realHours.push_front((i+im)*6);
 	}
 	updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
+}
+
+void BurnDownChart::updateEstimatedBurndownData(double firstDate, double endDate, double hours)
+{
+	clearEstimatedBurnDownData();
+	estimatedDate.push_back(firstDate);
+	estimatedDate.push_back(endDate);
+	plotWidget->xAxis->setRange(firstDate, endDate);
+	estimatedHours.push_back(hours);
+	estimatedHours.push_back(0.0);
+	if(hours != 0.0)
+		plotWidget->yAxis->setRange(hours, 0.0);
+	else
+		plotWidget->yAxis->setRange(hours, 40.0);
+	plotWidget->graph(0)->setData(estimatedDate, estimatedHours);
+	plotWidget->replot();
+}
+
+void BurnDownChart::clearEstimatedBurnDownData()
+{
+	estimatedDate.clear();
+	estimatedHours.clear();
+}
+
+void BurnDownChart::updateRealisedBurnDownData(double firstDate, double endDate, double hours)
+{
+
+}
+
+void BurnDownChart::legacy()
+{
+	//haal de huidige sprint op
+	/*QVector<double> estimatedDate, estimatedHours, realDate, realHours;
+	Sprint* sp = sprintVector.at(index);
+
+	//haal de huidige sbi's op
+	std::vector<WorkItem*> workItems = sp->getWorkItemArray();
+	workItemSorter->sort(workItems);
+	std::vector<SprintBacklogItem*> sprintBacklogItems = wis->getSprintBacklogItems();
+
+	//haal de verwachte- en gerealiseerde tijd van iedere sprint op
+	int expectedSprintTime = 0;
+	for(int i = 0; i < sprintBacklogItems.size(); i++)
+	{
+		expectedSprintTime += sprintBacklogItems.at(i)->getBaselineWork();
+	}
+
+	//startdate sprint (estimated)
+	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+	realDate.push_back(sprintStartDate);
+
+	//enddate project (estimated)
+	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
+	QDateTime endDateTime = QDateTime(endDate);
+	double projectEndDate = endDateTime.toTime_t();
+	realDate.push_back(projectEndDate);
+
+	//estimatedHours
+	int estimatedHours1 = 0;
+	for(int i = 0; i < sprintBacklogItems.size(); i++)
+	{
+		estimatedHours1 += sprintBacklogItems.at(i)->getBaselineWork();
+	}
+
+	//realhours
+
+	estimatedHours.push_back(estimatedHours1);
+	estimatedHours.push_back(0.0);
+	realHours.push_back(estimatedHours1);
+	realHours.push_back(0.0);*/
+
+	//bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
+}
+
+void BurnDownChart::updateGraphView(Sprint* sprint)
+{
+	//haal de huidige sbi's op
+	std::vector<WorkItem*> workItems = sprint->getWorkItemArray();
+	workItemSorter->sort(workItems);
+	std::vector<SprintBacklogItem*> sprintBacklogItems = workItemSorter->getSprintBacklogItems();
+
+	//startdate sprint (estimated)
+	QDate beginDate = QDate(sprint->getBeginYear(), sprint->getBeginMonth(), sprint->getBeginDay());
+	QDateTime beginDateTime = QDateTime(beginDate);
+	double sprintStartDate = beginDateTime.toTime_t();
+
+	//enddate project (estimated)
+	QDate endDate = QDate(sprint->getEndYear(), sprint->getEndMonth(), sprint->getEndDay());
+	QDateTime endDateTime = QDateTime(endDate);
+	double sprintEndDate = endDateTime.toTime_t();
+
+	//estimatedHours
+	int estimatedHours = 0;
+	for(int i = 0; i < sprintBacklogItems.size(); i++)
+	{
+		estimatedHours += sprintBacklogItems.at(i)->getBaselineWork();
+	}
+	updateEstimatedBurndownData(sprintStartDate, sprintEndDate, estimatedHours);
 }
 
 void BurnDownChart::updateGraphView(
