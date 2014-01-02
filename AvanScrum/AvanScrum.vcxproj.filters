@@ -155,16 +155,31 @@
     <ClCompile Include="BurnDownChart.cpp">
       <Filter>Source Files\Presentation Logic</Filter>
     </ClCompile>
+    <ClCompile Include="editItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_editItemDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_editItemDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="editItemDialog.cpp">
+    <ClCompile Include="HistoryLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileList.cpp">
+    <ClCompile Include="WorkItemVisitor.cpp">
+      <Filter>Source Files\Business Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="aUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkItemSorter.cpp">
+      <Filter>Source Files\Business Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="ListWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_qcustomplot.cpp">
@@ -190,9 +205,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_avanscrum.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="HistoryLog.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -363,8 +375,23 @@
     <ClInclude Include="HistoryLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WorkItemVisitor.h">
+      <Filter>Header Files\Business Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="aUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkItemSorter.h">
+      <Filter>Header Files\Business Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="ListWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AvanScrum.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

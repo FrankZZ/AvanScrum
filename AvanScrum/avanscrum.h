@@ -20,6 +20,9 @@ public:
 private:
 	Ui::AvanScrumClass ui;
 	QPushButton *button;
+	//Project* p;
+
+private:
 	void refreshWorkItems();
 	void getWorkItem();
 	void ListViewSettings(QListView*);
