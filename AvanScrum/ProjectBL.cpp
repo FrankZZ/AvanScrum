@@ -8,6 +8,7 @@
 #include "TFS\User.h"
 #include "TFS\Status.h"
 #include "TFS\StatusType.h"
+#include "TFS\RemainingWorkHistory.h"
 
 ProjectBL::ProjectBL()
 {
@@ -165,29 +166,33 @@ void ProjectBL::makeRemoteDemoProject()
 		std::string name = "Project Groep E";
 
         Project*                    p               = Project::withName( name.c_str() );
-        Sprint*                     s1              = new Sprint;
-        Sprint*                     s2              = new Sprint;
-        Sprint*                     s3              = new Sprint;
+        Sprint*                     s1              = new Sprint();
+        Sprint*                     s2              = new Sprint();
+        Sprint*                     s3              = new Sprint();
         User*                       Frank           = User::withName( "Frank" );
         User*                       Maurits         = User::withName( "Maurits" );
         User*                       Bram            = User::withName( "Bram" );
         User*                       Jim             = User::withName( "Jim" );
         User*                       WillemJan		= User::withName( "Willem-Jan" );
-        SprintBacklogItem*			b1              = new SprintBacklogItem;
-        SprintBacklogItem*			b2              = new SprintBacklogItem;
-        SprintBacklogItem*			b3              = new SprintBacklogItem;
-        SprintBacklogItem*			b4              = new SprintBacklogItem;
-        SprintBacklogItem*			b5              = new SprintBacklogItem;
-        SprintBacklogItem*			b6              = new SprintBacklogItem;
-        SprintBacklogItem*			b7              = new SprintBacklogItem;
-        Defect*                     d1              = new Defect;
-        Defect*                     d2              = new Defect;
+        SprintBacklogItem*			b1              = new SprintBacklogItem();
+        SprintBacklogItem*			b2              = new SprintBacklogItem();
+        SprintBacklogItem*			b3              = new SprintBacklogItem();
+        SprintBacklogItem*			b4              = new SprintBacklogItem();
+        SprintBacklogItem*			b5              = new SprintBacklogItem();
+        SprintBacklogItem*			b6              = new SprintBacklogItem();
+        SprintBacklogItem*			b7              = new SprintBacklogItem();
+        Defect*                     d1              = new Defect();
+        Defect*                     d2              = new Defect();
 		StatusType*					st_ToDo			= StatusType::withName("ToDo");
 		StatusType*					st_Doing		= StatusType::withName("Doing");
 		StatusType*					st_Verify		= StatusType::withName("ToVerify");
-		Status*						s_ToDo			= new Status;
-		Status*						s_Doing			= new Status;
-		Status*						s_Verify		= new Status;
+		Status*						s_ToDo			= new Status();
+		Status*						s_Doing			= new Status();
+		Status*						s_Verify		= new Status();
+		RemainingWorkHistory*		remWorkHistory1	= new RemainingWorkHistory();
+		RemainingWorkHistory*		remWorkHistory2	= new RemainingWorkHistory();
+		RemainingWorkHistory*		remWorkHistory3	= new RemainingWorkHistory();
+		RemainingWorkHistory*		remWorkHistory4	= new RemainingWorkHistory();
 
         #pragma region Gegevens WorkItems
         b1->setTitle( "WorkItem1" );
@@ -240,6 +245,50 @@ void ProjectBL::makeRemoteDemoProject()
         b5->setRemainingWork(26.0);
         b6->setRemainingWork(68.0);
         b7->setRemainingWork(8.0);
+		remWorkHistory1->setYear(2013);
+		remWorkHistory1->setMonth(11);
+		remWorkHistory1->setDay(11);
+		remWorkHistory1->setRemainingWork(30);
+		remWorkHistory2->setYear(2013);
+		remWorkHistory2->setMonth(11);
+		remWorkHistory2->setDay(13);
+		remWorkHistory2->setRemainingWork(20);
+		remWorkHistory3->setYear(2013);
+		remWorkHistory3->setMonth(11);
+		remWorkHistory3->setDay(20);
+		remWorkHistory3->setRemainingWork(5);
+		remWorkHistory4->setYear(2013);
+		remWorkHistory4->setMonth(11);
+		remWorkHistory4->setDay(24);
+		remWorkHistory4->setRemainingWork(0);
+		b1->addRemainingWorkHistory(*remWorkHistory1);
+		b1->addRemainingWorkHistory(*remWorkHistory2);
+		b1->addRemainingWorkHistory(*remWorkHistory3);
+		b1->addRemainingWorkHistory(*remWorkHistory4);
+		b2->addRemainingWorkHistory(*remWorkHistory1);
+		b2->addRemainingWorkHistory(*remWorkHistory2);
+		b2->addRemainingWorkHistory(*remWorkHistory3);
+		b2->addRemainingWorkHistory(*remWorkHistory4);
+		b3->addRemainingWorkHistory(*remWorkHistory1);
+		b3->addRemainingWorkHistory(*remWorkHistory2);
+		b3->addRemainingWorkHistory(*remWorkHistory3);
+		b3->addRemainingWorkHistory(*remWorkHistory4);
+		b4->addRemainingWorkHistory(*remWorkHistory1);
+		b4->addRemainingWorkHistory(*remWorkHistory2);
+		b4->addRemainingWorkHistory(*remWorkHistory3);
+		b4->addRemainingWorkHistory(*remWorkHistory4);
+		b5->addRemainingWorkHistory(*remWorkHistory1);
+		b5->addRemainingWorkHistory(*remWorkHistory2);
+		b5->addRemainingWorkHistory(*remWorkHistory3);
+		b5->addRemainingWorkHistory(*remWorkHistory4);
+		b6->addRemainingWorkHistory(*remWorkHistory1);
+		b6->addRemainingWorkHistory(*remWorkHistory2);
+		b6->addRemainingWorkHistory(*remWorkHistory3);
+		b6->addRemainingWorkHistory(*remWorkHistory4);
+		b7->addRemainingWorkHistory(*remWorkHistory1);
+		b7->addRemainingWorkHistory(*remWorkHistory2);
+		b7->addRemainingWorkHistory(*remWorkHistory3);
+		b7->addRemainingWorkHistory(*remWorkHistory4);
 		s_ToDo->setStatusType(*st_ToDo);
 		s_Doing->setStatusType(*st_Doing);
 		s_Verify->setStatusType(*st_Verify);
