@@ -1,16 +1,21 @@
 #include "editItemDialog.h"
 #include "TFS/User.h"
 #include "aUser.h"
+#include "ProjectBL.h"
 
-const char* _title, *_content, *_user;
+const char* _title, *_content;
+std::string _user;
 QString *_PBI;
 int _ID, _prio, _hour;
 User::ItemStorage::iterator iUser;
 aUser* u;
+void* _refresh;
 
-editSBI::editSBI(QWidget *parent) : QDialog(parent)
+editSBI::editSBI(AvanScrum::func refresh, QWidget *parent) : QDialog(parent)
 {
     ui.setupUi(this);
+	
+	_refresh = &refresh;
 
 	setWindowFlags(Qt::Dialog | Qt::Desktop);
     int y = 0;
@@ -24,15 +29,17 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
     connect(ui.btn_AddPrio, SIGNAL(clicked()), this, SLOT(addPrio()));
     connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
 	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
+	connect(ui.btn_EditTitle, SIGNAL(clicked()), this, SLOT(editTitle()));
+	connect(ui.cb_users,SIGNAL(currentIndexChanged(const QString&)), this,SLOT(switchUserCombo()));
 
-	/*iUser = u->getAllUsers();
+	iUser = u->getAllUsers();
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		QString	userName = iUser->first.c_str();
 		sl->insert(y, userName);
 		y++;
 	}
-	ui.cb_users->addItems(*sl);*/
+	ui.cb_users->addItems(*sl);
 }
 
 
@@ -82,7 +89,7 @@ void editSBI::fillInItems()
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
 	ui.txt_Hour->setText(QString::number(_hour));
-	//ui.cb_users->setCurrentText(_user);
+	ui.cb_users->setCurrentText(_user.c_str());
 }
 
 void editSBI::addHour()
@@ -113,5 +120,27 @@ void editSBI::reducePrio()
 
 void editSBI::save()
 {
+	ProjectBL* pbl = new ProjectBL();
+	pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
+	AvanScrum::func f;
+	AvanScrum *c;
+
+	f = c->refreshWorkItems();
+	(c->*f)();
+
 	this->close();
+}
+
+void editSBI::switchUserCombo()
+{
+	QString user = ui.cb_users->currentText();
+	std::string userstd = user.toStdString();
+	const char *userchar = userstd.c_str();
+	setUser(userchar);
+}
+
+void editSBI::editTitle()
+{
+	setTitle("TestTitle");
+	fillInItems();
 }

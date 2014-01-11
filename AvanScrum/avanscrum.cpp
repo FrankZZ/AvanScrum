@@ -39,9 +39,9 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	FileList* fl = new FileList();
 	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
-	//ProjectBL* pb = new ProjectBL();
+	ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
-	//pb->makeLocalDemoProject();
+	pb->makeLocalDemoProject();
 
 
     std::list<std::string> saFilenameList;
@@ -52,8 +52,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
     try
     {
-		//TFSTransaction::localListProjects(saFilenameList);
-		TFSTransaction::remoteListProjects(saFilenameList);
+		TFSTransaction::localListProjects(saFilenameList);
+		//TFSTransaction::remoteListProjects(saFilenameList);
         for (iList = saFilenameList.begin(); iList != saFilenameList.end(); ++iList)
         {
             sFilename = iList->c_str();
@@ -99,7 +99,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
-	SprintSelectionChanged(index);
+	//SprintSelectionChanged(index);
 }
 
 AvanScrum::~AvanScrum()
@@ -124,11 +124,20 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
-	int currentRow = list->QListWidget::currentRow();
-
 	AvanScrum::Detail* detailer = new AvanScrum::Detail();
+	QStringList itemText = item->text().split(' ');
+	QString id = itemText[0].replace('#',' ').trimmed();
 
-	wiVector.at(currentRow)->accept(*detailer);
+	for (int i = 0; i < wiVector.size(); i++)
+	{
+		if(wiVector.at(i) != NULL)
+		{
+			if(wiVector.at(i)->getTitle() == itemText[1])
+			{
+				wiVector.at(i)->accept(*detailer);
+			}
+		}
+	}
 
 	delete detailer;
 }
@@ -182,8 +191,8 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
-	//Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
-	Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
+	Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
+	//Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
 	Sprint *sprint = p2->getSprint(0);
 	sprintVector = p2->getSprintArray();
 	index = 0;
@@ -191,11 +200,11 @@ void AvanScrum::switchCombo()
 	
 	fillUsers();
 	
-	refreshWorkItems();
+	refresh();
 	//SprintSelectionChanged(index);
 }
 
-void AvanScrum::refreshWorkItems()
+void AvanScrum::refresh()
 {
 	listViewDoing->clear();
 	listViewVerify->clear();
@@ -203,6 +212,11 @@ void AvanScrum::refreshWorkItems()
 	listViewTodo->clear();
 	
 	getWorkItem();
+}
+
+AvanScrum::func AvanScrum::refreshWorkItems()
+{
+	return &AvanScrum::refresh;
 }
 
 void AvanScrum::getWorkItem()
@@ -356,7 +370,7 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 	gegevens.append(QString::number(workItemNumber));
 	gegevens.append(" ");
 	gegevens.append(wi.getTitle());
-	gegevens.append("\n");
+	gegevens.append(" \n");
 
 	if(wi.getUser() != NULL)
 		gegevens.append(wi.getUser()->getName());
@@ -392,15 +406,18 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 {
 	//TODO: Uitzoeken wat voor effect de parent op NULL heeft ipv AvanScrumClass (impossibru vanwege subclass?)
-	editSBI* dlg = new editSBI(NULL);
+	AvanScrum::func f;
+	editSBI* dlg = new editSBI(f, NULL);
 	dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 
 	//dlg->setPBI(wiVector.at(currentRow)->get
 
 	dlg->setHour(sbi.getRemainingWork());
-
-	//dlg->setPrio(wiVector.at(currentRow)->get
+	
+	QString prio = sbi.getAdditionalInfo();
+	int iPrio = prio.toInt();
+	dlg->setPrio(iPrio);
 
 	dlg->setContent(sbi.getDescription());
 	dlg->setUser(sbi.getUser()->getName());

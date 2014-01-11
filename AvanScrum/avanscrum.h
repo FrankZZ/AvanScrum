@@ -16,12 +16,14 @@ class AvanScrum : public QMainWindow
 public:
 	AvanScrum(QWidget *parent = 0);
 	~AvanScrum();
+	typedef void (AvanScrum::*func)();
+	func refreshWorkItems();
 
 private:
 	Ui::AvanScrumClass ui;
 	QPushButton *button;
-	void refreshWorkItems();
 	void getWorkItem();
+	void refresh();
 	void ListViewSettings(QListView*);
 	void SprintSelectionChanged(int index); //temporary demo code
 	void fillUsers();

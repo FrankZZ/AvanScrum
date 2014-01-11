@@ -3,12 +3,13 @@
 
 #include <QtWidgets\qdialog>
 #include "ui_editSBI.h"
+#include "avanscrum.h"
 
 class editSBI : public QDialog
 {
         Q_OBJECT
 public:
-                    editSBI(QWidget *parent = 0);
+                    editSBI(AvanScrum::func, QWidget *parent = 0);
     virtual         ~editSBI(void);
 
 private:
@@ -30,6 +31,8 @@ private slots:
     void			addPrio();
     void			reducePrio();
 	void			save();
+	void			editTitle();
+	void			switchUserCombo();
 };
 
 #endif
