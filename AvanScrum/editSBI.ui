@@ -173,7 +173,7 @@
     </font>
    </property>
    <property name="text">
-    <string>25</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_AddPrio">
@@ -281,7 +281,7 @@
     </font>
    </property>
    <property name="text">
-    <string>45</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="btn_EditDescription">

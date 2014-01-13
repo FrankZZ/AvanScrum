@@ -332,8 +332,7 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 
 void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 {
-	//TODO: Uitzoeken wat voor effect de parent op NULL heeft ipv AvanScrumClass (impossibru vanwege subclass?)
-	editSBI* dlg = new editSBI(NULL);
+		editSBI* dlg = new editSBI(NULL);
 	dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 
@@ -358,5 +357,20 @@ void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 
 void AvanScrum::Detail::visit(Defect& def)
 {
-	//TODO: Detailscherm defect tonen
+		editSBI* dlg = new editSBI(NULL);
+	dlg->setTitle(def.getTitle());
+	dlg->setID(def.getWorkItemNumber());
+
+	//dlg->setPBI(wiVector.at(currentRow)->get
+
+	//dlg->setHour(sbi.getRemainingWork());
+
+	//dlg->setPrio(wiVector.at(currentRow)->get
+
+	dlg->setContent(def.getDescription());
+	dlg->setUser(def.getUser()->getName());
+	dlg->fillInItems();
+	dlg->setWindowTitle(def.getTitle());
+	
+	dlg->show();
 }

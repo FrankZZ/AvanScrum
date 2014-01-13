@@ -17,7 +17,7 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
 	QStringList *sl = new QStringList();
 
 	u = new aUser();
-    setHour(0);
+    setHour(-1);
     setPrio(0);
     connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
     connect(ui.btn_ReduceHour, SIGNAL(clicked()), this, SLOT(reduceHour()));
@@ -81,7 +81,16 @@ void editSBI::fillInItems()
     ui.lbl_Number->setText("#" + QString::number(_ID));
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
-	ui.txt_Hour->setText(QString::number(_hour));
+	if (_hour == -1)
+	{
+		ui.txt_Hour->setDisabled(true);
+		ui.btn_AddHour->setDisabled(true);
+		ui.btn_ReduceHour->setDisabled(true);
+	}
+	else
+	{
+		ui.txt_Hour->setText(QString::number(_hour));
+	}
 	//ui.cb_users->setCurrentText(_user);
 }
 
