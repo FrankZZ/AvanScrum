@@ -75,10 +75,12 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	listViewVerify = ui.list_verify;
 	listViewDone = ui.list_done;
 
+	/*
 	ListViewSettings(ui.list_todo);
 	ListViewSettings(ui.list_doing);
 	ListViewSettings(ui.list_verify);
 	ListViewSettings(ui.list_done);
+	*/
 	frm = ui.frame_user1;
 	frm->setObjectName("frm");
 	frm->setStyleSheet("#frm { border: 3px solid red; }");
@@ -121,28 +123,17 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
+	
+	int workItemNumber = item->data(Qt::UserRole).toInt();
 
 	AvanScrum::Detail detailer;
 
-	wiVector.at(currentRow)->accept(detailer);
+	wiVector.at(workItemNumber)->accept(detailer);
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
 {
 
-}
-
-void AvanScrum::ListViewSettings(QListView *l)
-{
-	l->setSelectionMode(QAbstractItemView::SingleSelection);
-	l->setDragEnabled(true);
-	l->setDragDropMode(QAbstractItemView::DragDrop);
-	l->viewport()->setAcceptDrops(true);
-	l->setDropIndicatorShown(true);
-	l->setDefaultDropAction(Qt::DropAction::MoveAction);
-	l->setSpacing(4);
-	//l->dropEvent(drop());
-	//l->addAction(action());
 }
 
 void AvanScrum::nextSprint()
@@ -309,21 +300,31 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 	{
 		if(status->getStatusType() != NULL)
 		{
+			int workItemId = -1;
+
+			for (int i = 0; i < wiVector.size(); i++)
+			{
+				if (wiVector.at(i) == wi)
+				{
+					workItemId = i;
+				}
+			}
+
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(wi);
+				listViewTodo->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(wi);
+				listViewDoing->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(wi);
+				listViewVerify->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(wi);
+				listViewDone->addItem(workItemId, wi);
 			}
 		}
 	}
@@ -352,10 +353,10 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 
 void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 {
-
+	//TODO: Detailscherm pbi tonen
 }
 
 void AvanScrum::Detail::visit(Defect& def)
 {
-
+	//TODO: Detailscherm defect tonen
 }

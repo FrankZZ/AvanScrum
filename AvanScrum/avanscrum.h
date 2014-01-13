@@ -25,7 +25,6 @@ private:
 private:
 	void refreshWorkItems();
 	void getWorkItem();
-	void ListViewSettings(QListView*);
 	void SprintSelectionChanged(int index); //temporary demo code
 	void fillUsers();
 	void dropEvent(QDropEvent*);

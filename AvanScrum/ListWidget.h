@@ -1,19 +1,14 @@
 #include <qlistwidget.h>
 #include <qstring.h>
-#include <vector>
+#include <map>
 #include <TFS/WorkItem.h>
 #include <TFS/User.h>
+#include <QDragMoveEvent>
+#include <qvariant.h>
 
 class ListWidget : public QListWidget
 {
 	public:
 		ListWidget(QFrame*);
-		void addItem(WorkItem*);
-
-	private:
-		std::vector<WorkItem*> wiVector;
-
-	signals:
-		void itemDrag(WorkItem*);
-		void itemDrop(WorkItem*);
+		void addItem(int, WorkItem*);
 };
