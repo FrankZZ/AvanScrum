@@ -2,7 +2,6 @@
 #define ProjectBL_h
 #include <atlstr.h>
 #include <string>
-#include <string>
 #include <vector>
 
 class ProjectBL

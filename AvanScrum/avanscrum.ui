@@ -10,6 +10,9 @@
     <height>625</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
    <string>AvanScrum</string>
   </property>
@@ -29,7 +32,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QListView" name="list_LogItems_3">
+    <widget class="QListView" name="HistoryLogList">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -89,7 +92,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="setNoteDefect">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -102,7 +105,7 @@
       <string>Defect</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_8">
+    <widget class="QPushButton" name="setNotePB">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -115,7 +118,7 @@
       <string>Product Backlog</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="setNoteSB">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -298,13 +301,16 @@
       <height>381</height>
      </rect>
     </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QListWidget" name="list_stories">
+    <widget class="ListWidget" name="list_stories">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -314,7 +320,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QListWidget" name="list_todo">
+    <widget class="ListWidget" name="list_todo">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -323,8 +329,20 @@
        <height>361</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DragDrop</enum>
+     </property>
+     <property name="defaultDropAction">
+      <enum>Qt::MoveAction</enum>
+     </property>
     </widget>
-    <widget class="QListWidget" name="list_doing">
+    <widget class="ListWidget" name="list_doing">
      <property name="geometry">
       <rect>
        <x>320</x>
@@ -333,8 +351,11 @@
        <height>361</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
     </widget>
-    <widget class="QListWidget" name="list_verify">
+    <widget class="ListWidget" name="list_verify">
      <property name="geometry">
       <rect>
        <x>480</x>
@@ -343,8 +364,11 @@
        <height>361</height>
       </rect>
      </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
     </widget>
-    <widget class="QListWidget" name="list_done">
+    <widget class="ListWidget" name="list_done">
      <property name="geometry">
       <rect>
        <x>640</x>
@@ -352,6 +376,9 @@
        <width>151</width>
        <height>361</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="label">
@@ -427,7 +454,7 @@
      <x>0</x>
      <y>0</y>
      <width>1102</width>
-     <height>21</height>
+     <height>38</height>
     </rect>
    </property>
   </widget>
@@ -448,6 +475,11 @@
    <extends>QWidget</extends>
    <header>qcustomplot.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ListWidget</class>
+   <extends>QListWidget</extends>
+   <header>ListWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

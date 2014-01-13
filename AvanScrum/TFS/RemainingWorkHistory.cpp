@@ -1,5 +1,3 @@
-//#include "stdafx.h"
-
 #include "RemainingWorkHistory.h"
 
 #include "SocketPackage.h"
@@ -15,56 +13,47 @@ RemainingWorkHistory::~RemainingWorkHistory()
 {
 }
 
-void
-RemainingWorkHistory::setDay( int nDay )
+void RemainingWorkHistory::setDay( int nDay )
 {
     m_cDate.day         = nDay;
 }
 
-void
-RemainingWorkHistory::setMonth( int nMonth )
+void RemainingWorkHistory::setMonth( int nMonth )
 {
     m_cDate.month       = nMonth;
 }
 
-void
-RemainingWorkHistory::setYear( int nYear )
+void RemainingWorkHistory::setYear( int nYear )
 {
     m_cDate.year        = nYear;
 }
 
-void
-RemainingWorkHistory::setRemainingWork( int nWork )
+void RemainingWorkHistory::setRemainingWork( int nWork )
 {
     m_nRemainingWork    = nWork;
 }
 
-int
-RemainingWorkHistory::getDay() const
+int RemainingWorkHistory::getDay() const
 {
     return m_cDate.day;
 }
 
-int
-RemainingWorkHistory::getMonth() const
+int RemainingWorkHistory::getMonth() const
 {
     return m_cDate.month;
 }
 
-int
-RemainingWorkHistory::getYear() const
+int RemainingWorkHistory::getYear() const
 {
     return m_cDate.year;
 }
 
-int
-RemainingWorkHistory::getRemainingWork() const
+int RemainingWorkHistory::getRemainingWork() const
 {
     return m_nRemainingWork;
 }
 
-TFSBasis*
-RemainingWorkHistory::serialize( SocketPackage& cPackage, bool bWriteToStorage )
+TFSBasis* RemainingWorkHistory::serialize( SocketPackage& cPackage, bool bWriteToStorage )
 {
     if ( bWriteToStorage )
         cPackage.add( m_nRemainingWork );
@@ -77,8 +66,7 @@ RemainingWorkHistory::serialize( SocketPackage& cPackage, bool bWriteToStorage )
 }
 
 //  RTTI generates a memory leak message: typeid( Class ).name();
-const char*
-RemainingWorkHistory::ClassID()
+const char* RemainingWorkHistory::ClassID()
 {
     return "class RemainingWorkHistory";
 }

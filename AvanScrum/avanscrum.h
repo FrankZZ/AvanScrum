@@ -22,6 +22,10 @@ public:
 private:
 	Ui::AvanScrumClass ui;
 	QPushButton *button;
+	//Project* p;
+
+private:
+	//void refreshWorkItems1();
 	void getWorkItem();
 	void refresh();
 	void ListViewSettings(QListView*);
@@ -38,7 +42,7 @@ private:
 		virtual void visit(ProductBacklogItem& pbi);
 		virtual void visit(Defect& def);
 
-		void ProcessWorkItem(WorkItem wi, Status* status);
+		void ProcessWorkItem(WorkItem* wi, Status* status);
 	};
 	class Detail : public TFSVisitor
 	{

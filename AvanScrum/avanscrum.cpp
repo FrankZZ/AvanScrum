@@ -1,3 +1,5 @@
+#include <iostream>
+#include <sstream>
 #include "avanscrum.h"
 #include "qmessagebox.h"
 #include <QTextFrameFormat>
@@ -11,27 +13,26 @@
 #include "TFS\User.h"
 #include "TFS\Status.h"
 #include "TFS\StatusType.h"
-#include <iostream>
 #include "ProjectBL.h"
+#include "WorkItemSorter.h"
 #include "BurnDownChart.h"
 #include "ui_editSBI.h"
 #include "editItemDialog.h"
 #include "FileList.h"
-#include <sstream>
 #include "aUser.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
-QListWidget* listViewTodo;
-QListWidget* listViewVerify;
-QListWidget* listViewDoing;
-QListWidget* listViewDone;
-
+ListWidget* listViewTodo;
+ListWidget* listViewVerify;
+ListWidget* listViewDoing;
+ListWidget* listViewDone;
 BurnDownChart* bdc;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
 int index;
+bool isStartUpCycle = true;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
@@ -42,7 +43,6 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
 	pb->makeLocalDemoProject();
-
 
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
@@ -83,10 +83,6 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	frm->setObjectName("frm");
 	frm->setStyleSheet("#frm { border: 3px solid red; }");
 
-	switchCombo();
-	
-	
-
 	btn_nextSprint = ui.btn_NextSprint_3;
 	btn_prevSprint = ui.btn_PreviousSprint_3;
 
@@ -99,6 +95,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
+	switchCombo();
 	//SprintSelectionChanged(index);
 }
 
@@ -191,6 +188,9 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
+	// Purge transaction before loading next project
+	TFSTransaction::removeAllData();
+
 	Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
 	//Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
 	Sprint *sprint = p2->getSprint(0);
@@ -202,6 +202,8 @@ void AvanScrum::switchCombo()
 	
 	refresh();
 	//SprintSelectionChanged(index);
+	
+	SprintSelectionChanged(index);
 }
 
 void AvanScrum::refresh()
@@ -223,60 +225,21 @@ void AvanScrum::getWorkItem()
 {
 	Sprint *sprint = sprintVector.at(index);
 	wiVector = sprint->getWorkItemArray();
+	
+	AvanScrum::Sort sorter;
+
 	for (int i = 0; i < wiVector.size(); i++)
 	{
 		if(wiVector.at(i) != NULL)
 		{
-			AvanScrum::Sort* sorter = new AvanScrum::Sort();
-
-			wiVector.at(i)->accept(*sorter);
-
-			delete sorter;
+			wiVector.at(i)->accept(sorter);
 		}
 	}
 }
 
 void AvanScrum::SprintSelectionChanged(int index)
 {
-	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
-	Sprint* sp = sprintVector.at(index);
-
-	//startdate
-	QDate beginDate = QDate(sp->getBeginYear(), sp->getBeginMonth(), sp->getBeginDay());
-	QDateTime beginDateTime = QDateTime(beginDate);
-	double sprintStartDate = beginDateTime.toTime_t();
-	estimatedDate.push_back(sprintStartDate);
-	realDate.push_back(sprintStartDate);
-
-	//enddate
-	QDate endDate = QDate(sp->getEndYear(), sp->getEndMonth(), sp->getEndDay()+1);
-	QDateTime endDateTime = QDateTime(endDate);
-	double sprintEndDate = endDateTime.toTime_t();
-	estimatedDate.push_back(sprintEndDate);
-	realDate.push_back(sprintEndDate);
-
-	//estimatedHours
-	int daysBetweenFirstAndLast = (sprintEndDate - sprintStartDate) / (60*60*24) + 1;
-	double estimatedHours1 = 0;
-	QDate tempDate = beginDate;
-	for (int i = 0; i < daysBetweenFirstAndLast; i++)
-	{
-		int test = tempDate.dayOfWeek();
-		if (tempDate.dayOfWeek() < 6)
-		{
-			estimatedHours1 += 8.0;
-		}
-		tempDate = tempDate.addDays(1);
-	}
-
-	double estimatedHours2 = 0;
-
-	estimatedHours.push_back(estimatedHours1);
-	estimatedHours.push_back(estimatedHours2);
-	realHours.push_back(estimatedHours1);
-	realHours.push_back(estimatedHours2);
-
-	bdc->updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
+	bdc->updateGraphView(sprintVector.at(index));
 }
 
 void AvanScrum::fillUsers()
@@ -297,7 +260,7 @@ void AvanScrum::fillUsers()
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		
-		int counter = 2;
+		int counter = 0;
 		
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
@@ -336,7 +299,7 @@ void AvanScrum::fillUsers()
 
         ui.horizontalLayout->addWidget(frame_user);
 		
-
+		counter++;
 	
 		// TODO: Per cycle moet de user worden toegevoegd aan de Qt GUI
 	}
@@ -344,24 +307,23 @@ void AvanScrum::fillUsers()
 
 void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(sbi, sbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(pbi, pbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0));
 }
 
 void AvanScrum::Sort::visit(Defect& def)
 {
-	//TODO: Defect heeft geen status bij het laden. ProjectBL.cpp error?
-	AvanScrum::Sort::ProcessWorkItem(def, def.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0));
 }
 
-void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
+void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 {
 	QString gegevens;
-	int workItemNumber = wi.getWorkItemNumber();
+	int workItemNumber = wi->getWorkItemNumber();
 	QListWidgetItem* item = new QListWidgetItem();
 	item->setBackgroundColor(QColor(255,0,0,255));
 	item->setSizeHint(QSize(1,50));
@@ -369,11 +331,11 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 	gegevens.append("#");
 	gegevens.append(QString::number(workItemNumber));
 	gegevens.append(" ");
-	gegevens.append(wi.getTitle());
+	gegevens.append(wi->getTitle());
 	gegevens.append(" \n");
 
-	if(wi.getUser() != NULL)
-		gegevens.append(wi.getUser()->getName());
+	if(wi->getUser() != NULL)
+		gegevens.append(wi->getUser()->getName());
 
 	item->setText(gegevens);
 
@@ -385,19 +347,19 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem wi, Status* status)
 		{
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(item);
+				listViewTodo->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(item);
+				listViewDoing->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(item);
+				listViewVerify->addItem(wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(item);
+				listViewDone->addItem(wi);
 			}
 		}
 	}
@@ -414,7 +376,7 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	//dlg->setPBI(wiVector.at(currentRow)->get
 
 	dlg->setHour(sbi.getRemainingWork());
-	
+
 	QString prio = sbi.getAdditionalInfo();
 	int iPrio = prio.toInt();
 	dlg->setPrio(iPrio);

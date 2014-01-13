@@ -35,11 +35,19 @@ BurnDownChart::BurnDownChart(QCustomPlot* newPlotWidget)
 	plotWidget->yAxis->setRange(0, 80);*/
 	// redraw the plot so that all of the adjustments become visible
 	plotWidget->replot();
+
+	//initialise workItemSorter
+	workItemSorter = new WorkItemSorter();
+}
+
+BurnDownChart::~BurnDownChart()
+{
+	delete(workItemSorter);
 }
 
 void BurnDownChart::test()
 {
-	QVector<double> estimatedDate, estimatedHours, realDate, realHours;
+	QVector<double> date, estimatedHours, realHours;
 	double now = QDateTime::currentDateTime().toTime_t();
 	double day = (60*60*24);
 	for (int i = 0; i < 14; i++)
@@ -49,60 +57,200 @@ void BurnDownChart::test()
 		{
 			im = 2-(i*0.2);
 		}
-		estimatedDate.push_back(now + i*day);
+		date.push_back(now + i*day);
 		estimatedHours.push_front(i*6);
-		realDate.push_back(now + i*day);
 		realHours.push_front((i+im)*6);
 	}
-	updateGraphView(estimatedDate, estimatedHours, realDate, realHours);
+	updateGraphView(date, estimatedHours, realHours);
+}
+
+void BurnDownChart::updateGraphView(Sprint* sprint)
+{
+	//make the graph legal by default
+	setIllegalGraph(true);
+
+	//create the essential containers
+	QVector<double> date, realHours, estimatedHours;
+
+	try
+	{
+		//haal de huidige sbi's op
+		std::vector<WorkItem*> workItems = sprint->getWorkItemArray();
+		workItemSorter->sort(workItems);
+		std::vector<SprintBacklogItem*> sprintBacklogItems = workItemSorter->getSprintBacklogItems();
+
+		//startdate sprint (estimated)
+		double sprintStartDate = getDoubleDate(sprint, true);
+
+		//enddate project (estimated)
+		double sprintEndDate = getDoubleDate(sprint, false);
+
+		//calculate difference between first & last day
+		double nrOfDaysSprintInSeconds = sprintEndDate - sprintStartDate;
+		int nrOfDaysSprint = nrOfDaysSprintInSeconds/(60*60*24)+1;
+
+		//the graph is not suited for sprints of more then 20 days
+		//make it invisible if the sprint takes longer then 20 days
+		//(assignment states each sprint is always 14 days)
+		if(nrOfDaysSprint > 21)
+			throw "Exception; the sprint is longer than twenty days (BurnDownChart)";
+
+		//estimatedHours
+		double estimatedTotalSprintHours = 0;
+		for(int i = 0; i < sprintBacklogItems.size(); i++)
+		{
+			//sum the estimated hours of all sprint backlog items
+			estimatedTotalSprintHours += sprintBacklogItems.at(i)->getBaselineWork();
+		}
+
+		//it's useless to show a burndown graph when there is no work
+		if(estimatedTotalSprintHours <= 0)
+			throw "Exception; there are no estimated hours (BurnDownChart)";
+
+		//calculate the estimated decrease in hours for every day
+		double estimatedDailyDecrease = estimatedTotalSprintHours/(double)nrOfDaysSprint;
+
+		//create containers to store data for each day of the sprint
+		for (int i = 0; i < nrOfDaysSprint; i++)
+		{
+			//store the actual dates
+			double tempDate = sprintStartDate + ((60*60*24)*i);
+			date.push_back(tempDate);
+
+			//calculate & store the estimated hours
+			estimatedHours.push_back(estimatedTotalSprintHours - (estimatedDailyDecrease*(i+1)));
+
+			//realHours will be a straight line with no work done
+			//we will change the variables in this container later
+			realHours.push_back(estimatedTotalSprintHours);
+		}
+
+		//calculate & store the real hours
+		for(int i = 0; i < sprintBacklogItems.size(); i++)
+		{
+			//get estimated ammount of work for this sbi
+			double estimatedHoursSbi = sprintBacklogItems.at(i)->getBaselineWork();
+
+			//get a list with the history for this sbi
+			std::vector<RemainingWorkHistory*> remainingWorkHistorySbi = sprintBacklogItems.at(i)->getRemainingWorkHistoryArray();
+
+			//update the previously filled container (real hours)
+			for(int j = 0; j < remainingWorkHistorySbi.size() && remainingWorkHistorySbi.at(j) != NULL; j++)
+			{
+				//get the date of a mutation in the history of the sprint
+				QDate historyDate = QDate(remainingWorkHistorySbi.at(j)->getYear(), remainingWorkHistorySbi.at(j)->getMonth(), remainingWorkHistorySbi.at(j)->getDay());
+				QDateTime historyDateTime = QDateTime(historyDate);
+				double historyDateDouble = historyDateTime.toTime_t();
+
+				//calculate the difference between the estimated ammount of hours and the realised ammount of hours
+				double hoursWorkedDifference = estimatedHoursSbi - remainingWorkHistorySbi.at(j)->getRemainingWork();
+
+				//see if the container has a date that matches the mutation date
+				if(!date.contains(historyDateDouble))
+				{
+					throw "Exception: Date not found (in BurnDownChart)";
+				}
+				else
+				{
+					//if it does then lower the ammount of hours on that date with the difference in hours
+					for(int k = 0; k < date.size(); k++)
+					{
+						//fill the real hours
+						if(date.at(k) == historyDateDouble)
+						{
+							realHours.replace(k, realHours.at(k)-hoursWorkedDifference);
+						}
+						else if(date.at(k) > historyDateDouble)
+						{
+							realHours.replace(k, realHours.at(k-1));
+						}
+					}
+				}
+			}
+		}
+	}
+	catch(char const* e)
+	{
+		std::cout << e << endl;
+		setIllegalGraph(false);
+	}
+	updateGraphView(date, estimatedHours, realHours);
+}
+
+double BurnDownChart::getDoubleDate(Sprint* sprint, bool isStartDate)
+{
+	QDate qDate;
+	if(isStartDate == true)
+		qDate = QDate(sprint->getBeginYear(), sprint->getBeginMonth(), sprint->getBeginDay());
+	else
+		qDate = QDate(sprint->getEndYear(), sprint->getEndMonth(), sprint->getEndDay());
+
+	QDateTime qDateTime = QDateTime(qDate);
+	return qDateTime.toTime_t();
 }
 
 void BurnDownChart::updateGraphView(
-	QVector<double> estimatedDate, 
+	QVector<double> date, 
 	QVector<double> estimatedHours, 
-	QVector<double> realDate, 
 	QVector<double> realHours)
 {
-	plotWidget->graph(0)->setData(estimatedDate, estimatedHours);
-	plotWidget->graph(1)->setData(realDate, realHours);
+	bool sizeIsSuspicious = true;
+	bool firstValueIsSupicious = true;
 
-	updateAxisRange(estimatedDate, estimatedHours, realDate, realHours);
+	//check sizes and first values for bogus data
+	if(date.size() != 0 &&
+		estimatedHours.size() != 0 &&
+		realHours.size() != 0)
+	{
+		sizeIsSuspicious = false;
 
-	// redraw the plot so that all of the adjustments become visible
-	plotWidget->replot();
+		if(date.at(0) != NULL &&
+			estimatedHours.at(0) != NULL &&
+			realHours.at(0) != NULL)
+			firstValueIsSupicious = false;
+	}
+
+	//update the graph
+	if(sizeIsSuspicious == false && firstValueIsSupicious == false)
+	{
+		plotWidget->graph(0)->setData(date, estimatedHours);
+		plotWidget->graph(1)->setData(date, realHours);
+		updateAxisRange(date, estimatedHours, realHours);
+
+		// redraw the plot so that all of the adjustments become visible
+		plotWidget->replot();
+	}
+	else
+		setIllegalGraph(false);
 }
 
 void BurnDownChart::updateAxisRange(
-	QVector<double> estimatedDate, 
+	QVector<double> date, 
 	QVector<double> estimatedHours, 
-	QVector<double> realDate, 
 	QVector<double> realHours)
 {
 	// date range for x-axis
 	double firstDate, lastDate = 0;
-	if (realDate.first() < estimatedDate.first())
-		firstDate = realDate.first();
-	else
-		firstDate = estimatedDate.first();
-
-	if (realDate.last() > estimatedDate.last())
-		lastDate = realDate.last();
-	else
-		lastDate = estimatedDate.last();
+	firstDate = date.first();
+	lastDate = date.last();
 
 	//hours left range
 	double lowestAmmountOfHours, highestAmmountOfHours = 0;
-	if (realHours.first() < estimatedHours.first())
-		lowestAmmountOfHours = realHours.first();
-	else
-		lowestAmmountOfHours = estimatedHours.first();
 
-	if (realHours.last() > estimatedHours.last())
-		highestAmmountOfHours = realHours.last();
+	if (realHours.first() > estimatedHours.first())
+		highestAmmountOfHours = realHours.first();
 	else
-		highestAmmountOfHours = estimatedHours.last();
-	
+		highestAmmountOfHours = estimatedHours.first();
+
 	// set axis ranges to show all data
 	plotWidget->xAxis->setRange(firstDate, lastDate);
 	plotWidget->yAxis->setRange(lowestAmmountOfHours, highestAmmountOfHours);
+}
+
+void BurnDownChart::setIllegalGraph(bool isLegal)
+{
+	if (isLegal == true)
+		plotWidget->setVisible(true);
+	else
+		plotWidget->setVisible(false);
 }
