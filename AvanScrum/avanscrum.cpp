@@ -233,12 +233,11 @@ void AvanScrum::fillUsers()
 			delete item;
 		}
 	}
-	
+	int counter = 0;
+	QString aColors[] = {"brown", "green", "blue", "yellow", "pink", "purple", "orange", "gold"};
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
-		
-		int counter = 0;
-		
+
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
 		//std::string sName = "Maurits Buijs";
@@ -257,7 +256,7 @@ void AvanScrum::fillUsers()
         frame_user->setFrameShadow(QFrame::Raised);
 		
 		//TODO: Kleuren automatisch kiezen en koppelen aan user object
-		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid blue; }");
+		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid " + aColors[counter] + "; }");
         
 		QLabel* name_user;
 		name_user = new QLabel(frame_user);
@@ -284,61 +283,53 @@ void AvanScrum::fillUsers()
 
 void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0), 0);
 }
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
-	int workItemId = -1;
-
-	for (int i = 0; i < wiVector.size(); i++)
-	{
-		if (wiVector.at(i) == &pbi)
-		{
-			workItemId = i;
-		}
-	}
-	listViewStories->addItem(workItemId, &pbi);
-
-	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0), 1);
 }
 
 void AvanScrum::Sort::visit(Defect& def)
 {
-	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0), 2);
 }
 
-void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
+void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
 {
-	if(status != NULL)
+	int workItemId = -1;
+	for (int i = 0; i < wiVector.size(); i++)
+	{
+		if (wiVector.at(i) == wi)
+		{
+			workItemId = i;
+		}
+	}
+
+	if (wiType == 1)
+	{
+		listViewStories->addItem(workItemId, wi, wiType);
+	}
+	else if(status != NULL)
 	{
 		if(status->getStatusType() != NULL)
 		{
-			int workItemId = -1;
-
-			for (int i = 0; i < wiVector.size(); i++)
-			{
-				if (wiVector.at(i) == wi)
-				{
-					workItemId = i;
-				}
-			}
-
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(workItemId, wi);
+				listViewTodo->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(workItemId, wi);
+				listViewDoing->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(workItemId, wi);
+				listViewVerify->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(workItemId, wi);
+				listViewDone->addItem(workItemId, wi, wiType);
 			}
 		}
 	}
@@ -346,7 +337,7 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 
 void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 {
-		editSBI* dlg = new editSBI(NULL);
+	editSBI* dlg = new editSBI(NULL);
 	dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 
@@ -361,6 +352,8 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
 	
+	
+
 	dlg->show();
 }
 
