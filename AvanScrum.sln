@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvanScrum", "AvanScrum\AvanScrum.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
@@ -22,6 +22,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = version5.1.1
+		Qt5Version = $(DefaultQtVersion)
 	EndGlobalSection
 EndGlobal
