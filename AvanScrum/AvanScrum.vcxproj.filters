@@ -206,6 +206,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_avanscrum.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="editProductItemDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_editProductItemDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_editProductItemDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -231,6 +240,9 @@
     </CustomBuild>
     <CustomBuild Include="editSBI.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="editProductItemDialog.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

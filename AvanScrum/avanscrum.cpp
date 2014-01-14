@@ -20,6 +20,7 @@
 #include "editItemDialog.h"
 #include "FileList.h"
 #include "aUser.h"
+#include "editProductItemDialog.h"
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
@@ -351,15 +352,14 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->setUser(sbi.getUser()->getName());
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
-	
-	
 
 	dlg->show();
 }
 
 void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 {
-	//TODO: Detailscherm pbi tonen
+	editProductItemDialog* pdlg = new editProductItemDialog(NULL);
+	pdlg->show();
 }
 
 void AvanScrum::Detail::visit(Defect& def)
