@@ -3,6 +3,7 @@
 #include <atlstr.h>
 #include <string>
 #include <vector>
+#include "TFS/SprintBacklogItem.h"
 
 class ProjectBL
 {
@@ -15,6 +16,8 @@ public:
 	void makeRemoteDemoProject(void);
 	void readLocalProject(std::string);
 	void readRemoteProject(std::string);
+	void saveRemoteProject(std::string);
+	void saveLocalSBI(SprintBacklogItem*, std::string, int, int);
 };
 
 #endif

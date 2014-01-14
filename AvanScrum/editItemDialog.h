@@ -1,14 +1,17 @@
 #ifndef EDITITEM_H
 #define EDITITEM_H
 
-#include "ui_editSBI.h"
 #include <QtWidgets\qdialog>
+#include "ui_editSBI.h"
+#include "avanscrum.h"
+#include "TFS/SprintBacklogItem.h"
+#include "TFS/Project.h"
 
 class editSBI : public QDialog
 {
         Q_OBJECT
 public:
-                    editSBI(QWidget *parent = 0);
+                    editSBI(AvanScrum::func, QWidget *parent = 0);
     virtual         ~editSBI(void);
 
 private:
@@ -23,6 +26,10 @@ public:
     void            setUser(const char*);
     void            setContent(const char*);
     void            fillInItems();
+	void			setSBI(SprintBacklogItem*);
+	void			setProject(Project*);
+	void			setSprintIndex(int);
+	void			setItemIndex(int);
 
 private slots:
     void			addHour();
@@ -30,6 +37,8 @@ private slots:
     void			addPrio();
     void			reducePrio();
 	void			save();
+	void			editTitle();
+	void			switchUserCombo();
 };
 
 #endif

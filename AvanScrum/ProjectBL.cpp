@@ -8,17 +8,19 @@
 #include "TFS\User.h"
 #include "TFS\Status.h"
 #include "TFS\StatusType.h"
+#include <sstream>
 #include "TFS\RemainingWorkHistory.h"
 
+std::vector<WorkItem*> workItemVector;
 ProjectBL::ProjectBL()
 {
-
 }
 
 ProjectBL::~ProjectBL()
 {
 
 }
+
 
 // code for making a local demo project
 // not much changes are done; we won't be rewarded for this part of the code
@@ -125,6 +127,13 @@ void ProjectBL::makeLocalDemoProject()
 		b5->addStatus(*s_Doing);
 		b6->addStatus(*s_Doing);
 		b7->addStatus(*s_Verify);
+		b1->setAdditionalInfo("20");
+		b2->setAdditionalInfo("60");
+		b3->setAdditionalInfo("30");
+		b4->setAdditionalInfo("10");
+		b5->setAdditionalInfo("80");
+		b6->setAdditionalInfo("90");
+		b7->setAdditionalInfo("70");
 		d1->addStatus(*s_Verify);
 		d2->addStatus(*s_Doing);
         #pragma endregion
@@ -174,8 +183,10 @@ void ProjectBL::makeLocalDemoProject()
         p->addSprint( *s1 );
         p->addSprint( *s2 );
         p->addSprint( *s3 );
-	TFSTransaction::localWriteProject( name.c_str() );
+		TFSTransaction::localWriteProject( name.c_str() );
 }
+
+
 
 // code for making a remote demo project
 // not much changes are done; we won't be rewarded for this part of the code
@@ -192,8 +203,8 @@ void ProjectBL::makeRemoteDemoProject()
         User*                       Bram            = User::withName( "Bram" );
         User*                       Jim             = User::withName( "Jim" );
         User*                       WillemJan		= User::withName( "Willem-Jan" );
-		User*                       Jos		= User::withName( "Jos" );
-		User*                       Bert		= User::withName( "Bert" );
+		User*                       Jos				= User::withName( "Jos" );
+		User*                       Bert			= User::withName( "Bert" );
 
         SprintBacklogItem*			b1              = new SprintBacklogItem();
         SprintBacklogItem*			b2              = new SprintBacklogItem();
@@ -262,7 +273,7 @@ void ProjectBL::makeRemoteDemoProject()
 		b5->setBaselineWork(30.0);
 		b6->setBaselineWork(30.0);
 		b7->setBaselineWork(30.0);
-		b1->setRemainingWork(20.0);
+        b1->setRemainingWork(20.0);
         b2->setRemainingWork(30.0);
         b3->setRemainingWork(22.0);
         b4->setRemainingWork(11.0);
@@ -316,6 +327,13 @@ void ProjectBL::makeRemoteDemoProject()
 		s_ToDo->setStatusType(*st_ToDo);
 		s_Doing->setStatusType(*st_Doing);
 		s_Verify->setStatusType(*st_Verify);
+		b1->setAdditionalInfo("20");
+		b2->setAdditionalInfo("30");
+		b3->setAdditionalInfo("40");
+		b4->setAdditionalInfo("50");
+		b5->setAdditionalInfo("60");
+		b6->setAdditionalInfo("70");
+		b7->setAdditionalInfo("80");
 		b1->addStatus(*s_ToDo);
 		b2->addStatus(*s_Doing);
 		b3->addStatus(*s_ToDo);
@@ -406,4 +424,32 @@ void ProjectBL::readRemoteProject(std::string ProjName)
 
 	Project*			projPtr      = TFSTransaction::remoteReadProject( ProjName.c_str() );
 	projSprints = projPtr->getSprintArray();
+}
+
+void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi, std::string projName, int sprintIndex, int itemIndex)
+{
+	/*
+	Sprint* s = projPtr->getSprint(sprint);
+	
+	
+	std::stringstream ss;
+	ss << prio;
+
+	sbi->setTitle(Name.c_str());
+	sbi->setAdditionalInfo(ss.str().c_str());
+	sbi->setUser(User::withName(user));
+	//sbi->set
+	TFSTransaction::localWriteProject(ProjName.c_str());*/
+	Project* projPtr = Project::withName(projName.c_str());
+	//projPtr->removeSprintAt(0);
+	Sprint* s= projPtr->getSprint(sprintIndex);
+	s->removeWorkItemAt(itemIndex);
+	s->addWorkItem(*sbi);
+	//projPtr->addSprint(*s);
+	TFSTransaction::remoteWriteProject("Project Groep E");
+
+}
+
+void ProjectBL::saveRemoteProject(std::string ProjName)
+{
 }

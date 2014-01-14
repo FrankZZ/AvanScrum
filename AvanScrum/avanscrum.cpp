@@ -30,22 +30,25 @@ ListWidget* listViewVerify;
 ListWidget* listViewDoing;
 ListWidget* listViewDone;
 BurnDownChart* bdc;
+QString projectName;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
-int index;
+int index, workItemId, workItemNumber;
 bool isStartUpCycle = true;
+HistoryLog historylog;
+std::string sCurrentProject;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
+	historylog = HistoryLog(&ui);
 	FileList* fl = new FileList();
 	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
 	ProjectBL* pb = new ProjectBL();
-	pb->makeRemoteDemoProject();
+	//pb->makeRemoteDemoProject();
 	//pb->makeLocalDemoProject();
-
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
@@ -98,14 +101,66 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(ui.list_doing, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listDoingClicked(QListWidgetItem*)));
 	connect(ui.list_verify, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listVerifyClicked(QListWidgetItem*)));
 
+	connect(ui.list_todo, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedToDo(QListWidgetItem*)));
+	connect(ui.list_doing, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedDoing(QListWidgetItem*)));
+	connect(ui.list_verify, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedVerify(QListWidgetItem*)));
+	connect(ui.list_done, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedDone(QListWidgetItem*)));
+
+	connect(ui.list_todo, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangedtodo(int)));
+	connect(ui.list_verify, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangedverify(int)));
+	connect(ui.list_doing, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangeddoing(int)));
+	connect(ui.list_done, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangeddone(int)));
+	connect(ui.btn_Undo_3, SIGNAL(clicked()), this, SLOT(undoClicked()));
+	
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
 	switchCombo();
+	//SprintSelectionChanged(index);
 }
 
 AvanScrum::~AvanScrum()
 {
 
+}
+void AvanScrum::ListcrChangedtodo(int i)
+{
+	historylog.listDraggedFrom = "todo";
+}
+void AvanScrum::ListcrChangedverify(int)
+{
+	historylog.listDraggedFrom = "verify";
+}
+void AvanScrum::ListcrChangeddoing(int)
+{
+	historylog.listDraggedFrom = " doing";
+}
+void AvanScrum::ListcrChangeddone(int)
+{
+	historylog.listDraggedFrom = " done";
+}
+void AvanScrum::ListChangedToDo(QListWidgetItem* item)
+{	
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedDoing(QListWidgetItem* item)
+{
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedVerify(QListWidgetItem* item)
+{
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedDone(QListWidgetItem* item)
+{
+	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::undoClicked()
+{
+	historylog.undo();
 }
 
 void AvanScrum::listToDoClicked(QListWidgetItem* item)
@@ -126,8 +181,7 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
-	
-	int workItemNumber = item->data(Qt::UserRole).toInt();
+	workItemNumber = item->data(Qt::UserRole).toInt();
 
 	AvanScrum::Detail detailer;
 
@@ -146,7 +200,7 @@ void AvanScrum::nextSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
-		refreshWorkItems();
+		refresh();
 		SprintSelectionChanged(index);
 	}
 	else
@@ -162,7 +216,7 @@ void AvanScrum::prevSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
-		refreshWorkItems();
+		refresh();
 		SprintSelectionChanged(index);
 	}
 }
@@ -170,6 +224,9 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
+	sCurrentProject = ui.cb_Projects_3->currentText().toStdString();
+
+	projectName = ui.cb_Projects_3->currentText();
 	// Purge transaction before loading next project
 	TFSTransaction::removeAllData();
 
@@ -182,13 +239,13 @@ void AvanScrum::switchCombo()
 	
 	fillUsers();
 	
-	refreshWorkItems();
+	refresh();
 	//SprintSelectionChanged(index);
 	
 	SprintSelectionChanged(index);
 }
 
-void AvanScrum::refreshWorkItems()
+void AvanScrum::refresh()
 {
 	listViewDoing->clear();
 	listViewVerify->clear();
@@ -197,6 +254,16 @@ void AvanScrum::refreshWorkItems()
 	listViewStories->clear();
 	
 	getWorkItem();
+}
+
+QString AvanScrum::getProjectName()
+{
+	return projectName;
+}
+
+AvanScrum::func AvanScrum::refreshWorkItems()
+{
+	return &AvanScrum::refresh;
 }
 
 void AvanScrum::getWorkItem()
@@ -238,7 +305,6 @@ void AvanScrum::fillUsers()
 	QString aColors[] = {"brown", "green", "blue", "yellow", "pink", "purple", "orange", "gold"};
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
-
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
 		//std::string sName = "Maurits Buijs";
@@ -299,7 +365,7 @@ void AvanScrum::Sort::visit(Defect& def)
 
 void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
 {
-	int workItemId = -1;
+	workItemId = -1;
 	for (int i = 0; i < wiVector.size(); i++)
 	{
 		if (wiVector.at(i) == wi)
@@ -338,21 +404,15 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
 
 void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 {
-	editSBI* dlg = new editSBI(NULL);
-	dlg->setTitle(sbi.getTitle());
-	dlg->setID(sbi.getWorkItemNumber());
-
-	//dlg->setPBI(wiVector.at(currentRow)->get
-
-	dlg->setHour(sbi.getRemainingWork());
-
-	//dlg->setPrio(wiVector.at(currentRow)->get
-
-	dlg->setContent(sbi.getDescription());
-	dlg->setUser(sbi.getUser()->getName());
+	//TODO: Uitzoeken wat voor effect de parent op NULL heeft ipv AvanScrumClass (impossibru vanwege subclass?)
+	AvanScrum::func f;
+	editSBI* dlg = new editSBI(f, NULL);
+	dlg->setSBI(&sbi);
+	dlg->setProject(Project::withName(sCurrentProject.c_str()));
+	dlg->setSprintIndex(index);
+	dlg->setItemIndex(workItemNumber);
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
-
 	dlg->show();
 }
 
@@ -364,7 +424,7 @@ void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 
 void AvanScrum::Detail::visit(Defect& def)
 {
-		editSBI* dlg = new editSBI(NULL);
+	editSBI* dlg = new editSBI(NULL);
 	dlg->setTitle(def.getTitle());
 	dlg->setID(def.getWorkItemNumber());
 

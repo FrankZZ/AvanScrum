@@ -8,7 +8,7 @@ public:
 	aUser(void);
 	~aUser(void);
 
-	//User::ItemStorage::iterator	getAllUsers();
+	User::ItemStorage::iterator	getAllUsers();
 };
 
 #endif
