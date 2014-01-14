@@ -92,13 +92,28 @@ void ProjectBL::makeLocalDemoProject()
         b7->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
         d1->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
         d2->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
-        b1->setRemainingWork(20.0);
+        
+		p1->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+        p2->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+        p3->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+		
+		b1->setRemainingWork(20.0);
         b2->setRemainingWork(30.0);
         b3->setRemainingWork(22.0);
         b4->setRemainingWork(11.0);
         b5->setRemainingWork(26.0);
         b6->setRemainingWork(68.0);
         b7->setRemainingWork(8.0);
+
+		p1->setTitle("PBI 3001");
+		p1->setWorkItemNumber(3001);
+
+		p2->setTitle("PBI 3002");
+		p2->setWorkItemNumber(3002);
+		
+		p3->setTitle("PBI 3003");
+		p3->setWorkItemNumber(3003);
+
 
 		s_ToDo->setStatusType(*st_ToDo);
 		s_Doing->setStatusType(*st_Doing);
@@ -137,6 +152,9 @@ void ProjectBL::makeLocalDemoProject()
         s3->addWorkItem( *b7 );
 		s1->addWorkItem( *d2 );
 		s1->addWorkItem( *d1 );
+		s1->addWorkItem( *p1 );
+		s1->addWorkItem( *p2 );
+		s2->addWorkItem( *p3 );
 
         #pragma region SprintDates
         s1->setBeginDay(11);
@@ -184,6 +202,9 @@ void ProjectBL::makeRemoteDemoProject()
         User*                       Bram            = User::withName( "Bram" );
         User*                       Jim             = User::withName( "Jim" );
         User*                       WillemJan		= User::withName( "Willem-Jan" );
+		User*                       Jos		= User::withName( "Jos" );
+		User*                       Bert		= User::withName( "Bert" );
+
         SprintBacklogItem*			b1              = new SprintBacklogItem();
         SprintBacklogItem*			b2              = new SprintBacklogItem();
         SprintBacklogItem*			b3              = new SprintBacklogItem();
@@ -191,6 +212,9 @@ void ProjectBL::makeRemoteDemoProject()
         SprintBacklogItem*			b5              = new SprintBacklogItem();
         SprintBacklogItem*			b6              = new SprintBacklogItem();
         SprintBacklogItem*			b7              = new SprintBacklogItem();
+		ProductBacklogItem*			p1				= new ProductBacklogItem;
+		ProductBacklogItem*			p2				= new ProductBacklogItem;
+		ProductBacklogItem*			p3				= new ProductBacklogItem;
         Defect*                     d1              = new Defect();
         Defect*                     d2              = new Defect();
 		StatusType*					st_ToDo			= StatusType::withName("ToDo");
@@ -318,6 +342,21 @@ void ProjectBL::makeRemoteDemoProject()
 		b7->addStatus(*s_Verify);
 		d1->addStatus(*s_Verify);
 		d2->addStatus(*s_Doing);
+
+		p1->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+        p2->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+        p3->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam posuere lacus turpis. Donec non fermentum metus. Proin ullamcorper eros et risus semper, quis convallis lorem fringilla. Etiam vel magna diam. Ut nec aliquam orci, at dapibus diam. Morbi dignissim ullamcorper turpis a posuere.");
+		
+		p1->setTitle("PBI 3001");
+		p1->setWorkItemNumber(3001);
+
+		p2->setTitle("PBI 3002");
+		p2->setWorkItemNumber(3002);
+		
+		p3->setTitle("PBI 3003");
+		p3->setWorkItemNumber(3003);
+
+
         #pragma endregion
 
         s1->setName( "Sprint 1" );
@@ -333,6 +372,10 @@ void ProjectBL::makeRemoteDemoProject()
         s2->addWorkItem( *b5 );
         s3->addWorkItem( *b6 );
         s3->addWorkItem( *b7 );
+
+		s1->addWorkItem( *p1 );
+		s1->addWorkItem( *p2 );
+		s2->addWorkItem( *p3 );
 
         #pragma region SprintDates
         s1->setBeginDay(11);

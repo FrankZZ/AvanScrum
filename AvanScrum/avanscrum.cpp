@@ -23,6 +23,7 @@
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
+ListWidget* listViewStories;
 ListWidget* listViewTodo;
 ListWidget* listViewVerify;
 ListWidget* listViewDoing;
@@ -75,6 +76,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	listViewDoing = ui.list_doing;
 	listViewVerify = ui.list_verify;
 	listViewDone = ui.list_done;
+	listViewStories = ui.list_stories;
 
 	/*
 	ListViewSettings(ui.list_todo);
@@ -126,7 +128,7 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
-
+	
 	int workItemNumber = item->data(Qt::UserRole).toInt();
 
 	AvanScrum::Detail detailer;
@@ -195,6 +197,7 @@ void AvanScrum::refresh()
 	listViewVerify->clear();
 	listViewDone->clear();
 	listViewTodo->clear();
+	listViewStories->clear();
 	
 	getWorkItem();
 }
@@ -244,11 +247,10 @@ void AvanScrum::fillUsers()
 			delete item;
 		}
 	}
-	
+	int counter = 0;
+	QString aColors[] = {"brown", "green", "blue", "yellow", "pink", "purple", "orange", "gold"};
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
-		
-		int counter = 0;
 		
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
@@ -268,7 +270,7 @@ void AvanScrum::fillUsers()
         frame_user->setFrameShadow(QFrame::Raised);
 		
 		//TODO: Kleuren automatisch kiezen en koppelen aan user object
-		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid blue; }");
+		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid " + aColors[counter] + "; }");
         
 		QLabel* name_user;
 		name_user = new QLabel(frame_user);
@@ -295,46 +297,22 @@ void AvanScrum::fillUsers()
 
 void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&sbi, sbi.getStatus(0), 0);
 }
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
-	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0), 1);
 }
 
 void AvanScrum::Sort::visit(Defect& def)
 {
-	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0));
+	AvanScrum::Sort::ProcessWorkItem(&def, def.getStatus(0), 2);
 }
 
-void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
-{
-	QString gegevens;
-	int workItemNumber = wi->getWorkItemNumber();
-	QListWidgetItem* item = new QListWidgetItem();
-	item->setBackgroundColor(QColor(255,0,0,255));
-	item->setSizeHint(QSize(1,50));
-	item->setTextColor(QColor(255,255,255,255));
-	gegevens.append("#");
-	gegevens.append(QString::number(workItemNumber));
-	gegevens.append(" ");
-	gegevens.append(wi->getTitle());
-	gegevens.append(" \n");
-
-	if(wi->getUser() != NULL)
-		gegevens.append(wi->getUser()->getName());
-
-	item->setText(gegevens);
-
-	//statusVector = sbi.getStatusArray();
-
-	if(status != NULL)
+void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
 	{
-		if(status->getStatusType() != NULL)
-		{
 			int workItemId = -1;
-
 			for (int i = 0; i < wiVector.size(); i++)
 			{
 				if (wiVector.at(i) == wi)
@@ -343,21 +321,29 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 				}
 			}
 
+	if (wiType == 1)
+	{
+		listViewStories->addItem(workItemId, wi, wiType);
+	}
+	else if(status != NULL)
+	{
+		if(status->getStatusType() != NULL)
+		{
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(workItemId, wi);
+				listViewTodo->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(workItemId, wi);
+				listViewDoing->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(workItemId, wi);
+				listViewVerify->addItem(workItemId, wi, wiType);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(workItemId, wi);
+				listViewDone->addItem(workItemId, wi, wiType);
 			}
 		}
 	}
@@ -387,6 +373,8 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
 	
+	
+
 	dlg->show();
 }
 
@@ -411,6 +399,6 @@ void AvanScrum::Detail::visit(Defect& def)
 	dlg->setUser(def.getUser()->getName());
 	dlg->fillInItems();
 	dlg->setWindowTitle(def.getTitle());
-
+	
 	dlg->show();
 }

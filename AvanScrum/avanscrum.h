@@ -42,7 +42,7 @@ private:
 		virtual void visit(ProductBacklogItem& pbi);
 		virtual void visit(Defect& def);
 
-		void ProcessWorkItem(WorkItem* wi, Status* status);
+		void ProcessWorkItem(WorkItem*, Status*, int);
 	};
 	class Detail : public TFSVisitor
 	{

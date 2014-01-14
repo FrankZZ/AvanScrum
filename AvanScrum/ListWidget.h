@@ -5,10 +5,12 @@
 #include <TFS/User.h>
 #include <QDragMoveEvent>
 #include <qvariant.h>
+#include <qwidget.h>
+#include <qlabel.h>
 
 class ListWidget : public QListWidget
 {
 	public:
 		ListWidget(QFrame*);
-		void addItem(int, WorkItem*);
+		void addItem(int, WorkItem*, int);
 };
