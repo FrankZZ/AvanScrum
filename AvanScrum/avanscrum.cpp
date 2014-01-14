@@ -23,6 +23,7 @@
 
 QPushButton *btn_nextSprint, *btn_prevSprint;
 QFrame *frm;
+ListWidget* listViewStories;
 ListWidget* listViewTodo;
 ListWidget* listViewVerify;
 ListWidget* listViewDoing;
@@ -74,6 +75,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	listViewDoing = ui.list_doing;
 	listViewVerify = ui.list_verify;
 	listViewDone = ui.list_done;
+	listViewStories = ui.list_stories;
 
 	/*
 	ListViewSettings(ui.list_todo);
@@ -191,6 +193,7 @@ void AvanScrum::refreshWorkItems()
 	listViewVerify->clear();
 	listViewDone->clear();
 	listViewTodo->clear();
+	listViewStories->clear();
 	
 	getWorkItem();
 }
@@ -286,6 +289,17 @@ void AvanScrum::Sort::visit(SprintBacklogItem& sbi)
 
 void AvanScrum::Sort::visit(ProductBacklogItem& pbi)
 {
+	int workItemId = -1;
+
+	for (int i = 0; i < wiVector.size(); i++)
+	{
+		if (wiVector.at(i) == &pbi)
+		{
+			workItemId = i;
+		}
+	}
+	listViewStories->addItem(workItemId, &pbi);
+
 	AvanScrum::Sort::ProcessWorkItem(&pbi, pbi.getStatus(0));
 }
 
