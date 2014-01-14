@@ -28,6 +28,8 @@ public:
     void            fillInItems();
 	void			setSBI(SprintBacklogItem*);
 	void			setProject(Project*);
+	void			setSprintIndex(int);
+	void			setItemIndex(int);
 
 private slots:
     void			addHour();

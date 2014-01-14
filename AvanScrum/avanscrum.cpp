@@ -33,7 +33,7 @@ QString projectName;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
-int index;
+int index, workItemId;
 bool isStartUpCycle = true;
 std::string sCurrentProject;
 
@@ -149,7 +149,7 @@ void AvanScrum::nextSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
-		refreshWorkItems();
+		refresh();
 		SprintSelectionChanged(index);
 	}
 	else
@@ -165,7 +165,7 @@ void AvanScrum::prevSprint()
 	if(sp != NULL)
 	{
 		ui.lbl_SprintName_3->setText(sp->getName());
-		refreshWorkItems();
+		refresh();
 		SprintSelectionChanged(index);
 	}
 }
@@ -315,7 +315,7 @@ void AvanScrum::Sort::visit(Defect& def)
 
 void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
 {
-	int workItemId = -1;
+	workItemId = -1;
 	for (int i = 0; i < wiVector.size(); i++)
 	{
 		if (wiVector.at(i) == wi)
@@ -359,19 +359,8 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	editSBI* dlg = new editSBI(f, NULL);
 	dlg->setSBI(&sbi);
 	dlg->setProject(Project::withName(sCurrentProject.c_str()));
-	/*dlg->setTitle(sbi.getTitle());
-	dlg->setID(sbi.getWorkItemNumber());
-
-	//dlg->setPBI(wiVector.at(currentRow)->get
-
-	dlg->setHour(sbi.getRemainingWork());
-
-	QString prio = sbi.getAdditionalInfo();
-	int iPrio = prio.toInt();
-	dlg->setPrio(iPrio);
-
-	dlg->setContent(sbi.getDescription());
-	dlg->setUser(sbi.getUser()->getName());*/
+	dlg->setSprintIndex(index);
+	dlg->setItemIndex(workItemId);
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
 	dlg->show();

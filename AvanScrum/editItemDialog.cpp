@@ -6,12 +6,13 @@
 const char* _title, *_content;
 std::string _user;
 QString *_PBI;
-int _ID, _prio, _hour;
+int _ID, _prio, _hour, itemIndex, sprintIndex;
 User::ItemStorage::iterator iUser;
 aUser* u;
 void* _refresh;
 SprintBacklogItem* _sbi;
 Project* _pro;
+
 
 editSBI::editSBI(AvanScrum::func refresh, QWidget *parent) : QDialog(parent)
 {
@@ -139,7 +140,7 @@ void editSBI::reducePrio()
 void editSBI::save()
 {
 	ProjectBL* pbl = new ProjectBL();
-	pbl->saveLocalSBI(_sbi, "Project Groep E", 0, 0);
+	pbl->saveLocalSBI(_sbi, _pro->getName(), sprintIndex, itemIndex);
 	//pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
 	AvanScrum::func f;
 	AvanScrum *c;
@@ -185,3 +186,14 @@ void editSBI::setProject(Project* pro)
 {
 	_pro = pro;
 }
+
+void editSBI::setSprintIndex(int index)
+{
+	sprintIndex = index;
+}
+
+void editSBI::setItemIndex(int index)
+{
+	itemIndex = index;
+}
+
