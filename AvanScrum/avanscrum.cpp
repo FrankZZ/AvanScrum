@@ -33,7 +33,7 @@ QString projectName;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
-int index, workItemId;
+int index, workItemId, workItemNumber;
 bool isStartUpCycle = true;
 HistoryLog historylog;
 std::string sCurrentProject;
@@ -139,17 +139,17 @@ void AvanScrum::ListcrChangeddone(int)
 }
 void AvanScrum::ListChangedToDo(QListWidgetItem* item)
 {	
-	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
 	historylog.addToHistory(item, wiVector.at(workItemNumber));
 }
 void AvanScrum::ListChangedDoing(QListWidgetItem* item)
 {
-	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
 	historylog.addToHistory(item, wiVector.at(workItemNumber));
 }
 void AvanScrum::ListChangedVerify(QListWidgetItem* item)
 {
-	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
 	historylog.addToHistory(item, wiVector.at(workItemNumber));
 }
 void AvanScrum::ListChangedDone(QListWidgetItem* item)
@@ -180,10 +180,10 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
-	
+	workItemNumber = item->data(Qt::UserRole).toInt();
 
 	AvanScrum::Detail detailer;
-
+	wiVector.at(workItemNumber)->accept(detailer);
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
@@ -408,7 +408,7 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->setSBI(&sbi);
 	dlg->setProject(Project::withName(sCurrentProject.c_str()));
 	dlg->setSprintIndex(index);
-	dlg->setItemIndex(workItemId);
+	dlg->setItemIndex(workItemNumber);
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
 	dlg->show();

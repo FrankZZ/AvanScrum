@@ -194,6 +194,7 @@
     <ClCompile Include="HistoryLog.cpp" />
     <ClCompile Include="ListWidget.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="moveServerItems.cpp" />
     <ClCompile Include="ProjectBL.cpp" />
     <ClCompile Include="qcustomplot.cpp" />
     <ClCompile Include="TFS\Attachment.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="aUser.h" />
     <ClInclude Include="GeneratedFiles\ui_editPBI.h" />
     <ClInclude Include="GeneratedFiles\ui_editSBI.h" />
+    <ClInclude Include="moveServerItems.h" />
     <ClInclude Include="WorkItemSorter.h" />
     <ClInclude Include="WorkItemVisitor.h" />
     <CustomBuild Include="editItemDialog.h">

@@ -18,7 +18,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -35,7 +35,7 @@ class Ui_AvanScrumClass
 public:
     QWidget *centralWidget;
     QFrame *frame_Log;
-    QListView *HistoryLogList;
+    QListWidget *HistoryLogList;
     QPushButton *btn_Undo_3;
     QLabel *label_7;
     QCustomPlot *widget_Graph;
@@ -77,7 +77,7 @@ public:
         frame_Log->setGeometry(QRect(820, 50, 281, 291));
         frame_Log->setFrameShape(QFrame::StyledPanel);
         frame_Log->setFrameShadow(QFrame::Raised);
-        HistoryLogList = new QListView(frame_Log);
+        HistoryLogList = new QListWidget(frame_Log);
         HistoryLogList->setObjectName(QStringLiteral("HistoryLogList"));
         HistoryLogList->setGeometry(QRect(0, 30, 281, 211));
         btn_Undo_3 = new QPushButton(frame_Log);
@@ -188,7 +188,7 @@ public:
         AvanScrumClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(AvanScrumClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1102, 21));
+        menuBar->setGeometry(QRect(0, 0, 1102, 26));
         AvanScrumClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(AvanScrumClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

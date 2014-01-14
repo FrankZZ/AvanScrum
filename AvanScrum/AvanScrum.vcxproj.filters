@@ -206,6 +206,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_avanscrum.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="moveServerItems.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="avanscrum.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_editSBI.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moveServerItems.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
