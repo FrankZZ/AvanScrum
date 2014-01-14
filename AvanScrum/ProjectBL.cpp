@@ -11,15 +11,16 @@
 #include <sstream>
 #include "TFS\RemainingWorkHistory.h"
 
+std::vector<WorkItem*> workItemVector;
 ProjectBL::ProjectBL()
 {
-
 }
 
 ProjectBL::~ProjectBL()
 {
 
 }
+
 
 // code for making a local demo project
 // not much changes are done; we won't be rewarded for this part of the code
@@ -126,13 +127,13 @@ void ProjectBL::makeLocalDemoProject()
 		b5->addStatus(*s_Doing);
 		b6->addStatus(*s_Doing);
 		b7->addStatus(*s_Verify);
-	b1->setAdditionalInfo("20");
-	b2->setAdditionalInfo("60");
-	b3->setAdditionalInfo("30");
-	b4->setAdditionalInfo("10");
-	b5->setAdditionalInfo("80");
-	b6->setAdditionalInfo("90");
-	b7->setAdditionalInfo("70");
+		b1->setAdditionalInfo("20");
+		b2->setAdditionalInfo("60");
+		b3->setAdditionalInfo("30");
+		b4->setAdditionalInfo("10");
+		b5->setAdditionalInfo("80");
+		b6->setAdditionalInfo("90");
+		b7->setAdditionalInfo("70");
 		d1->addStatus(*s_Verify);
 		d2->addStatus(*s_Doing);
         #pragma endregion
@@ -182,7 +183,7 @@ void ProjectBL::makeLocalDemoProject()
         p->addSprint( *s1 );
         p->addSprint( *s2 );
         p->addSprint( *s3 );
-	TFSTransaction::localWriteProject( name.c_str() );
+		TFSTransaction::localWriteProject( name.c_str() );
 }
 
 
@@ -425,7 +426,7 @@ void ProjectBL::readRemoteProject(std::string ProjName)
 	projSprints = projPtr->getSprintArray();
 }
 
-void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
+void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi, std::string projName, int sprintIndex, int itemIndex)
 {
 	/*
 	Sprint* s = projPtr->getSprint(sprint);
@@ -439,9 +440,13 @@ void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
 	sbi->setUser(User::withName(user));
 	//sbi->set
 	TFSTransaction::localWriteProject(ProjName.c_str());*/
-	Project* projPtr = Project::withName("Project Groep E");
-	Sprint * s= projPtr->getSprint(0);
-	TFSTransaction::localWriteProject("Project Groep E");
+	Project* projPtr = Project::withName(projName.c_str());
+	//projPtr->removeSprintAt(0);
+	Sprint* s= projPtr->getSprint(sprintIndex);
+	s->removeWorkItemAt(itemIndex);
+	s->addWorkItem(*sbi);
+	//projPtr->addSprint(*s);
+	TFSTransaction::remoteWriteProject("Project Groep E");
 
 }
 

@@ -43,9 +43,9 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
 	ProjectBL* pb = new ProjectBL();
-	//pb->makeRemoteDemoProject();
+	pb->makeRemoteDemoProject();
 	//pb->makeLocalDemoProject();
-
+	pb->~ProjectBL();
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
@@ -372,9 +372,6 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->setUser(sbi.getUser()->getName());*/
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
-	
-	
-
 	dlg->show();
 }
 

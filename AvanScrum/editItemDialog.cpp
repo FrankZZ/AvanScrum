@@ -103,7 +103,7 @@ void editSBI::fillInItems()
 		ui.txt_Hour->setText(QString::number(_hour));
 	}
 
-	ui.cb_users->setCurrentIndex(ui.cb_users->findText(_user));
+	ui.cb_users->setCurrentIndex(ui.cb_users->findText(_user.c_str()));
 }
 
 void editSBI::addHour()
@@ -138,9 +138,8 @@ void editSBI::reducePrio()
 
 void editSBI::save()
 {
-	_sbi->setRemainingWork(_hour);
 	ProjectBL* pbl = new ProjectBL();
-	//pbl->saveLocalSBI(_sbi);
+	pbl->saveLocalSBI(_sbi, "Project Groep E", 0, 0);
 	//pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
 	AvanScrum::func f;
 	AvanScrum *c;
