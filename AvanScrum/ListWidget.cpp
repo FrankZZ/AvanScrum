@@ -10,17 +10,27 @@ ListWidget::ListWidget(QFrame* fParent)
 	this->viewport()->setAcceptDrops(true);
 	this->setDropIndicatorShown(true);
 	this->setDefaultDropAction(Qt::DropAction::MoveAction);
-	this->setSpacing(4);
+	this->setSpacing(2);
+	//this->setStyleSheet("QListWidget::item { border: 4px solid black; }");
 }
 
-void ListWidget::addItem(int workItemId, WorkItem* wi)
+void ListWidget::addItem(int workItemId, WorkItem* wi, int wiType)
 {
 	QString gegevens;
 	int workItemNumber = wi->getWorkItemNumber();
 	QListWidgetItem* item = new QListWidgetItem();
-	item->setBackgroundColor(QColor(255,0,0,255));
+	
+	QWidget* widget = new QWidget(NULL);
+
+	
+	
+	if (wiType == 2)
+		widget->setStyleSheet("border: 4px solid red;");
+	else
+		widget->setStyleSheet("border: 4px solid black;");
+	
 	item->setSizeHint(QSize(1,50));
-	item->setTextColor(QColor(255,255,255,255));
+	
 	gegevens.append("#");
 	gegevens.append(QString::number(workItemNumber));
 	gegevens.append(" ");
@@ -36,7 +46,30 @@ void ListWidget::addItem(int workItemId, WorkItem* wi)
 
 	item->setData(Qt::UserRole, variant);
 
-	item->setText(gegevens);
+	QLabel* label = new QLabel(widget);
+	
+	label->setStyleSheet("border: none; margin: auto; margin-top: 4px;");
 
+	label->setText(gegevens);
+
+	if (wi->getUser() != NULL)
+	{
+		User::ItemStorage::iterator iUser;
+	
+		int counter = 0;
+		QString aColors[] = {"brown", "green", "blue", "yellow", "pink", "purple", "orange", "gold"};
+	
+		for ( iUser = User::begin(); iUser != User::end(); ++iUser )
+		{
+			if (iUser->first == wi->getUser()->getName())
+			{
+				widget->setStyleSheet(widget->styleSheet() + "\nbackground-color: " + aColors[counter] + ";");
+				break;
+			}
+			counter++;
+		}
+	} else
+		widget->setStyleSheet(widget->styleSheet() + "\nbackground-color: grey;");
 	QListWidget::addItem(item);
+	QListWidget::setItemWidget(item, widget);
 }
