@@ -10,13 +10,13 @@ aUser* u;
 
 editSBI::editSBI(QWidget *parent) : QDialog(parent)
 {
-    ui.setupUi(this);
+
+	ui.setupUi(this);
 
 	setWindowFlags(Qt::Dialog | Qt::Desktop);
     int y = 0;
 	QStringList *sl = new QStringList();
 
-	u = new aUser();
     setHour(-1);
     setPrio(0);
     connect(ui.btn_AddHour, SIGNAL(clicked()), this, SLOT(addHour()));
@@ -25,14 +25,13 @@ editSBI::editSBI(QWidget *parent) : QDialog(parent)
     connect(ui.btn_ReducePrio, SIGNAL(clicked()), this, SLOT(reducePrio()));
 	connect(ui.btn_Save, SIGNAL(clicked()), this, SLOT(save()));
 
-	/*iUser = u->getAllUsers();
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
 		QString	userName = iUser->first.c_str();
 		sl->insert(y, userName);
 		y++;
 	}
-	ui.cb_users->addItems(*sl);*/
+	ui.cb_users->addItems(*sl);
 }
 
 
@@ -81,6 +80,7 @@ void editSBI::fillInItems()
     ui.lbl_Number->setText("#" + QString::number(_ID));
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
+	
 	if (_hour == -1)
 	{
 		ui.txt_Hour->setDisabled(true);
@@ -91,7 +91,8 @@ void editSBI::fillInItems()
 	{
 		ui.txt_Hour->setText(QString::number(_hour));
 	}
-	//ui.cb_users->setCurrentText(_user);
+
+	ui.cb_users->setCurrentIndex(ui.cb_users->findText(_user));
 }
 
 void editSBI::addHour()
