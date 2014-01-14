@@ -1,7 +1,7 @@
 #pragma once
 #include <QtWidgets/QMainWindow>
 #include <QtGui>
- #include <QListWidget>
+#include <QListWidget>
 #include "ui_avanscrum.h"
 #include "moveServerItems.h"
 
@@ -20,4 +20,3 @@ public:
 private :
 	Ui::AvanScrumClass* ui;
 };
-

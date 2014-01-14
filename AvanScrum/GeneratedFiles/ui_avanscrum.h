@@ -19,7 +19,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -64,7 +64,7 @@ public:
     QFrame *frame_Log;
     QVBoxLayout *verticalLayout;
     QLabel *label_7;
-    QListView *HistoryLogList;
+    QListWidget *HistoryLogList;
     QPushButton *btn_Undo_3;
     QFrame *frame;
     QGridLayout *gridLayout_3;
@@ -271,7 +271,7 @@ public:
 
         verticalLayout->addWidget(label_7);
 
-        HistoryLogList = new QListView(frame_Log);
+        HistoryLogList = new QListWidget(frame_Log);
         HistoryLogList->setObjectName(QStringLiteral("HistoryLogList"));
         HistoryLogList->setMinimumSize(QSize(250, 250));
         HistoryLogList->setMaximumSize(QSize(16777215, 16777215));
@@ -301,10 +301,6 @@ public:
         widget_Graph->setMinimumSize(QSize(250, 250));
         widget_Graph->setMaximumSize(QSize(400, 400));
         widget_Graph->setBaseSize(QSize(0, 0));
-        frame->raise();
-        btn_Undo_3->raise();
-        HistoryLogList->raise();
-        label_7->raise();
 
         gridLayout_3->addWidget(widget_Graph, 0, 0, 1, 1);
 

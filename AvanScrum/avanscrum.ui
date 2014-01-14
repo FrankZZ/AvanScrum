@@ -387,7 +387,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="HistoryLogList">
+        <widget class="QListWidget" name="HistoryLogList">
          <property name="minimumSize">
           <size>
            <width>250</width>
@@ -444,10 +444,6 @@
               <height>0</height>
              </size>
             </property>
-            <zorder>frame</zorder>
-            <zorder>btn_Undo_3</zorder>
-            <zorder>HistoryLogList</zorder>
-            <zorder>label_7</zorder>
            </widget>
           </item>
          </layout>
