@@ -35,18 +35,19 @@ std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
 int index, workItemId;
 bool isStartUpCycle = true;
+HistoryLog historylog;
 std::string sCurrentProject;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
+	historylog = HistoryLog(&ui);
 	FileList* fl = new FileList();
 	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
-	//ProjectBL* pb = new ProjectBL();
+	ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
 	//pb->makeLocalDemoProject();
-	//pb->~ProjectBL();
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
@@ -99,16 +100,66 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	connect(ui.list_doing, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listDoingClicked(QListWidgetItem*)));
 	connect(ui.list_verify, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listVerifyClicked(QListWidgetItem*)));
 
+	connect(ui.list_todo, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedToDo(QListWidgetItem*)));
+	connect(ui.list_doing, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedDoing(QListWidgetItem*)));
+	connect(ui.list_verify, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedVerify(QListWidgetItem*)));
+	connect(ui.list_done, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(ListChangedDone(QListWidgetItem*)));
+
+	connect(ui.list_todo, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangedtodo(int)));
+	connect(ui.list_verify, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangedverify(int)));
+	connect(ui.list_doing, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangeddoing(int)));
+	connect(ui.list_done, SIGNAL(currentRowChanged(int)), this, SLOT(ListcrChangeddone(int)));
+	connect(ui.btn_Undo_3, SIGNAL(clicked()), this, SLOT(undoClicked()));
+	
 	bdc = new BurnDownChart(ui.widget_Graph);
 	//bdc->test();
 	switchCombo();
 	//SprintSelectionChanged(index);
 }
 
-
 AvanScrum::~AvanScrum()
 {
 
+}
+void AvanScrum::ListcrChangedtodo(int i)
+{
+	historylog.listDraggedFrom = "todo";
+}
+void AvanScrum::ListcrChangedverify(int)
+{
+	historylog.listDraggedFrom = "verify";
+}
+void AvanScrum::ListcrChangeddoing(int)
+{
+	historylog.listDraggedFrom = " doing";
+}
+void AvanScrum::ListcrChangeddone(int)
+{
+	historylog.listDraggedFrom = " done";
+}
+void AvanScrum::ListChangedToDo(QListWidgetItem* item)
+{	
+	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedDoing(QListWidgetItem* item)
+{
+	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedVerify(QListWidgetItem* item)
+{
+	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::ListChangedDone(QListWidgetItem* item)
+{
+	int workItemNumber = item->data(Qt::UserRole).toInt(); //get work item uit de lijst
+	historylog.addToHistory(item, wiVector.at(workItemNumber));
+}
+void AvanScrum::undoClicked()
+{
+	historylog.undo();
 }
 
 void AvanScrum::listToDoClicked(QListWidgetItem* item)
@@ -130,11 +181,9 @@ void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
 	int currentRow = list->QListWidget::currentRow();
 	
-	int workItemNumber = item->data(Qt::UserRole).toInt();
 
 	AvanScrum::Detail detailer;
 
-	wiVector.at(workItemNumber)->accept(detailer);
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
@@ -254,7 +303,6 @@ void AvanScrum::fillUsers()
 	QString aColors[] = {"brown", "green", "blue", "yellow", "pink", "purple", "orange", "gold"};
 	for ( iUser = User::begin(); iUser != User::end(); ++iUser )
 	{
-		
 		std::string sName = iUser->first; // iUser->second is het User object, first is string name
 		// TODO: for loop terugzetten en static data eruit
 		//std::string sName = "Maurits Buijs";

@@ -203,8 +203,8 @@ void ProjectBL::makeRemoteDemoProject()
         User*                       Bram            = User::withName( "Bram" );
         User*                       Jim             = User::withName( "Jim" );
         User*                       WillemJan		= User::withName( "Willem-Jan" );
-		User*                       Jos		= User::withName( "Jos" );
-		User*                       Bert		= User::withName( "Bert" );
+		User*                       Jos				= User::withName( "Jos" );
+		User*                       Bert			= User::withName( "Bert" );
 
         SprintBacklogItem*			b1              = new SprintBacklogItem();
         SprintBacklogItem*			b2              = new SprintBacklogItem();

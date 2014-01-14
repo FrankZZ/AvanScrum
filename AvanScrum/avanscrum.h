@@ -8,6 +8,7 @@
 #include "TFS\ProductBacklogItem.h"
 #include "TFS\WorkItem.h"
 #include "TFS\Status.h"
+#include "HistoryLog.h"
 
 class AvanScrum : public QMainWindow
 {
@@ -59,6 +60,18 @@ private slots:
 	void listToDoClicked(QListWidgetItem*);
 	void listDoingClicked(QListWidgetItem*);
 	void listVerifyClicked(QListWidgetItem*);
+	
+	void ListChangedToDo(QListWidgetItem*);
+	void ListChangedDoing(QListWidgetItem*);
+	void ListChangedVerify(QListWidgetItem*);
+	void ListChangedDone(QListWidgetItem*);
+	
+	void ListcrChangedtodo(int);
+	void ListcrChangedverify(int);
+	void ListcrChangeddoing(int);
+	void ListcrChangeddone(int);
+	
+	void undoClicked();
 };
 
 #endif // AVANSCRUM_H

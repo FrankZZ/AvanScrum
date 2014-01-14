@@ -32,7 +32,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QListView" name="HistoryLogList">
+    <widget class="QListWidget" name="HistoryLogList">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -399,7 +399,7 @@
      <x>0</x>
      <y>0</y>
      <width>1102</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
