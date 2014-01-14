@@ -28,6 +28,7 @@ ListWidget* listViewVerify;
 ListWidget* listViewDoing;
 ListWidget* listViewDone;
 BurnDownChart* bdc;
+QString projectName;
 std::vector<Sprint*> sprintVector;
 std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
@@ -42,7 +43,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
 	ProjectBL* pb = new ProjectBL();
 	//pb->makeRemoteDemoProject();
-	pb->makeLocalDemoProject();
+	//pb->makeLocalDemoProject();
 
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
@@ -52,8 +53,8 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 
     try
     {
-		TFSTransaction::localListProjects(saFilenameList);
-		//TFSTransaction::remoteListProjects(saFilenameList);
+		//TFSTransaction::localListProjects(saFilenameList);
+		TFSTransaction::remoteListProjects(saFilenameList);
         for (iList = saFilenameList.begin(); iList != saFilenameList.end(); ++iList)
         {
             sFilename = iList->c_str();
@@ -100,6 +101,7 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	switchCombo();
 	//SprintSelectionChanged(index);
 }
+
 
 AvanScrum::~AvanScrum()
 {
@@ -168,11 +170,12 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
+	projectName = ui.cb_Projects_3->currentText();
 	// Purge transaction before loading next project
 	TFSTransaction::removeAllData();
 
-	Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
-	//Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
+	//Project *p2 = TFSTransaction::localReadProject(sProject.toStdString().c_str());
+	Project *p2 = TFSTransaction::remoteReadProject(sProject.toStdString().c_str());
 	Sprint *sprint = p2->getSprint(0);
 	sprintVector = p2->getSprintArray();
 	index = 0;
@@ -194,6 +197,11 @@ void AvanScrum::refresh()
 	listViewTodo->clear();
 	
 	getWorkItem();
+}
+
+QString AvanScrum::getProjectName()
+{
+	return projectName;
 }
 
 AvanScrum::func AvanScrum::refreshWorkItems()
@@ -360,6 +368,9 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	//TODO: Uitzoeken wat voor effect de parent op NULL heeft ipv AvanScrumClass (impossibru vanwege subclass?)
 	AvanScrum::func f;
 	editSBI* dlg = new editSBI(f, NULL);
+	dlg->setSBI(&sbi);
+	QString projectname = "Project Groep E";
+	dlg->setProject(Project::withName(projectname.toStdString().c_str()));
 	dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 

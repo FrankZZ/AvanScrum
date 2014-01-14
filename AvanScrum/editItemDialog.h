@@ -4,6 +4,8 @@
 #include <QtWidgets\qdialog>
 #include "ui_editSBI.h"
 #include "avanscrum.h"
+#include "TFS/SprintBacklogItem.h"
+#include "TFS/Project.h"
 
 class editSBI : public QDialog
 {
@@ -24,6 +26,8 @@ public:
     void            setUser(const char*);
     void            setContent(const char*);
     void            fillInItems();
+	void			setSBI(SprintBacklogItem*);
+	void			setProject(Project*);
 
 private slots:
     void			addHour();

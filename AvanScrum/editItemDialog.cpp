@@ -10,6 +10,8 @@ int _ID, _prio, _hour;
 User::ItemStorage::iterator iUser;
 aUser* u;
 void* _refresh;
+SprintBacklogItem* _sbi;
+Project* _pro;
 
 editSBI::editSBI(AvanScrum::func refresh, QWidget *parent) : QDialog(parent)
 {
@@ -84,8 +86,8 @@ void editSBI::setHour(int hour)
 
 void editSBI::fillInItems()
 {
-    ui.lbl_Title->setText(_title);
-    ui.lbl_Number->setText("#" + QString::number(_ID));
+	ui.lbl_Title->setText(_sbi->getTitle());
+    ui.lbl_Number->setText("#" + _sbi->getWorkItemNumber());
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
 	if (_hour == -1)
@@ -96,9 +98,9 @@ void editSBI::fillInItems()
 	}
 	else
 	{
-	ui.txt_Hour->setText(QString::number(_hour));
+		ui.txt_Hour->setText(QString::number(_hour));
 	}
-	//ui.cb_users->setCurrentText(_user);
+	ui.cb_users->setCurrentText(_user.c_str());
 }
 
 void editSBI::addHour()
@@ -129,8 +131,9 @@ void editSBI::reducePrio()
 
 void editSBI::save()
 {
+	_sbi->setRemainingWork(_hour);
 	ProjectBL* pbl = new ProjectBL();
-	pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
+	//pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
 	AvanScrum::func f;
 	AvanScrum *c;
 
@@ -151,5 +154,16 @@ void editSBI::switchUserCombo()
 void editSBI::editTitle()
 {
 	setTitle("TestTitle");
+	_sbi->setTitle("TestTitle");
 	fillInItems();
+}
+
+void editSBI::setSBI(SprintBacklogItem* sbi)
+{
+	_sbi = sbi;
+}
+
+void editSBI::setProject(Project* pro)
+{
+	_pro = pro;
 }

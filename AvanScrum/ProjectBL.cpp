@@ -375,9 +375,9 @@ void ProjectBL::readRemoteProject(std::string ProjName)
 	projSprints = projPtr->getSprintArray();
 }
 
-void ProjectBL::saveLocalSBI(std::string ProjName, int sprint, int workItem, std::string Name, std::string content, const char* user, int ID, int prio, int hour)
+/*void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
 {
-	Project* projPtr = Project::withName(ProjName.c_str());
+	/*Project* projPtr = Project::withName(ProjName.c_str());
 	Sprint* s = projPtr->getSprint(sprint);
 	WorkItem* sbi = s->getWorkItem(workItem);
 	
@@ -388,9 +388,9 @@ void ProjectBL::saveLocalSBI(std::string ProjName, int sprint, int workItem, std
 	sbi->setAdditionalInfo(ss.str().c_str());
 	sbi->setUser(User::withName(user));
 	//sbi->set
-	TFSTransaction::localWriteProject(ProjName.c_str());
+	TFSTransaction::localWriteProject(ProjName.c_str());*
 
-}
+}*/
 
 void ProjectBL::saveRemoteProject(std::string ProjName)
 {

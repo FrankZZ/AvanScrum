@@ -18,11 +18,11 @@ public:
 	~AvanScrum();
 	typedef void (AvanScrum::*func)();
 	func refreshWorkItems();
+	QString getProjectName();
 
 private:
-	Ui::AvanScrumClass ui;
 	QPushButton *button;
-	//Project* p;
+	Ui::AvanScrumClass ui;
 
 private:
 	//void refreshWorkItems1();

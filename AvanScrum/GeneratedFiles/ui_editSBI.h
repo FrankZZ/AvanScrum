@@ -63,13 +63,15 @@ public:
         txt_Description = new QTextBrowser(Dialog);
         txt_Description->setObjectName(QStringLiteral("txt_Description"));
         txt_Description->setGeometry(QRect(10, 50, 611, 411));
+        txt_Description->setFont(font);
         lbl_WijzigTitle_3 = new QLabel(Dialog);
         lbl_WijzigTitle_3->setObjectName(QStringLiteral("lbl_WijzigTitle_3"));
         lbl_WijzigTitle_3->setGeometry(QRect(640, 100, 161, 21));
         lbl_WijzigTitle_3->setFont(font);
         btn_EditTitle = new QPushButton(Dialog);
         btn_EditTitle->setObjectName(QStringLiteral("btn_EditTitle"));
-        btn_EditTitle->setGeometry(QRect(530, 20, 93, 28));
+        btn_EditTitle->setGeometry(QRect(530, 7, 93, 41));
+        btn_EditTitle->setFont(font);
         lbl_Title = new QLabel(Dialog);
         lbl_Title->setObjectName(QStringLiteral("lbl_Title"));
         lbl_Title->setGeometry(QRect(130, 10, 441, 31));
@@ -85,6 +87,7 @@ public:
         btn_ReduceHour = new QPushButton(Dialog);
         btn_ReduceHour->setObjectName(QStringLiteral("btn_ReduceHour"));
         btn_ReduceHour->setGeometry(QRect(640, 140, 41, 41));
+        btn_ReduceHour->setFont(font);
         lbl_Number = new QLabel(Dialog);
         lbl_Number->setObjectName(QStringLiteral("lbl_Number"));
         lbl_Number->setGeometry(QRect(10, 10, 101, 31));
@@ -96,6 +99,7 @@ public:
         btn_AddPrio = new QPushButton(Dialog);
         btn_AddPrio->setObjectName(QStringLiteral("btn_AddPrio"));
         btn_AddPrio->setGeometry(QRect(740, 50, 41, 41));
+        btn_AddPrio->setFont(font);
         cb_users = new QComboBox(Dialog);
         cb_users->setObjectName(QStringLiteral("cb_users"));
         cb_users->setGeometry(QRect(640, 360, 191, 41));
@@ -103,6 +107,7 @@ public:
         btn_AddHour = new QPushButton(Dialog);
         btn_AddHour->setObjectName(QStringLiteral("btn_AddHour"));
         btn_AddHour->setGeometry(QRect(740, 140, 41, 41));
+        btn_AddHour->setFont(font);
         lbl_WijzigTitle_5 = new QLabel(Dialog);
         lbl_WijzigTitle_5->setObjectName(QStringLiteral("lbl_WijzigTitle_5"));
         lbl_WijzigTitle_5->setGeometry(QRect(640, 320, 191, 31));
@@ -114,13 +119,15 @@ public:
         btn_ReducePrio = new QPushButton(Dialog);
         btn_ReducePrio->setObjectName(QStringLiteral("btn_ReducePrio"));
         btn_ReducePrio->setGeometry(QRect(640, 50, 41, 41));
+        btn_ReducePrio->setFont(font);
         txt_Hour = new QLineEdit(Dialog);
         txt_Hour->setObjectName(QStringLiteral("txt_Hour"));
         txt_Hour->setGeometry(QRect(690, 140, 41, 41));
         txt_Hour->setFont(font);
         btn_EditDescription = new QPushButton(Dialog);
         btn_EditDescription->setObjectName(QStringLiteral("btn_EditDescription"));
-        btn_EditDescription->setGeometry(QRect(530, 470, 93, 28));
+        btn_EditDescription->setGeometry(QRect(530, 467, 93, 41));
+        btn_EditDescription->setFont(font);
 
         retranslateUi(Dialog);
 
@@ -137,13 +144,13 @@ public:
         lbl_WijzigTitle_2->setText(QApplication::translate("Dialog", "Prioriteit", 0));
         btn_ReduceHour->setText(QApplication::translate("Dialog", "-", 0));
         lbl_Number->setText(QApplication::translate("Dialog", "#1001", 0));
-        txt_Prio->setText(QApplication::translate("Dialog", "25", 0));
+        txt_Prio->setText(QString());
         btn_AddPrio->setText(QApplication::translate("Dialog", "+", 0));
         btn_AddHour->setText(QApplication::translate("Dialog", "+", 0));
         lbl_WijzigTitle_5->setText(QApplication::translate("Dialog", "Huidig project lid", 0));
         btn_Save->setText(QApplication::translate("Dialog", "Opslaan", 0));
         btn_ReducePrio->setText(QApplication::translate("Dialog", "-", 0));
-        txt_Hour->setText(QApplication::translate("Dialog", "45", 0));
+        txt_Hour->setText(QString());
         btn_EditDescription->setText(QApplication::translate("Dialog", "wijzig", 0));
     } // retranslateUi
 
