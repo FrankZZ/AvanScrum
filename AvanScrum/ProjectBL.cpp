@@ -398,6 +398,7 @@ void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
 	TFSTransaction::localWriteProject(ProjName.c_str());*/
 	Project* projPtr = Project::withName("Project Groep E");
 	Sprint * s= projPtr->getSprint(0);
+	TFSTransaction::localWriteProject("Project Groep E");
 
 }
 
