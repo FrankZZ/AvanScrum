@@ -49,7 +49,7 @@ public:
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(915, 553);
+        Dialog->resize(915, 579);
         textBrowser_2 = new QTextBrowser(Dialog);
         textBrowser_2->setObjectName(QStringLiteral("textBrowser_2"));
         textBrowser_2->setGeometry(QRect(640, 220, 191, 91));

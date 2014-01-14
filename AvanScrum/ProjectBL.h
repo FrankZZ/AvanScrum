@@ -17,7 +17,7 @@ public:
 	void readRemoteProject(std::string);
 	void saveRemoteProject(std::string);
 	//void saveLocalSBI(std::string, int, int, std::string, std::string, const char*, int, int, int);
-	//void saveLocalSBI(SprintBacklogItem*);
+	void saveLocalSBI(SprintBacklogItem*);
 };
 
 #endif

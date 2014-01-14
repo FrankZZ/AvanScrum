@@ -302,6 +302,13 @@ void ProjectBL::makeRemoteDemoProject()
 		s_ToDo->setStatusType(*st_ToDo);
 		s_Doing->setStatusType(*st_Doing);
 		s_Verify->setStatusType(*st_Verify);
+		b1->setAdditionalInfo("20");
+		b2->setAdditionalInfo("30");
+		b3->setAdditionalInfo("40");
+		b4->setAdditionalInfo("50");
+		b5->setAdditionalInfo("60");
+		b6->setAdditionalInfo("70");
+		b7->setAdditionalInfo("80");
 		b1->addStatus(*s_ToDo);
 		b2->addStatus(*s_Doing);
 		b3->addStatus(*s_ToDo);
@@ -375,11 +382,11 @@ void ProjectBL::readRemoteProject(std::string ProjName)
 	projSprints = projPtr->getSprintArray();
 }
 
-/*void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
+void ProjectBL::saveLocalSBI(SprintBacklogItem* sbi)
 {
-	/*Project* projPtr = Project::withName(ProjName.c_str());
+	/*
 	Sprint* s = projPtr->getSprint(sprint);
-	WorkItem* sbi = s->getWorkItem(workItem);
+	
 	
 	std::stringstream ss;
 	ss << prio;
@@ -388,9 +395,11 @@ void ProjectBL::readRemoteProject(std::string ProjName)
 	sbi->setAdditionalInfo(ss.str().c_str());
 	sbi->setUser(User::withName(user));
 	//sbi->set
-	TFSTransaction::localWriteProject(ProjName.c_str());*
+	TFSTransaction::localWriteProject(ProjName.c_str());*/
+	Project* projPtr = Project::withName("Project Groep E");
+	Sprint * s= projPtr->getSprint(0);
 
-}*/
+}
 
 void ProjectBL::saveRemoteProject(std::string ProjName)
 {

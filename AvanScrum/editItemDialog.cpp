@@ -87,7 +87,8 @@ void editSBI::setHour(int hour)
 void editSBI::fillInItems()
 {
 	ui.lbl_Title->setText(_sbi->getTitle());
-    ui.lbl_Number->setText("#" + _sbi->getWorkItemNumber());
+	//number.append();
+    ui.lbl_Number->setText("#" + QString::number(_ID));
     ui.txt_Description->setText(_content);
     ui.txt_Prio->setText(QString::number(_prio));
 	if (_hour == -1)
@@ -107,6 +108,7 @@ void editSBI::addHour()
 {
     setHour(_hour += 1);
     fillInItems();
+	_sbi->setRemainingWork(_hour);
 }
 
 void editSBI::reduceHour()
@@ -114,12 +116,14 @@ void editSBI::reduceHour()
     if(_hour > 0)
 		setHour(_hour -= 1);
 	fillInItems();
+	_sbi->setRemainingWork(_hour);
 }
 
 void editSBI::addPrio()
 {
 	setPrio(_prio += 1);
     fillInItems();
+	//_sbi->setAdditionalInfo(_prio);
 }
 
 void editSBI::reducePrio()
@@ -127,12 +131,14 @@ void editSBI::reducePrio()
     if(_prio > 0)
 		setPrio(_prio -= 1);
     fillInItems();
+	//_sbi->setAdditionalInfo(_prio);
 }
 
 void editSBI::save()
 {
 	_sbi->setRemainingWork(_hour);
 	ProjectBL* pbl = new ProjectBL();
+	pbl->saveLocalSBI(_sbi);
 	//pbl->saveLocalSBI("Project Groep E", 0 , 0,_title,_content,_user.c_str(),_ID,_prio,_hour);
 	AvanScrum::func f;
 	AvanScrum *c;
@@ -148,6 +154,7 @@ void editSBI::switchUserCombo()
 	QString user = ui.cb_users->currentText();
 	std::string userstd = user.toStdString();
 	const char *userchar = userstd.c_str();
+	//_sbi->setUser(User::withName(userchar));
 	setUser(userchar);
 }
 
@@ -161,6 +168,16 @@ void editSBI::editTitle()
 void editSBI::setSBI(SprintBacklogItem* sbi)
 {
 	_sbi = sbi;
+	setHour(sbi->getRemainingWork());
+	setUser(sbi->getUser()->getName());
+	setContent(sbi->getDescription());
+	setID(sbi->getWorkItemNumber());
+	setTitle(sbi->getTitle());
+	
+	QString prio = sbi->getAdditionalInfo();
+	int iPrio = prio.toInt();
+	setPrio(iPrio);
+
 }
 
 void editSBI::setProject(Project* pro)

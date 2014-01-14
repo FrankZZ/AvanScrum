@@ -371,7 +371,7 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->setSBI(&sbi);
 	QString projectname = "Project Groep E";
 	dlg->setProject(Project::withName(projectname.toStdString().c_str()));
-	dlg->setTitle(sbi.getTitle());
+	/*dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 
 	//dlg->setPBI(wiVector.at(currentRow)->get
@@ -383,7 +383,7 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	dlg->setPrio(iPrio);
 
 	dlg->setContent(sbi.getDescription());
-	dlg->setUser(sbi.getUser()->getName());
+	dlg->setUser(sbi.getUser()->getName());*/
 	dlg->fillInItems();
 	dlg->setWindowTitle(sbi.getTitle());
 	
