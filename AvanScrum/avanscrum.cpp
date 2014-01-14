@@ -35,6 +35,7 @@ std::vector<WorkItem *> wiVector;
 std::vector<Status *> statusVector;
 int index;
 bool isStartUpCycle = true;
+std::string sCurrentProject;
 
 AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 {
@@ -42,10 +43,10 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	FileList* fl = new FileList();
 	
 	// Onderstaande 3 regels is om een project lokaal of op de tfs server te zetten
-	ProjectBL* pb = new ProjectBL();
-	pb->makeRemoteDemoProject();
+	//ProjectBL* pb = new ProjectBL();
+	//pb->makeRemoteDemoProject();
 	//pb->makeLocalDemoProject();
-	pb->~ProjectBL();
+	//pb->~ProjectBL();
     std::list<std::string> saFilenameList;
     std::list<std::string>::iterator iList;
 	QStringList *sl = new QStringList();
@@ -172,6 +173,8 @@ void AvanScrum::prevSprint()
 void AvanScrum::switchCombo()
 {
 	QString sProject = ui.cb_Projects_3->currentText();
+	sCurrentProject = ui.cb_Projects_3->currentText().toStdString();
+
 	projectName = ui.cb_Projects_3->currentText();
 	// Purge transaction before loading next project
 	TFSTransaction::removeAllData();
@@ -311,15 +314,15 @@ void AvanScrum::Sort::visit(Defect& def)
 }
 
 void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status, int wiType)
+{
+	int workItemId = -1;
+	for (int i = 0; i < wiVector.size(); i++)
 	{
-			int workItemId = -1;
-			for (int i = 0; i < wiVector.size(); i++)
-			{
-				if (wiVector.at(i) == wi)
-				{
-					workItemId = i;
-				}
-			}
+		if (wiVector.at(i) == wi)
+		{
+			workItemId = i;
+		}
+	}
 
 	if (wiType == 1)
 	{
@@ -355,8 +358,7 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 	AvanScrum::func f;
 	editSBI* dlg = new editSBI(f, NULL);
 	dlg->setSBI(&sbi);
-	QString projectname = "Project Groep E";
-	dlg->setProject(Project::withName(projectname.toStdString().c_str()));
+	dlg->setProject(Project::withName(sCurrentProject.c_str()));
 	/*dlg->setTitle(sbi.getTitle());
 	dlg->setID(sbi.getWorkItemNumber());
 
@@ -382,7 +384,7 @@ void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 
 void AvanScrum::Detail::visit(Defect& def)
 {
-		editSBI* dlg = new editSBI(NULL);
+	editSBI* dlg = new editSBI(NULL);
 	dlg->setTitle(def.getTitle());
 	dlg->setID(def.getWorkItemNumber());
 
