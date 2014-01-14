@@ -22,7 +22,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_PbiDialog
 {
 public:
     QLabel *lbl_Title;
@@ -33,12 +33,12 @@ public:
     QTextBrowser *txt_Description;
     QLabel *lbl_PbiDescription;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QDialog *PbiDialog)
     {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(915, 553);
-        lbl_Title = new QLabel(Dialog);
+        if (PbiDialog->objectName().isEmpty())
+            PbiDialog->setObjectName(QStringLiteral("PbiDialog"));
+        PbiDialog->resize(915, 553);
+        lbl_Title = new QLabel(PbiDialog);
         lbl_Title->setObjectName(QStringLiteral("lbl_Title"));
         lbl_Title->setGeometry(QRect(130, 10, 441, 31));
         QFont font;
@@ -46,50 +46,52 @@ public:
         font.setBold(true);
         font.setWeight(75);
         lbl_Title->setFont(font);
-        lbl_Number = new QLabel(Dialog);
+        lbl_Number = new QLabel(PbiDialog);
         lbl_Number->setObjectName(QStringLiteral("lbl_Number"));
         lbl_Number->setGeometry(QRect(10, 10, 101, 31));
         lbl_Number->setFont(font);
-        btn_Save = new QPushButton(Dialog);
+        btn_Save = new QPushButton(PbiDialog);
         btn_Save->setObjectName(QStringLiteral("btn_Save"));
         btn_Save->setGeometry(QRect(780, 460, 101, 41));
         QFont font1;
         font1.setPointSize(14);
         btn_Save->setFont(font1);
-        listWidget = new QListWidget(Dialog);
+        listWidget = new QListWidget(PbiDialog);
         listWidget->setObjectName(QStringLiteral("listWidget"));
         listWidget->setGeometry(QRect(10, 100, 300, 411));
-        lbl_IncludedSbisTitel = new QLabel(Dialog);
+        lbl_IncludedSbisTitel = new QLabel(PbiDialog);
         lbl_IncludedSbisTitel->setObjectName(QStringLiteral("lbl_IncludedSbisTitel"));
         lbl_IncludedSbisTitel->setGeometry(QRect(10, 70, 151, 21));
         lbl_IncludedSbisTitel->setFont(font1);
-        txt_Description = new QTextBrowser(Dialog);
+        txt_Description = new QTextBrowser(PbiDialog);
         txt_Description->setObjectName(QStringLiteral("txt_Description"));
         txt_Description->setGeometry(QRect(350, 100, 531, 341));
-        lbl_PbiDescription = new QLabel(Dialog);
+        lbl_PbiDescription = new QLabel(PbiDialog);
         lbl_PbiDescription->setObjectName(QStringLiteral("lbl_PbiDescription"));
         lbl_PbiDescription->setGeometry(QRect(350, 70, 531, 21));
         lbl_PbiDescription->setFont(font1);
+        QWidget::setTabOrder(listWidget, txt_Description);
+        QWidget::setTabOrder(txt_Description, btn_Save);
 
-        retranslateUi(Dialog);
+        retranslateUi(PbiDialog);
 
-        QMetaObject::connectSlotsByName(Dialog);
+        QMetaObject::connectSlotsByName(PbiDialog);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QDialog *PbiDialog)
     {
-        Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", 0));
-        lbl_Title->setText(QApplication::translate("Dialog", "Titel", 0));
-        lbl_Number->setText(QApplication::translate("Dialog", "#1001", 0));
-        btn_Save->setText(QApplication::translate("Dialog", "Opslaan", 0));
-        lbl_IncludedSbisTitel->setText(QApplication::translate("Dialog", "SBI's voor PBI", 0));
-        lbl_PbiDescription->setText(QApplication::translate("Dialog", "Beschrijving", 0));
+        PbiDialog->setWindowTitle(QApplication::translate("PbiDialog", "Dialog", 0));
+        lbl_Title->setText(QApplication::translate("PbiDialog", "Titel", 0));
+        lbl_Number->setText(QApplication::translate("PbiDialog", "#1001", 0));
+        btn_Save->setText(QApplication::translate("PbiDialog", "Opslaan", 0));
+        lbl_IncludedSbisTitel->setText(QApplication::translate("PbiDialog", "SBI's voor PBI", 0));
+        lbl_PbiDescription->setText(QApplication::translate("PbiDialog", "Beschrijving", 0));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class PbiDialog: public Ui_PbiDialog {};
 } // namespace Ui
 
 QT_END_NAMESPACE

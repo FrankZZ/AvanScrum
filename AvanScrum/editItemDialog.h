@@ -1,8 +1,8 @@
 #ifndef EDITITEM_H
 #define EDITITEM_H
 
-#include <QtWidgets\qdialog>
 #include "ui_editSBI.h"
+#include <QtWidgets\qdialog>
 
 class editSBI : public QDialog
 {

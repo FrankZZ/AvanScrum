@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>PbiDialog</class>
+ <widget class="QDialog" name="PbiDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -128,6 +128,11 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>listWidget</tabstop>
+  <tabstop>txt_Description</tabstop>
+  <tabstop>btn_Save</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

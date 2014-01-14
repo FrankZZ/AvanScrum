@@ -12,7 +12,7 @@ public:
 	~editProductItemDialog(void);
 	
 private:
-        Ui::Dialog ui;
+        Ui::PbiDialog ui;
 };
 
 #endif
