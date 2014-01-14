@@ -75,14 +75,16 @@ AvanScrum::AvanScrum(QWidget *parent) : QMainWindow(parent)
 	listViewVerify = ui.list_verify;
 	listViewDone = ui.list_done;
 
+	/*
 	ListViewSettings(ui.list_todo);
 	ListViewSettings(ui.list_doing);
 	ListViewSettings(ui.list_verify);
 	ListViewSettings(ui.list_done);
+	*/
 	frm = ui.frame_user1;
 	frm->setObjectName("frm");
 	frm->setStyleSheet("#frm { border: 3px solid red; }");
-
+	
 	btn_nextSprint = ui.btn_NextSprint_3;
 	btn_prevSprint = ui.btn_PreviousSprint_3;
 
@@ -121,40 +123,18 @@ void AvanScrum::listVerifyClicked(QListWidgetItem* item)
 
 void AvanScrum::onListItemClicked(QListWidgetItem* item, QListWidget* list)
 {
-	AvanScrum::Detail* detailer = new AvanScrum::Detail();
-	QStringList itemText = item->text().split(' ');
-	QString id = itemText[0].replace('#',' ').trimmed();
+	int currentRow = list->QListWidget::currentRow();
 
-	for (int i = 0; i < wiVector.size(); i++)
-	{
-		if(wiVector.at(i) != NULL)
-		{
-			if(wiVector.at(i)->getTitle() == itemText[1])
-			{
-				wiVector.at(i)->accept(*detailer);
-			}
-		}
-	}
+	int workItemNumber = item->data(Qt::UserRole).toInt();
 
-	delete detailer;
+	AvanScrum::Detail detailer;
+
+	wiVector.at(workItemNumber)->accept(detailer);
 }
 
 void AvanScrum::dropEvent(QDropEvent* e)
 {
 
-}
-
-void AvanScrum::ListViewSettings(QListView *l)
-{
-	l->setSelectionMode(QAbstractItemView::SingleSelection);
-	l->setDragEnabled(true);
-	l->setDragDropMode(QAbstractItemView::DragDrop);
-	l->viewport()->setAcceptDrops(true);
-	l->setDropIndicatorShown(true);
-	l->setDefaultDropAction(Qt::DropAction::MoveAction);
-	l->setSpacing(4);
-	//l->dropEvent(drop());
-	//l->addAction(action());
 }
 
 void AvanScrum::nextSprint()
@@ -345,21 +325,31 @@ void AvanScrum::Sort::ProcessWorkItem(WorkItem* wi, Status* status)
 	{
 		if(status->getStatusType() != NULL)
 		{
+			int workItemId = -1;
+
+			for (int i = 0; i < wiVector.size(); i++)
+			{
+				if (wiVector.at(i) == wi)
+				{
+					workItemId = i;
+				}
+			}
+
 			if(status->getStatusType() == StatusType::withName("ToDo"))
 			{
-				listViewTodo->addItem(wi);
+				listViewTodo->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Doing"))
 			{
-				listViewDoing->addItem(wi);
+				listViewDoing->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("ToVerify"))
 			{
-				listViewVerify->addItem(wi);
+				listViewVerify->addItem(workItemId, wi);
 			}
 			else if(status->getStatusType() == StatusType::withName("Done"))
 			{
-				listViewDone->addItem(wi);
+				listViewDone->addItem(workItemId, wi);
 			}
 		}
 	}
@@ -391,10 +381,25 @@ void AvanScrum::Detail::visit(SprintBacklogItem& sbi)
 
 void AvanScrum::Detail::visit(ProductBacklogItem& pbi)
 {
-
+	//TODO: Detailscherm pbi tonen
 }
 
 void AvanScrum::Detail::visit(Defect& def)
 {
+		editSBI* dlg = new editSBI(NULL);
+	dlg->setTitle(def.getTitle());
+	dlg->setID(def.getWorkItemNumber());
 
+	//dlg->setPBI(wiVector.at(currentRow)->get
+
+	//dlg->setHour(sbi.getRemainingWork());
+
+	//dlg->setPrio(wiVector.at(currentRow)->get
+
+	dlg->setContent(def.getDescription());
+	dlg->setUser(def.getUser()->getName());
+	dlg->fillInItems();
+	dlg->setWindowTitle(def.getTitle());
+
+	dlg->show();
 }

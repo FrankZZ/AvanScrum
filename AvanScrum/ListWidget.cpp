@@ -2,13 +2,18 @@
 
 
 ListWidget::ListWidget(QFrame* fParent)
-: QListWidget(fParent), 
-wiVector()
+: QListWidget(fParent)
 {
-	
+	this->setSelectionMode(QAbstractItemView::SingleSelection);
+	this->setDragEnabled(true);
+	this->setDragDropMode(QAbstractItemView::DragDrop);
+	this->viewport()->setAcceptDrops(true);
+	this->setDropIndicatorShown(true);
+	this->setDefaultDropAction(Qt::DropAction::MoveAction);
+	this->setSpacing(4);
 }
 
-void ListWidget::addItem(WorkItem* wi)
+void ListWidget::addItem(int workItemId, WorkItem* wi)
 {
 	QString gegevens;
 	int workItemNumber = wi->getWorkItemNumber();
@@ -26,11 +31,12 @@ void ListWidget::addItem(WorkItem* wi)
 	{
 		gegevens.append(wi->getUser()->getName());
 	}
+	
+	QVariant variant(workItemId);
+
+	item->setData(Qt::UserRole, variant);
 
 	item->setText(gegevens);
-
-	//TODO: Bijhouden in wiVector welke WorkItems er toegevoegd zijn zodat ze 
-	//later via een signal gereturned kunnen worden naar avanscrum (bij drag&drop)
 
 	QListWidget::addItem(item);
 }
