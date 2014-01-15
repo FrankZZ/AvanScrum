@@ -87,7 +87,7 @@ void editSBI::setHour(int hour)
 
 void editSBI::fillInItems()
 {
-	ui.lbl_Title->setText(_sbi->getTitle());
+	ui.lbl_Title->setText(_title);
 	//number.append();
     ui.lbl_Number->setText("#" + QString::number(_ID));
     ui.txt_Description->setText(_content);

@@ -323,6 +323,7 @@ void AvanScrum::fillUsers()
         frame_user->setFrameShadow(QFrame::Raised);
 		
 		//TODO: Kleuren automatisch kiezen en koppelen aan user object
+		if(counter >= aColors->size()) counter = aColors->size()-1;
 		frame_user->setStyleSheet("#" + sFrameName + " { border: 3px solid " + aColors[counter] + "; }");
         
 		QLabel* name_user;
